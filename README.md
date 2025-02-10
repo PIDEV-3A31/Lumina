@@ -38,7 +38,7 @@ Le texte du commit devrait refleter le changement effectué sur le travail que v
 ### 8. Push vers la branche distante
 Poussez vos modifications sur la branche distante que vous avez créée :
 ```bash
-git push origin nom-de-votre-branche
+git push -u origin nom-de-votre-branche
 ```
 ### 9. Vérification sur GitHub
 Vérifiez sur GitHub que vos modifications ont bien été uploadées.
