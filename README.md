@@ -11,7 +11,8 @@ Faites un clic droit et ouvrez Git Bash (si cela ne fonctionne pas, ouvrez cmd p
 ### 3. Clonage du dépôt
 Dans Git Bash, tapez la commande suivante pour cloner le dépôt :
 ```bash
-git clone https://github.com/PIDEV-3A31/Lumina.git
+git init
+git remote add origin https://github.com/PIDEV-3A31/Lumina.git
 ```
 ### 4. Ouvrir l'IDE
 Ouvrez votre IDE (par exemple, VSCode) en utilisant la commande suivante :
