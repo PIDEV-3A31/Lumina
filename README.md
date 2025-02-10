@@ -21,7 +21,7 @@ code .
 ### 5. Création d'une nouvelle branche
 Avant de modifier le code, créez une nouvelle branche pour votre travail :
 ```bash
-git checkout -b nom-de-votre-branche
+git checkout -b nom_de_votre_branche
 ```
 ### 6. Travaillez sur votre branche
 Effectuez vos modifications, ajouts ou corrections.
