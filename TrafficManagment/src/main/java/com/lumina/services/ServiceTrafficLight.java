@@ -1,6 +1,5 @@
 package com.lumina.services;
 
-import com.lumina.models.Intersection;
 import com.lumina.models.TrafficLight;
 import com.lumina.utils.DataBase;
 import java.util.List;
@@ -17,13 +16,14 @@ public class ServiceTrafficLight implements CrudTrafficLight<TrafficLight> {
 
     @Override
     public void addTrafficLight(TrafficLight trafficLight) {
-        String query = "INSERT INTO `trafficlight`(`name`, `domain`, `state`, `intersectionID`) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO `trafficlight`(`name`, `domain`, `state`, `intersectionID`, `numberofcars`) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             // Set the parameters for the query
             statement.setString(1, trafficLight.getName());
             statement.setString(2, trafficLight.getDomain());
             statement.setInt(3, trafficLight.getState());
             statement.setInt(4, trafficLight.getIdIntersection());
+            statement.setInt(5, trafficLight.getNumberOfCars());  // Set the new field 'numberofcars'
 
             // Execute the update
             statement.executeUpdate();
@@ -50,11 +50,12 @@ public class ServiceTrafficLight implements CrudTrafficLight<TrafficLight> {
 
     @Override
     public void updateTrafficLightState(TrafficLight trafficLight) {
-        String query = "UPDATE trafficlight SET `state` = ? WHERE `id` = ?";
+        String query = "UPDATE trafficlight SET `state` = ?, `numberofcars` = ? WHERE `id` = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             // Set the parameters for the query
             statement.setInt(1, trafficLight.getState());
-            statement.setInt(2, trafficLight.getId());
+            statement.setInt(2, trafficLight.getNumberOfCars());  // Update the new field 'numberofcars'
+            statement.setInt(3, trafficLight.getId());
 
             // Execute the update
             statement.executeUpdate();
@@ -78,7 +79,8 @@ public class ServiceTrafficLight implements CrudTrafficLight<TrafficLight> {
                 trafficLight.setName(resultSet.getString("name"));
                 trafficLight.setDomain(resultSet.getString("domain"));
                 trafficLight.setState(resultSet.getInt("state"));
-                trafficLight.setIdIntersection(resultSet.getInt("idIntersection"));
+                trafficLight.setIdIntersection(resultSet.getInt("intersectionID"));
+                trafficLight.setNumberOfCars(resultSet.getInt("numberofcars"));  // Retrieve the new field 'numberofcars'
                 // Add the traffic light to the list
                 trafficLights.add(trafficLight);
             }
@@ -105,7 +107,8 @@ public class ServiceTrafficLight implements CrudTrafficLight<TrafficLight> {
                     trafficLight.setName(resultSet.getString("name"));
                     trafficLight.setDomain(resultSet.getString("domain"));
                     trafficLight.setState(resultSet.getInt("state"));
-                    trafficLight.setIdIntersection(resultSet.getInt("idIntersection"));
+                    trafficLight.setIdIntersection(resultSet.getInt("intersectionID"));
+                    trafficLight.setNumberOfCars(resultSet.getInt("numberofcars"));  // Retrieve the new field 'numberofcars'
                 }
             }
         } catch (SQLException e) {
@@ -113,5 +116,4 @@ public class ServiceTrafficLight implements CrudTrafficLight<TrafficLight> {
         }
         return trafficLight;  // Return the found traffic light, or null if not found
     }
-
 }

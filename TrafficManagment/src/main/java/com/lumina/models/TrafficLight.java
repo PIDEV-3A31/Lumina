@@ -8,10 +8,10 @@ public class TrafficLight {
     private int state;
     private int waitTime;
     private int IdIntersection;
-
+    private int numberOfCars;
     // Default constructor
-
-    public TrafficLight(int id , String name, String domain, int state, int waitTime,int IdIntersection) {
+    public TrafficLight() {}
+    public TrafficLight(int id , String name, String domain, int state, int waitTime, int IdIntersection, int numberOfCars) {
         this.id = id;
         this.name = name;
         this.domain = domain;
@@ -19,10 +19,13 @@ public class TrafficLight {
         this.waitTime = waitTime;
         this.IdIntersection = IdIntersection;
 
+
+        this.numberOfCars = numberOfCars;
     }
 
-    public TrafficLight() {
+    public TrafficLight(int numberOfCars) {
 
+        this.numberOfCars = numberOfCars;
     }
 
     public int getIdIntersection() {
@@ -88,5 +91,13 @@ public class TrafficLight {
 
     public void setWaitTime(int waitTime) {
         this.waitTime = waitTime;
+    }
+
+    public int getNumberOfCars() {
+        return numberOfCars;
+    }
+
+    public void setNumberOfCars(int numberOfCars) {
+        this.numberOfCars = numberOfCars;
     }
 }

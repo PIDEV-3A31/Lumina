@@ -1,7 +1,5 @@
 package com.lumina.models;
 
-import java.util.List;
-import java.util.ArrayList; // Add this import statement
 
 public class Intersection {
     private int id;
@@ -29,6 +27,14 @@ public class Intersection {
         CreatedById = createdById;
     }
 
+
+    public Intersection( String name, float longitude, float latitude, float traffic_density, int createdById) {
+        this.name = name;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.traffic_density = traffic_density;
+        CreatedById = createdById;
+    }
 
     // Constructor
     public Intersection(int longitude, int latitude, float traffic_density) {
