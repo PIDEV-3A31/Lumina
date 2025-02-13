@@ -9,6 +9,20 @@ public class TrafficLight {
     private int waitTime;
     private int IdIntersection;
     private int numberOfCars;
+    private int CurrentWaitTime;
+
+
+    public int getCurrentWaitTime() {
+        return CurrentWaitTime;
+    }
+
+    public void setCurrentWaitTime(int currentWaitTime) {
+        CurrentWaitTime = currentWaitTime;
+    }
+
+
+
+
     // Default constructor
     public TrafficLight() {}
     public TrafficLight(int id , String name, String domain, int state, int waitTime, int IdIntersection, int numberOfCars) {
@@ -45,6 +59,8 @@ public class TrafficLight {
                 ", state=" + state +
                 ", waitTime=" + waitTime +
                 ", IdIntersection=" + IdIntersection +
+                ", numberOfCars=" + numberOfCars +
+                ", CurrentWaitTime=" + CurrentWaitTime +
                 '}';
     }
 
