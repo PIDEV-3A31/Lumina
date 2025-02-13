@@ -17,39 +17,49 @@ public class ServiceTrafficLight implements CrudTrafficLight<TrafficLight> {
 
     @Override
     public void addTrafficLight(TrafficLight trafficLight) {
-        String query = "INSERT INTO `trafficlight`(`name`, `domain`, `state`, `intersectionID`) VALUES ('" + trafficLight.getName() + "','" + trafficLight.getDomain() + "','" + trafficLight.getState() + "','" + trafficLight.getIdIntersection() + "')";
-        try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(query);
+        String query = "INSERT INTO `trafficlight`(`name`, `domain`, `state`, `intersectionID`) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            // Set the parameters for the query
+            statement.setString(1, trafficLight.getName());
+            statement.setString(2, trafficLight.getDomain());
+            statement.setInt(3, trafficLight.getState());
+            statement.setInt(4, trafficLight.getIdIntersection());
+
+            // Execute the update
+            statement.executeUpdate();
             System.out.println("Traffic light added");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error adding traffic light: " + e);
         }
     }
 
     @Override
     public void removeTrafficLight(TrafficLight trafficLight) {
-        String query = "DELETE FROM trafficlight WHERE id='" + trafficLight.getId() + "'";
-        try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(query);
+        String query = "DELETE FROM trafficlight WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            // Set the 'id' parameter in the query
+            statement.setInt(1, trafficLight.getId());
+
+            // Execute the update
+            statement.executeUpdate();
             System.out.println("Traffic light removed");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error removing traffic light: " + e);
         }
     }
 
     @Override
     public void updateTrafficLightState(TrafficLight trafficLight) {
-        try {
-            // Construct the SQL query to update the state of the traffic light
-            String query = "UPDATE trafficlight SET `state` = '" + trafficLight.getState() + "' WHERE `id` = " + trafficLight.getId();
+        String query = "UPDATE trafficlight SET `state` = ? WHERE `id` = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            // Set the parameters for the query
+            statement.setInt(1, trafficLight.getState());
+            statement.setInt(2, trafficLight.getId());
 
-            // Create a statement and execute the update
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(query);
+            // Execute the update
+            statement.executeUpdate();
             System.out.println("Traffic light updated.");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error updating traffic light: " + e);
         }
     }
@@ -58,8 +68,8 @@ public class ServiceTrafficLight implements CrudTrafficLight<TrafficLight> {
     public List<TrafficLight> getAllTrafficLight() {
         List<TrafficLight> trafficLights = new ArrayList<>();
         String query = "SELECT * FROM trafficlight";  // Query to get all traffic lights
-        try (Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
 
             // Process each row from the result set
             while (resultSet.next()) {
@@ -95,6 +105,7 @@ public class ServiceTrafficLight implements CrudTrafficLight<TrafficLight> {
                     trafficLight.setName(resultSet.getString("name"));
                     trafficLight.setDomain(resultSet.getString("domain"));
                     trafficLight.setState(resultSet.getInt("state"));
+                    trafficLight.setIdIntersection(resultSet.getInt("idIntersection"));
                 }
             }
         } catch (SQLException e) {
@@ -102,4 +113,5 @@ public class ServiceTrafficLight implements CrudTrafficLight<TrafficLight> {
         }
         return trafficLight;  // Return the found traffic light, or null if not found
     }
+
 }

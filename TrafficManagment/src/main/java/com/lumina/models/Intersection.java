@@ -15,9 +15,20 @@ public class Intersection {
     }
 
     private String name;
-    private int longitude;
-    private int latitude;
+    private float longitude;
+    private float latitude;
     private float traffic_density;
+    private int CreatedById;
+
+
+    public int getCreatedById() {
+        return CreatedById;
+    }
+
+    public void setCreatedById(int createdById) {
+        CreatedById = createdById;
+    }
+
 
     // Constructor
     public Intersection(int longitude, int latitude, float traffic_density) {
@@ -41,20 +52,20 @@ public class Intersection {
 
 
     // Getter and Setter for longitude
-    public int getLongitude() {
+    public float getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
 
     // Getter and Setter for latitude
-    public int getLatitude() {
+    public float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(int latitude) {
+    public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 
