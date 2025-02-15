@@ -6,25 +6,32 @@ public class Demandes {
     private int id_demande;
     private int id_utilisateur;
     private int id_document;
+    private String type_document;
     private Date date_demande;
     private String statut_demande;
+    private String description;
 
     public Demandes() {}
 
-    // Constructeur paramétré
-    public Demandes(int id_utilisateur, int id_document, Date date_demande, String statut_demande) {
+    // Constructeur paramétré sans id_demande
+    public Demandes(int id_utilisateur, int id_document, String type_document, Date date_demande, String statut_demande, String description) {
         this.id_utilisateur = id_utilisateur;
         this.id_document = id_document;
+        this.type_document = type_document;
         this.date_demande = date_demande;
         this.statut_demande = statut_demande;
+        this.description = description;
     }
 
-    public Demandes(int id_demande,int id_utilisateur, int id_document, Date date_demande, String statut_demande) {
+    // Constructeur paramétré avec id_demande
+    public Demandes(int id_demande, int id_utilisateur, int id_document, String type_document, Date date_demande, String statut_demande, String description) {
         this.id_demande = id_demande;
         this.id_utilisateur = id_utilisateur;
         this.id_document = id_document;
+        this.type_document = type_document;
         this.date_demande = date_demande;
         this.statut_demande = statut_demande;
+        this.description = description;
     }
 
     public int getId_demande() {
@@ -51,6 +58,14 @@ public class Demandes {
         this.id_document = id_document;
     }
 
+    public String getType_document() {
+        return type_document;
+    }
+
+    public void setType_document(String type_document) {
+        this.type_document = type_document;
+    }
+
     public Date getDate_demande() {
         return date_demande;
     }
@@ -65,5 +80,13 @@ public class Demandes {
 
     public void setStatut_demande(String statut_demande) {
         this.statut_demande = statut_demande;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
