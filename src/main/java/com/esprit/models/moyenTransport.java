@@ -94,4 +94,12 @@ public class moyenTransport {
                 ", etat='" + etat + '\'' +
                 '}';
     }
+
+    public int getPlace_reservees() {
+        return place_reservees;
+    }
+
+    public void setPlace_reservees(int place_reservees) {
+        this.place_reservees = place_reservees;
+    }
 }
