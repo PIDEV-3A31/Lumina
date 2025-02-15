@@ -1,8 +1,10 @@
 package come.esprit.utils;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import come.esprit.models.Parking;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.*;
 
 public class DataBase {
     private Connection connection;
@@ -33,4 +35,6 @@ public class DataBase {
     public Connection getConnection() {
         return connection;
     }
+
+
 }

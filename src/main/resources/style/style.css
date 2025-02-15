@@ -1,0 +1,81 @@
+
+.search-box{
+    -fx-background-color:#FFFFFF;
+    -fx-background-radius: 100;
+}
+
+.shadow{
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+}
+
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.search-button{
+    -fx-background-color: #0CBEB8;
+    -fx-background-radius: 30;
+
+}
+
+.username-box {
+    -fx-padding: 8px 15px; /* Espacement intérieur */
+    -fx-font-size: 16px; /* Taille du texte */
+    -fx-text-fill: #333333; /* Texte gris foncé */
+    -fx-font-weight: bold; /* Texte en gras */
+}
+
+.button-selected {
+    -fx-background-color: #0CBEB8; /* Fond turquoise */
+    -fx-pref-height: 50px; /* Hauteur */
+    -fx-background-radius: 10px; /* Coins arrondis */
+    -fx-text-fill: white; /* Texte blanc */
+    -fx-font-family: "Outfit";
+    -fx-font-size: 17px;
+
+    -fx-alignment: CENTER-LEFT; /* Aligner le texte à gauche */
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 10px;
+    -fx-spacing: 10px; /* Espacement entre l'icône et le texte */
+
+}
+.button-non-selected {
+    -fx-background-color: transparent; /* Fond transparent */
+    -fx-text-fill: #000000; /* Texte noir */
+    -fx-font-family: "Outfit";
+    -fx-font-size: 17px;
+
+    -fx-alignment: CENTER-LEFT; /* Aligner le texte à gauche */
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-spacing: 10px; /* Espacement entre l'icône et le texte */
+    -fx-pref-width: 250px; /* Largeur fixe */
+}
+
+@font-face {
+    font-family: "Outfit";
+    src: url("/assets/Outfit.ttf");
+}
+
+.center-layout {
+    -fx-background-color: #E9E9E9;
+}
+
+.element-ajout {
+    -fx-background-color: white;
+    -fx-background-radius: 22;
+}
+
+.text-field {
+    -fx-background-color: #E4E4E4;
+    -fx-background-radius: 7;
+    -fx-border-color: transparent;
+    -fx-border-radius: 7;
+}
+
+.add-button{
+    -fx-background-color: #0CBEB8;
+    -fx-background-radius: 7;
+
+}

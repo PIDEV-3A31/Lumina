@@ -7,27 +7,21 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
 public class Home extends Application {
 
     public static void main(String[] args) {
         launch(args);
     }
 
-
     @Override
-    public void start(Stage stage) throws IOException {
-
-
+    public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AjouterParking"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ListeParking.fxml"));
             Scene scene = new Scene(root);
-            stage.setScene(scene);
-
+            primaryStage.setScene(scene);
+            primaryStage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 }

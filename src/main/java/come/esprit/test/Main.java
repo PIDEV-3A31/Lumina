@@ -6,6 +6,7 @@ import come.esprit.models.Parking;
 import come.esprit.services.ServiceParking;
 import come.esprit.utils.DataBase;
 
+
 // TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -24,10 +25,10 @@ public class Main {
         // serviceParking.supprimer(15);
 
 
-        // List<Parking> listParkings = serviceParking.afficher();
-        // for (Parking pp : listParkings) {
-        //   System.out.println("ID: " + pp.getId_parck() + ", Nom: " + pp.getName_parck() + ", Capacity: " + pp.getCapacity() + ", status_parking: " + pp.getStatus_parking() +", adresses: "+pp.getAdresses() +"tarif: "+pp.getTarif() +"places_reservees: "+ pp.getPlaces_reservees());
-        //}
+         List<Parking> listParkings = serviceParking.afficher();
+         for (Parking pp : listParkings) {
+           System.out.println("ID: " + pp.getId_parck() + ", Nom: " + pp.getName_parck() + ", Capacity: " + pp.getCapacity() + ", status_parking: " + pp.getStatus_parking() +", adresses: "+pp.getAdresses() +"tarif: "+pp.getTarif() +"places_reservees: "+ pp.getPlaces_reservees());
+        }
 
 
         ServiceReservation ServiceReservation = new ServiceReservation();
@@ -56,12 +57,12 @@ public class Main {
         //ServiceReservation.supprimer(idReservation);  // Supprimer la réservation dans la base de données
 
 
-        List<Reservation> reservations = ServiceReservation.afficher();  // Afficher toutes les réservations
+       // List<Reservation> reservations = ServiceReservation.afficher();  // Afficher toutes les réservations
 
 // Affichage de chaque réservation
-        for (Reservation reservation : reservations) {
-            System.out.println(reservation.toString());  // Afficher les détails de chaque réservation
-        }
+      //  for (Reservation reservation : reservations) {
+        //    System.out.println(reservation.toString());  // Afficher les détails de chaque réservation
+        //}
 
 
     }

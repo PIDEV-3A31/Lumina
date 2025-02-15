@@ -4,6 +4,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -14,9 +16,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1140.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="come.esprit.controllers.ListeParking">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="come.esprit.controllers.ListeParking">
    <children>
-      <BorderPane prefHeight="640.0" prefWidth="1140.0" styleClass="background-white" stylesheets="@style/style.css">
+      <BorderPane prefHeight="680.0" prefWidth="1280.0" styleClass="background-white" stylesheets="@style/style.css">
          <top>
             <HBox prefHeight="60.0" prefWidth="960.0" BorderPane.alignment="CENTER">
                <children>
@@ -162,7 +164,22 @@
             <VBox prefHeight="200.0" prefWidth="100.0" styleClass="center-layout" stylesheets="@style/style.css" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets top="20.0" />
-               </BorderPane.margin></VBox>
+               </BorderPane.margin>
+               <children>
+                  <TableView fx:id="tableparkings" prefHeight="353.0" prefWidth="709.0">
+                     <columns>
+                        <TableColumn fx:id="col_id" prefWidth="75.0" text="id_parck" />
+                        <TableColumn fx:id="col_name" prefWidth="75.0" text="name_parck" />
+                        <TableColumn fx:id="col_capacity" prefWidth="75.0" text="capacity" />
+                        <TableColumn fx:id="col_status" prefWidth="75.0" text="status_parking" />
+                        <TableColumn fx:id="col_adresses" prefWidth="75.0" text="adresses" />
+                        <TableColumn fx:id="col_tarif" prefWidth="75.0" text="tarif" />
+                        <TableColumn fx:id="col_place" prefWidth="75.0" text="place_reservees" />
+                        <TableColumn fx:id="Supprimer" prefWidth="75.0" text="Supprimer" />
+                        <TableColumn fx:id="Update" prefWidth="75.0" text="Update" />
+                     </columns>
+                  </TableView>
+               </children></VBox>
          </center>
 
       </BorderPane>
