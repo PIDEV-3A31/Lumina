@@ -44,6 +44,16 @@
                     <mainClass>com.esprit.controller.Home</mainClass>
                 </configuration>
 
+
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version> <!-- Assurez-vous que la version est correcte -->
+                <configuration>
+                    <source>1.8</source> <!-- Version Java source -->
+                    <target>1.8</target> <!-- Version Java target -->
+                </configuration>
             </plugin>
 
         </plugins>

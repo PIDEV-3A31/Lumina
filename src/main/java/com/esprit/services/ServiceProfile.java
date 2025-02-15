@@ -74,27 +74,64 @@ public class ServiceProfile implements CrudService<profile>{
 
     @Override
     public List<profile> afficher() {
-            List<profile> profiles = new ArrayList<>();
-            String sql = "SELECT name_u, email_u, phone_u, role, update_at FROM profile";
+        List<profile> profiles = new ArrayList<>();
+        String sql = "SELECT * FROM profile";
 
-            try (PreparedStatement stmt = connection.prepareStatement(sql);
-                 ResultSet rs = stmt.executeQuery()) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
-                while (rs.next()) {
-                    String name = rs.getString("name_u");
-                    String email = rs.getString("email_u");
-                    int phone = rs.getInt("phone_u");
-                    String role = rs.getString("role");
-                    Timestamp updatedAt = rs.getTimestamp("update_at");
-
-                    // Crée un nouvel objet Profile et l'ajoute à la liste
-                    profile profile = new profile(name, email, phone, role, updatedAt);
-                    profiles.add(profile);
-                }
-            } catch (SQLException e) {
-                System.out.println("Erreur lors de l'affichage des profils : " + e.getMessage());
+            while (rs.next()) {
+                profile profile = new profile(
+                    rs.getInt("id_user"),
+                    rs.getInt("id_profile"),
+                    rs.getString("name_u"),
+                    rs.getString("email_u"),
+                    rs.getInt("phone_u"),
+                    rs.getString("role")
+                );
+                profiles.add(profile);
             }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de l'affichage des profils : " + e.getMessage());
+        }
 
-            return profiles;
+        return profiles;
+    }
+
+    public String getRoleByUserId(int userId) {
+        String sql = "SELECT role FROM profile WHERE id_user = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                return rs.getString("role");
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération du rôle : " + e.getMessage());
+        }
+        return null;
+    }
+
+    public profile getProfileByUserId(int userId) {
+        String sql = "SELECT * FROM profile WHERE id_user = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                return new profile(
+                    rs.getInt("id_user"),
+                    rs.getInt("id_profile"),
+                    rs.getString("name_u"),
+                    rs.getString("email_u"),
+                    rs.getInt("phone_u"),
+                    rs.getString("role")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération du profil : " + e.getMessage());
+        }
+        return null;
     }
 }
