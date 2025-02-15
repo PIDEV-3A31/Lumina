@@ -71,13 +71,19 @@ public class dashboardController {
         loadTableData();
 
         // Ajouter le gestionnaire d'événement pour le bouton supprimer
-        suppBtn.setOnAction(event -> handleDelete());
+        suppBtn.setOnAction(event -> Delete());
 
         // Ajouter le gestionnaire d'événement pour le bouton modifier
-        editBtn.setOnAction(event -> handleEdit());
+        editBtn.setOnAction(event -> Edit());
 
         // Ajouter le gestionnaire d'événement pour le bouton ajouter
-        ajouter_user.setOnAction(event -> handleAdd());
+        ajouter_user.setOnAction(event -> Add());
+
+        // Ajouter le gestionnaire d'événement pour le nom de l'utilisateur connecté
+        name_current_user.setOnMouseClicked(event -> editCurrentUserProfile());
+        
+        // Pour indiquer visuellement que c'est cliquable
+        name_current_user.setStyle("-fx-cursor: hand;");
     }
 
     public void initData(user user, profile profile) {
@@ -107,7 +113,7 @@ public class dashboardController {
         }
     }
 
-    private void handleDelete() {
+    private void Delete() {
         profile selectedProfile = tableView.getSelectionModel().getSelectedItem();
         if (selectedProfile == null) {
             showAlert(Alert.AlertType.WARNING, "Attention", "Veuillez sélectionner un utilisateur à supprimer!");
@@ -162,7 +168,7 @@ public class dashboardController {
         id_user.setText("ID : ");
     }
 
-    private void handleEdit() {
+    private void Edit() {
         profile selectedProfile = tableView.getSelectionModel().getSelectedItem();
         if (selectedProfile == null) {
             showAlert(Alert.AlertType.WARNING, "Attention", "Veuillez sélectionner un utilisateur à modifier!");
@@ -186,7 +192,7 @@ public class dashboardController {
         }
     }
 
-    private void handleAdd() {
+    private void Add() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboardModifProf.fxml"));
             Parent root = loader.load();
@@ -196,6 +202,25 @@ public class dashboardController {
             modifController.initDataForAdd(connectedUser, userProfile);
 
             Stage stage = (Stage) ajouter_user.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la navigation!");
+        }
+    }
+
+    private void editCurrentUserProfile() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboardModifProf.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer le contrôleur et initialiser les données
+            dashboardModifProf modifController = loader.getController();
+            // Passer l'utilisateur connecté comme utilisateur à modifier
+            modifController.initDataForCurrentUser(connectedUser, userProfile);
+
+            Stage stage = (Stage) name_current_user.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) {

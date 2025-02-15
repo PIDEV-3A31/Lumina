@@ -16,6 +16,7 @@ public class dashboardModifProf {
     private profile userProfile;
     private profile selectedProfile;
     private boolean isAddMode = false;
+    private boolean isCurrentUser = false;
 
     @FXML
     private Label name_userconnecte;
@@ -38,7 +39,7 @@ public class dashboardModifProf {
 
     @FXML
     public void initialize() {
-        Save.setOnAction(event -> handleUpdate());
+        Save.setOnAction(event -> Update());
     }
 
     public void initData(user connectedUser, profile userProfile, profile selectedProfile) {
@@ -86,7 +87,32 @@ public class dashboardModifProf {
 
     }
 
-    private void handleUpdate() {
+    public void initDataForCurrentUser(user connectedUser, profile userProfile) {
+        this.connectedUser = connectedUser;
+        this.userProfile = userProfile;
+        this.selectedProfile = userProfile; // L'utilisateur connecté est l'utilisateur à modifier
+        this.isAddMode = false;
+        this.isCurrentUser = true;
+
+        // Afficher le nom de l'utilisateur connecté
+        name_userconnecte.setText(userProfile.getName_u());
+
+        // Remplir les champs avec les données de l'utilisateur connecté
+        modifusername.setText(connectedUser.getUsername());
+        modifpassword.setText(connectedUser.getPassword());
+        modifname.setText(userProfile.getName_u());
+        modifemail.setText(userProfile.getEmail_u());
+        modifphone.setText(String.valueOf(userProfile.getPhone_u()));
+        modifrole.setValue(userProfile.getRole());
+        
+        // Désactiver la modification du rôle pour l'utilisateur connecté
+        modifrole.setDisable(true);
+        
+        Save.setText("Save My Profile");
+        identfLabel.setText("Edit My Profile");
+    }
+
+    private void Update() {
         if (!validateInputs()) {
             return;
         }
@@ -117,7 +143,7 @@ public class dashboardModifProf {
                 showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur ajouté avec succès!");
             } else {
                 // Mettre à jour l'utilisateur
-                user updatedUser = new user(selectedProfile.getId_user(), 
+                user updatedUser = new user(selectedProfile.getId_user(),
                     modifusername.getText(), modifpassword.getText());
                 ServiceUser serviceUser = new ServiceUser();
                 serviceUser.modifer(updatedUser, selectedProfile.getId_user());
@@ -134,12 +160,19 @@ public class dashboardModifProf {
                 ServiceProfile serviceProfile = new ServiceProfile();
                 serviceProfile.modifer(updatedProfile, selectedProfile.getId_profile());
 
-                showAlert(Alert.AlertType.INFORMATION, "Succès", "Modifications enregistrées avec succès!");
+                // Si c'est l'utilisateur connecté qui est modifié, mettre à jour ses données
+                if (isCurrentUser) {
+                    this.connectedUser = updatedUser;
+                    this.userProfile = updatedProfile;
+                }
+
+                showAlert(Alert.AlertType.INFORMATION, "Succès", 
+                    isCurrentUser ? "Votre profil a été mis à jour avec succès!" : "Modifications enregistrées avec succès!");
             }
             navigateToDashboard();
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", 
-                "Erreur l'" + (isAddMode ? "ajout" : "modification") + ": " + e.getMessage());
+                "Erreur lors de la " + (isAddMode ? "l'ajout" : "modification") + ": " + e.getMessage());
         }
     }
 
