@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class TLM {
 
-    public static void main(String[] args) {
+    public static void TLMMain(String[] args) {
         // Create instances of the services for Intersection, TrafficLight, and Stats
         ServiceIntersection serviceIntersection = new ServiceIntersection();
         ServiceTrafficLight serviceTrafficLight = new ServiceTrafficLight();
