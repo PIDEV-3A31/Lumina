@@ -1,5 +1,7 @@
 package come.esprit.models;
 
+import javafx.scene.control.TextField;
+
 public class Parking {
     private int id_parck;
     private String name_parck;
@@ -65,7 +67,7 @@ public class Parking {
         this.places_reservees = places_reservees;
     }
 
-    public Parking() {
+    public Parking(TextField name_parck_label, TextField adresse_label, TextField capacity_label, TextField place_reservees_label, TextField status_parking_label, TextField tarif_label) {
     }
 
 

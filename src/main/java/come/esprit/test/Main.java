@@ -14,7 +14,7 @@ public class Main {
 
 
         ServiceParking serviceParking = new ServiceParking();
-        //serviceParking.ajouter(new Parking("CA1920", 200, "saturé", "Bardo", "2DT/H",30));
+        serviceParking.ajouter(new Parking("LC03", 160, "place_disponibles", "Bardo", "2DT/H",19));
 
 
          Parking p = new Parking("radesss", 600 , "place_disponibles", "Ariana", "6DT/H",600);
@@ -31,6 +31,9 @@ public class Main {
         }
 
 
+
+
+         //reservation
         ServiceReservation ServiceReservation = new ServiceReservation();
 
 
@@ -39,7 +42,7 @@ public class Main {
         //  reservation1.setDate_reservation(java.sql.Date.valueOf("2025-02-12"));  // Exemple de date
         reservation1.setMatricule_voiture("200 tn 7755");
 
-       ServiceReservation.ajouter(reservation1);
+       //ServiceReservation.ajouter(reservation1);
 
         reservation1.setId_reservation(3);  // ID de la réservation à modifier
         reservation1.setId_parck(15);  // ID du parking associé à la réservation

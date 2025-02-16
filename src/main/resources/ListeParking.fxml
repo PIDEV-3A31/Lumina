@@ -161,24 +161,29 @@
             </VBox>
          </left>
          <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" styleClass="center-layout" stylesheets="@style/style.css" BorderPane.alignment="CENTER">
+            <VBox prefHeight="600.0" prefWidth="858.0" styleClass="center-layout" stylesheets="@style/style.css" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets top="20.0" />
                </BorderPane.margin>
                <children>
-                  <TableView fx:id="tableparkings" prefHeight="353.0" prefWidth="709.0">
-                     <columns>
-                        <TableColumn fx:id="col_id" prefWidth="75.0" text="id_parck" />
-                        <TableColumn fx:id="col_name" prefWidth="75.0" text="name_parck" />
-                        <TableColumn fx:id="col_capacity" prefWidth="75.0" text="capacity" />
-                        <TableColumn fx:id="col_status" prefWidth="75.0" text="status_parking" />
-                        <TableColumn fx:id="col_adresses" prefWidth="75.0" text="adresses" />
-                        <TableColumn fx:id="col_tarif" prefWidth="75.0" text="tarif" />
-                        <TableColumn fx:id="col_place" prefWidth="75.0" text="place_reservees" />
-                        <TableColumn fx:id="Supprimer" prefWidth="75.0" text="Supprimer" />
-                        <TableColumn fx:id="Update" prefWidth="75.0" text="Update" />
-                     </columns>
-                  </TableView>
+                  <Pane prefHeight="600.0" prefWidth="1200.0" stylesheets="@style/style.css">
+                     <children>
+                        <TableView fx:id="tableparkings" layoutX="22.0" layoutY="147.0" prefHeight="303.0" prefWidth="919.0" stylesheets="@style/style.css">
+                           <columns>
+                              <TableColumn fx:id="col_id" prefWidth="41.5999755859375" text="id_parck" />
+                              <TableColumn fx:id="col_name" prefWidth="111.19998168945312" text="name_parck" />
+                              <TableColumn fx:id="col_capacity" prefWidth="112.80003356933594" text="capacity" />
+                              <TableColumn fx:id="col_status" prefWidth="104.0" text="status_parking" />
+                              <TableColumn fx:id="col_adresses" prefWidth="100.800048828125" text="adresses" />
+                              <TableColumn fx:id="col_tarif" prefWidth="58.39996337890625" text="tarif" />
+                              <TableColumn fx:id="col_place" prefWidth="107.20001220703125" text="place_reservees" />
+                              <TableColumn fx:id="Supprimer" prefWidth="96.0" text="Supprimer" />
+                              <TableColumn fx:id="Update" prefWidth="183.79998779296875" text="Update" />
+      
+                                       </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
                </children></VBox>
          </center>
 
