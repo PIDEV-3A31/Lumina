@@ -84,7 +84,7 @@
                                         <Image url="@assets/user.png" />
                                     </image>
                                 </ImageView>
-                                <Label fx:id="name_userconnecte" layoutX="90.0" layoutY="14.0" prefHeight="41.0" prefWidth="127.0" styleClass="username-box" stylesheets="@style/style.css" text="Nour Allegui" />
+                                <Label fx:id="name_userconnecte" layoutX="90.0" layoutY="14.0" prefHeight="41.0" prefWidth="151.0" styleClass="username-box" stylesheets="@style/style.css" text="Nour Allegui" />
                                 <ImageView fx:id="deconnexion" fitHeight="35.0" fitWidth="35.0" layoutX="232.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@assets/logout.png" />

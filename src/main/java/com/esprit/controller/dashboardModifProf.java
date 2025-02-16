@@ -10,6 +10,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class dashboardModifProf {
     private user connectedUser;
@@ -36,10 +44,17 @@ public class dashboardModifProf {
     private Button Save;
     @FXML
     private Label identfLabel;
+    @FXML
+    private ImageView image;
+    @FXML
+    private Button uploadImg;
+    
+    private String selectedImagePath = null;
 
     @FXML
     public void initialize() {
         Save.setOnAction(event -> Update());
+        uploadImg.setOnAction(event -> handleImageUpload());
     }
 
     public void initData(user connectedUser, profile userProfile, profile selectedProfile) {
@@ -63,6 +78,11 @@ public class dashboardModifProf {
         modifrole.setValue(selectedProfile.getRole());
         Save.setText("Save Changes");
         identfLabel.setText("Modify Account Details");
+
+        if (selectedProfile.getImage_u() != null) {
+            Image img = new Image(getClass().getResource("/" + selectedProfile.getImage_u()).toExternalForm());
+            image.setImage(img);
+        }
     }
 
     public void initDataForAdd(user connectedUser, profile userProfile) {
@@ -110,6 +130,43 @@ public class dashboardModifProf {
         
         Save.setText("Save My Profile");
         identfLabel.setText("Edit My Profile");
+
+        if (selectedProfile.getImage_u() != null) {
+            Image img = new Image(getClass().getResource("/" + selectedProfile.getImage_u()).toExternalForm());
+            image.setImage(img);
+        }
+    }
+
+    private void handleImageUpload() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+        
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            try {
+                // Créer un nom unique pour l'image
+                String uniqueFileName = System.currentTimeMillis() + "_" + selectedFile.getName();
+                Path destinationPath = Paths.get("src/main/resources/uploads", uniqueFileName);
+                
+                // Créer le dossier uploads s'il n'existe pas
+                Files.createDirectories(destinationPath.getParent());
+                
+                // Copier l'image vers le dossier uploads
+                Files.copy(selectedFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
+                
+                // Sauvegarder le chemin relatif
+                selectedImagePath = "uploads/" + uniqueFileName;
+                
+                // Afficher l'image dans l'ImageView
+                Image img = new Image(selectedFile.toURI().toString());
+                image.setImage(img);
+                
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors du chargement de l'image: " + e.getMessage());
+            }
+        }
     }
 
     private void Update() {
@@ -129,13 +186,14 @@ public class dashboardModifProf {
                     return;
                 }
 
-                // Créer un nouveau profil
+                // Créer un nouveau profil avec l'image
                 profile newProfile = new profile(
                     userId,
                     modifname.getText(),
                     modifemail.getText(),
                     Integer.parseInt(modifphone.getText()),
-                    modifrole.getValue()
+                    modifrole.getValue(),
+                    selectedImagePath
                 );
                 ServiceProfile serviceProfile = new ServiceProfile();
                 serviceProfile.ajouter(newProfile);
@@ -148,14 +206,15 @@ public class dashboardModifProf {
                 ServiceUser serviceUser = new ServiceUser();
                 serviceUser.modifer(updatedUser, selectedProfile.getId_user());
 
-                // Mettre à jour le profil
+                // Mettre à jour le profil avec l'image
                 profile updatedProfile = new profile(
                     selectedProfile.getId_user(),
                     selectedProfile.getId_profile(),
                     modifname.getText(),
                     modifemail.getText(),
                     Integer.parseInt(modifphone.getText()),
-                    modifrole.getValue()
+                    modifrole.getValue(),
+                    selectedImagePath != null ? selectedImagePath : selectedProfile.getImage_u()
                 );
                 ServiceProfile serviceProfile = new ServiceProfile();
                 serviceProfile.modifer(updatedProfile, selectedProfile.getId_profile());

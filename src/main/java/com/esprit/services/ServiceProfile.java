@@ -12,42 +12,38 @@ public class ServiceProfile implements CrudService<profile>{
 
     @Override
     public void ajouter(profile p) {
-            String sql = "INSERT INTO profile (name_u, email_u, phone_u, role, id_user) VALUES (?, ?, ?, ?, ?)";
-
-            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-                stmt.setString(1, p.getName_u());
-                stmt.setString(2, p.getEmail_u());
-                stmt.setInt(3, p.getPhone_u());
-                stmt.setString(4, p.getRole());
-                stmt.setInt(5, p.getId_user());
-
-                // Exécuter la requête
-                stmt.executeUpdate();
-                System.out.println("Profil ajouté avec succès !");
-            } catch (SQLException e) {
-                System.out.println("Erreur lors de l'ajout du profil : " + e.getMessage());
-            }
-
-    }
-
-    @Override
-    public void modifer(profile p, int id) {
-        String sql = "UPDATE profile SET name_u = ?, email_u = ?, phone_u = ?, role = ?, id_user = ? WHERE id_profile = ?";
+        String sql = "INSERT INTO profile (name_u, email_u, phone_u, role, id_user, image_u) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, p.getName_u());
             stmt.setString(2, p.getEmail_u());
             stmt.setInt(3, p.getPhone_u());
             stmt.setString(4, p.getRole());
-            stmt.setInt(5, p.getId_user()); // Assure-toi que cet id_user existe dans la table 'user'
-            stmt.setInt(6, id); // L'ID du profil à modifier
+            stmt.setInt(5, p.getId_user());
+            stmt.setString(6, p.getImage_u());
 
-            int rowsUpdated = stmt.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("Profil modifié avec succès !");
-            } else {
-                System.out.println("Aucun profil trouvé avec cet ID.");
-            }
+            stmt.executeUpdate();
+            System.out.println("Profil ajouté avec succès !");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de l'ajout du profil : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void modifer(profile p, int id) {
+        String sql = "UPDATE profile SET name_u = ?, email_u = ?, phone_u = ?, role = ?, id_user = ?, image_u = ? WHERE id_profile = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, p.getName_u());
+            stmt.setString(2, p.getEmail_u());
+            stmt.setInt(3, p.getPhone_u());
+            stmt.setString(4, p.getRole());
+            stmt.setInt(5, p.getId_user());
+            stmt.setString(6, p.getImage_u());
+            stmt.setInt(7, id);
+
+            stmt.executeUpdate();
+            System.out.println("Profil modifié avec succès !");
         } catch (SQLException e) {
             System.out.println("Erreur lors de la modification du profil : " + e.getMessage());
         }
@@ -87,7 +83,8 @@ public class ServiceProfile implements CrudService<profile>{
                     rs.getString("name_u"),
                     rs.getString("email_u"),
                     rs.getInt("phone_u"),
-                    rs.getString("role")
+                    rs.getString("role"),
+                    rs.getString("image_u")
                 );
                 profiles.add(profile);
             }
@@ -126,7 +123,8 @@ public class ServiceProfile implements CrudService<profile>{
                     rs.getString("name_u"),
                     rs.getString("email_u"),
                     rs.getInt("phone_u"),
-                    rs.getString("role")
+                    rs.getString("role"),
+                    rs.getString("image_u")
                 );
             }
         } catch (SQLException e) {

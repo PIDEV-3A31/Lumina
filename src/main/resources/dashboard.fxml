@@ -187,7 +187,10 @@
                         <TableView fx:id="tableView" prefHeight="634.0" prefWidth="531.0" stylesheets="@style.css">
                           <columns>
                               <TableColumn fx:id="columnID_user" prefWidth="55.19998091459274" text="ID" />
-                            <TableColumn fx:id="columnImage" prefWidth="196.80002212524414" text="Image" />
+                            <TableColumn fx:id="columnImage" prefWidth="196.80002212524414" text="Image">
+                                 <graphic>
+                                    <ImageView fx:id="img_users_table_view" fitHeight="47.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic></TableColumn>
                             <TableColumn fx:id="columnUsername" prefWidth="167.19993591308594" text="Username" />
                               <TableColumn fx:id="columnRole" prefWidth="104.7999267578125" text="Role" />
                           </columns>

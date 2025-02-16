@@ -18,7 +18,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+
+import java.util.Objects;
 import java.util.Optional;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class dashboardController {
     private user connectedUser;
@@ -52,6 +56,11 @@ public class dashboardController {
     private Button editBtn;
     @FXML
     private Button ajouter_user;
+
+    @FXML
+    private ImageView img_current_user;
+    @FXML
+    private ImageView image_userselectionne;
 
     @FXML
     public void initialize() {
@@ -95,6 +104,16 @@ public class dashboardController {
     private void updateUI() {
         if (userProfile != null) {
             name_current_user.setText(userProfile.getName_u());
+            
+            // Charger l'image de l'utilisateur connecté
+            if (userProfile.getImage_u() != null) {
+                try {
+                    Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + userProfile.getImage_u())).toExternalForm());
+                    img_current_user.setImage(img);
+                } catch (Exception e) {
+                    System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
+                }
+            }
         }
     }
 
@@ -110,6 +129,16 @@ public class dashboardController {
             email.setText(selectedProfile.getEmail_u());
             phone.setText(String.valueOf(selectedProfile.getPhone_u()));
             id_user.setText("ID : " + selectedProfile.getId_profile());
+
+            // Charger l'image de l'utilisateur sélectionné
+            if (selectedProfile.getImage_u() != null) {
+                try {
+                    Image img = new Image(getClass().getResource("/" + selectedProfile.getImage_u()).toExternalForm());
+                    image_userselectionne.setImage(img);
+                } catch (Exception e) {
+                    System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
+                }
+            }
         }
     }
 

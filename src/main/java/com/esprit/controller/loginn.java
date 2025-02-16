@@ -57,6 +57,8 @@ public class loginn {
 
         ServiceProfile serviceProfile = new ServiceProfile();
         profile userProfile = serviceProfile.getProfileByUserId(connectedUser.getId());
+        System.out.println("tesst");
+        System.out.println(userProfile);
 
         if (userProfile != null) {
             if (userProfile.getRole().equals("Admin")) {
