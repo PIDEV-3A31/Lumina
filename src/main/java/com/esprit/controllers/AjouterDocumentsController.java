@@ -3,11 +3,16 @@ package com.esprit.controllers;
 import com.esprit.models.Documents;
 import com.esprit.services.ServiceDocuments;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -31,14 +36,41 @@ public class AjouterDocumentsController {
     @FXML
     private TextField type_document_label;
 
+    @FXML
+    private ImageView back;
+
     private ServiceDocuments serviceDocument = new ServiceDocuments();
 
     @FXML
     private void initialize() {
+
+        back.setOnMouseClicked(event -> handleBack());
+
         // Associer les boutons à leurs actions
         button_add.setOnAction(event -> ajouter());
         file_chooser.setOnAction(event -> choisirFichier());
+
     }
+
+    @FXML
+    private void handleBack() {
+        try {
+            // Récupérer la fenêtre actuelle
+            Stage currentStage = (Stage) back.getScene().getWindow();
+
+            // Charger la première interface (ex: AfficherDocuments.fxml)
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AfficherDocuments.fxml"));
+            Parent root = loader.load();
+
+            // Remplacer la scène actuelle par la scène de la première interface
+            Scene previousScene = new Scene(root);
+            currentStage.setScene(previousScene);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     private void choisirFichier() {

@@ -1,15 +1,24 @@
 package com.esprit.controllers;
 
+import com.esprit.models.Demandes;
 import com.esprit.models.Documents;
+import com.esprit.services.ServiceDemande;
 import com.esprit.services.ServiceDocuments;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
+
+import java.io.IOException;
 
 public class AfficherDocuments {
 
@@ -43,10 +52,49 @@ public class AfficherDocuments {
     @FXML
     private TableColumn<Documents, String> supprimer;
 
-    private ServiceDocuments serviceDocument = new ServiceDocuments(); // Service pour récupérer les documents
+    @FXML
+    private ImageView ajouter_documents;
+
+    @FXML
+    private TableView<Demandes> table_demande;
+
+    @FXML
+    private TableColumn<Demandes, Integer> id_demande;
+
+    @FXML
+    private TableColumn<Demandes, Integer> id_utilisateur;
+
+    @FXML
+    private TableColumn<Demandes, Integer> id_document;
+
+    @FXML
+    private TableColumn<Demandes, String> date_demande;
+
+    @FXML
+    private TableColumn<Demandes, String> status_demande;
+
+    @FXML
+    private TableColumn<Demandes, String> description;
+
+    @FXML
+    private TableColumn<Demandes, String> type_document;
+
+    @FXML
+    private TableColumn<Demandes, String> supprimerDemande;
+
+
+
+
+
+
+    private ServiceDocuments serviceDocument = new ServiceDocuments();
+    private ServiceDemande serviceDemande = new ServiceDemande();
 
     @FXML
     public void initialize() {
+
+        ajouter_documents.setOnMouseClicked(event -> handleAjouterDocument());
+
         // Liaison des colonnes avec les attributs de la classe Documents
         id_document_column.setCellValueFactory(new PropertyValueFactory<>("id_document"));
         type_document_column.setCellValueFactory(new PropertyValueFactory<>("type_document"));
@@ -62,7 +110,21 @@ public class AfficherDocuments {
         // Ajout du bouton Modifier
         modifier.setCellFactory(createEditButtonFactory());
 
-        loadData();
+        loadDataDocument();
+
+
+        // Liaison des colonnes avec les attributs de la classe Demandes
+        id_demande.setCellValueFactory(new PropertyValueFactory<>("id_demande"));
+        id_utilisateur.setCellValueFactory(new PropertyValueFactory<>("id_utilisateur"));
+        id_document.setCellValueFactory(new PropertyValueFactory<>("id_document"));
+        date_demande.setCellValueFactory(new PropertyValueFactory<>("date_demande"));
+        status_demande.setCellValueFactory(new PropertyValueFactory<>("statut_demande"));
+        description.setCellValueFactory(new PropertyValueFactory<>("description"));
+        type_document.setCellValueFactory(new PropertyValueFactory<>("type_document"));
+
+        supprimerDemande.setCellFactory(createDeleteDemandeButtonFactory());
+
+        loadDataDemandes();
     }
 
     private Callback<TableColumn<Documents, String>, TableCell<Documents, String>> createDeleteButtonFactory() {
@@ -117,29 +179,101 @@ public class AfficherDocuments {
         };
     }
 
-    private void loadData() {
+    private Callback<TableColumn<Demandes, String>, TableCell<Demandes, String>> createDeleteDemandeButtonFactory() {
+        return param -> new TableCell<Demandes, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    Button deleteButton = new Button();
+                    ImageView deleteIcon = new ImageView(new Image("assets/supprimer.jpg"));
+                    deleteIcon.setFitWidth(20);
+                    deleteIcon.setFitHeight(20);
+                    deleteButton.setGraphic(deleteIcon);
+                    deleteButton.getStyleClass().add("transparent-button");
+                    deleteButton.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+
+                    deleteButton.setOnAction(event -> {
+                        Demandes demande = getTableView().getItems().get(getIndex());
+                        handleDeleteDemande(demande);
+                    });
+                    setGraphic(deleteButton);
+                }
+            }
+        };
+    }
+
+
+
+    private void loadDataDocument() {
         ObservableList<Documents> documentsList = FXCollections.observableArrayList(serviceDocument.consulter());
         table_documents.setItems(documentsList);
     }
 
+    private void loadDataDemandes() {
+        ObservableList<Demandes> demandesList = FXCollections.observableArrayList(serviceDemande.consulter());
+        table_demande.setItems(demandesList);
+    }
+
     private void handleDelete(Documents document) {
-        System.out.println("Delete document: " + document.getTitre());
+        //System.out.println("Delete document: " + document.getTitre());
         serviceDocument.supprimer(document.getId_document());
-        loadData();
+        loadDataDocument();
+    }
+
+    private void handleDeleteDemande(Demandes demande) {
+        //System.out.println("Suppression de la demande : " + demande.getId_demande());
+        serviceDemande.supprimer(demande.getId_demande());
+        loadDataDemandes();
+    }
+
+    @FXML
+    private void handleAjouterDocument() {
+        try {
+            // Récupérer la fenêtre actuelle
+            Stage currentStage = (Stage) ajouter_documents.getScene().getWindow();
+
+            // Charger la nouvelle interface en arrière-plan
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/forumAjouterDocument.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle scène
+            Scene newScene = new Scene(root);
+
+            // Appliquer la nouvelle scène à la fenêtre actuelle avant de la fermer
+            currentStage.setScene(newScene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void handleEdit(Documents document) {
-        TextInputDialog dialog = new TextInputDialog(document.getTitre());
-        dialog.setTitle("Modifier Document");
-        dialog.setHeaderText("Modifier les informations du document");
-        dialog.setContentText("Titre :");
+        try {
+            // Récupérer la fenêtre actuelle
+            Stage currentStage = (Stage) table_documents.getScene().getWindow();
 
-        dialog.showAndWait().ifPresent(newTitle -> {
-            if (!newTitle.trim().isEmpty()) {
-                document.setTitre(newTitle);
-                serviceDocument.modifier(document);
-                loadData();
-            }
-        });
+            // Charger la nouvelle interface pour la modification
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/forumModifierDocument.fxml"));
+            Parent root = loader.load();
+
+            // Passer le document à la fenêtre de modification
+            ModifierDocumentController controller = loader.getController();
+            controller.setDocument(document, serviceDocument);
+
+            // Créer une nouvelle scène
+            Scene newScene = new Scene(root);
+
+            // Appliquer la nouvelle scène à la fenêtre actuelle
+            currentStage.setScene(newScene);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
+
+
 }

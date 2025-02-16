@@ -80,6 +80,8 @@ public class Main {
                     " | Statut: " + d.getStatut_demande());
         }
 
+        //s2.supprimer(3);
+
 
 /*
         try {
