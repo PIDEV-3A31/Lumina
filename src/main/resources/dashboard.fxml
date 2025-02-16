@@ -86,11 +86,15 @@
                                         <Image url="@assets/user.png" />
                                     </image>
                                 </ImageView>
-                        <ImageView fx:id="deconnexion" fitHeight="35.0" fitWidth="35.0" layoutX="232.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/logout.png" />
-                           </image>
-                        </ImageView>
+                        <Button fx:id="deconnexion" layoutX="252.0" layoutY="13.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/logout.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                             </children>
                         </Pane>
                     </children>
@@ -187,11 +191,8 @@
                         <TableView fx:id="tableView" prefHeight="634.0" prefWidth="531.0" stylesheets="@style.css">
                           <columns>
                               <TableColumn fx:id="columnID_user" prefWidth="55.19998091459274" text="ID" />
-                            <TableColumn fx:id="columnImage" prefWidth="196.80002212524414" text="Image">
-                                 <graphic>
-                                    <ImageView fx:id="img_users_table_view" fitHeight="47.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" />
-                                 </graphic></TableColumn>
-                            <TableColumn fx:id="columnUsername" prefWidth="167.19993591308594" text="Username" />
+                            <TableColumn fx:id="columnImage" prefWidth="125.59997940063477" text="Image" />
+                            <TableColumn fx:id="columnUsername" prefWidth="239.1999969482422" text="Username" />
                               <TableColumn fx:id="columnRole" prefWidth="104.7999267578125" text="Role" />
                           </columns>
                         </TableView>

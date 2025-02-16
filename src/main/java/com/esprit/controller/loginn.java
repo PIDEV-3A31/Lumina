@@ -10,20 +10,29 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import com.esprit.utils.NavigationHistory;
 
 public class loginn {
     @FXML
     private TextField txtUsername;
     @FXML
-    private TextField txtPassword;
+    private PasswordField txtPassword;
     @FXML
     private Button btnSignIn;
+    @FXML
+    private Button affich_mdp;
+    @FXML
+    private ImageView eye_icon;
 
+    private boolean isPasswordVisible = false;
     @FXML
     public void initialize() {
-        // Cette méthode n'est plus nécessaire car nous utilisons onAction dans le FXML
+        affich_mdp.setOnAction(event -> togglePasswordVisibility(txtPassword, affich_mdp, eye_icon, isPasswordVisible));
     }
 
     @FXML
@@ -103,5 +112,39 @@ public class loginn {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur de navigation!");
         }
+    }
+
+    public static void logout(Stage currentStage) {
+        try {
+            NavigationHistory.clearHistory();
+            FXMLLoader loader = new FXMLLoader(loginn.class.getResource("/loginn.fxml"));
+            Parent root = loader.load();
+            Stage stage = currentStage != null ? currentStage : new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void togglePasswordVisibility(PasswordField passwordField, Button button, ImageView eyeIcon, boolean isVisible) {
+        if (!isVisible) {
+            // Afficher le mot de passe
+            String password = passwordField.getText();
+            passwordField.setPromptText(passwordField.getText());
+            passwordField.clear();
+            passwordField.setStyle("-fx-text-inner-color: black;");
+            eyeIcon.setImage(new Image(getClass().getResource("/assets/eye.png").toExternalForm()));
+        } else {
+            // Cacher le mot de passe
+            String password = passwordField.getPromptText();
+            passwordField.setText(password);
+            passwordField.setPromptText("");
+            passwordField.setStyle("");
+            eyeIcon.setImage(new Image(getClass().getResource("/assets/eye-slash.png").toExternalForm()));
+        }
+
+        // Inverser l'état
+        if (passwordField == txtPassword) {
+            isPasswordVisible = !isPasswordVisible;}
     }
 }

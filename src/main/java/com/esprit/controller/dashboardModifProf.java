@@ -16,6 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -29,11 +31,13 @@ public class dashboardModifProf {
     @FXML
     private Label name_userconnecte;
     @FXML
+    private Label passwordLabel;
+    @FXML
     private TextField modifusername;
     @FXML
     private TextField modifemail;
     @FXML
-    private TextField modifpassword;
+    private PasswordField modifpassword;
     @FXML
     private TextField modifname;
     @FXML
@@ -48,13 +52,32 @@ public class dashboardModifProf {
     private ImageView image;
     @FXML
     private Button uploadImg;
+    @FXML
+    private Button retour;
+    @FXML
+    private Button deconnexion;
+    @FXML
+    private Button affich_mdp;
+    @FXML
+    private ImageView eye_icon;
+    @FXML
+    private ImageView img_userconnecte;
     
     private String selectedImagePath = null;
+    private boolean isPasswordVisible = false;
 
     @FXML
     public void initialize() {
         Save.setOnAction(event -> Update());
-        uploadImg.setOnAction(event -> handleImageUpload());
+        uploadImg.setOnAction(event -> ImageUpload());
+        retour.setOnAction(event -> navigateBack());
+        deconnexion.setOnAction(event -> logout());
+        
+        // Ajouter le gestionnaire pour l'affichage du mot de passe
+        affich_mdp.setOnAction(event -> togglePasswordVisibility(modifpassword, affich_mdp, eye_icon, isPasswordVisible));
+        name_userconnecte.setOnMouseClicked(event -> editCurrentUserProfile());
+
+        name_userconnecte.setStyle("-fx-cursor: hand;");
     }
 
     public void initData(user connectedUser, profile userProfile, profile selectedProfile) {
@@ -63,10 +86,8 @@ public class dashboardModifProf {
         this.selectedProfile = selectedProfile;
         this.isAddMode = false;
 
-        // Afficher le nom de l'utilisateur connecté
         name_userconnecte.setText(userProfile.getName_u());
 
-        // Remplir les champs avec les données de l'utilisateur sélectionné
         ServiceUser serviceUser = new ServiceUser();
         user selectedUser = serviceUser.getUserById(selectedProfile.getId_user());
 
@@ -90,7 +111,6 @@ public class dashboardModifProf {
         this.userProfile = userProfile;
         this.isAddMode = true;
 
-        // Afficher le nom de l'utilisateur connecté
         name_userconnecte.setText(userProfile.getName_u());
 
         // Vider tous les champs pour l'ajout
@@ -114,10 +134,8 @@ public class dashboardModifProf {
         this.isAddMode = false;
         this.isCurrentUser = true;
 
-        // Afficher le nom de l'utilisateur connecté
         name_userconnecte.setText(userProfile.getName_u());
 
-        // Remplir les champs avec les données de l'utilisateur connecté
         modifusername.setText(connectedUser.getUsername());
         modifpassword.setText(connectedUser.getPassword());
         modifname.setText(userProfile.getName_u());
@@ -135,9 +153,38 @@ public class dashboardModifProf {
             Image img = new Image(getClass().getResource("/" + selectedProfile.getImage_u()).toExternalForm());
             image.setImage(img);
         }
+
+        // Masquer les champs de mot de passe pour l'utilisateur connecté
+        modifpassword.setVisible(false);
+        modifpassword.setManaged(false);
+        affich_mdp.setVisible(false);
+        affich_mdp.setManaged(false);
+        // Masquer aussi le label du mot de passe si vous en avez un
+        passwordLabel.setVisible(false);
+        passwordLabel.setManaged(false);
+    }
+    public void initData(user user, profile profile) {
+        this.connectedUser = user;
+        this.userProfile = profile;
+        updateUI();
     }
 
-    private void handleImageUpload() {
+    private void updateUI() {
+        if (userProfile != null) {
+            name_userconnecte.setText(userProfile.getName_u());
+
+            if (userProfile.getImage_u() != null) {
+                try {
+                    Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + userProfile.getImage_u())).toExternalForm());
+                    img_userconnecte.setImage(img);
+                } catch (Exception e) {
+                    System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
+                }
+            }
+        }
+    }
+
+    private void ImageUpload() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(
             new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
@@ -287,11 +334,87 @@ public class dashboardModifProf {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la navigation!");
         }
     }
+    private void editCurrentUserProfile() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboardAffichProf.fxml"));
+            Parent root = loader.load();
+
+            dashboardAffichProf controller = loader.getController();
+            controller.initData(connectedUser, userProfile);
+
+            Stage stage = (Stage) name_userconnecte.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la navigation!");
+        }
+    }
 
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+    private void navigateBack() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboardAffichProf.fxml"));
+            Parent root = loader.load();
+
+            dashboardController controller = loader.getController();
+            controller.initData(connectedUser, userProfile);
+
+            Stage stage = (Stage) retour.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void logout() {
+        Stage currentStage = (Stage) deconnexion.getScene().getWindow();
+        loginn.logout(currentStage);
+    }
+
+    /*private void togglePasswordVisibility() {
+        if (!isPasswordVisible) {
+            // Afficher le mot de passe
+            String password = modifpassword.getText();
+            modifpassword.setPromptText(modifpassword.getText());
+            modifpassword.clear();
+            modifpassword.setStyle("-fx-text-inner-color: black;");
+            eye_icon.setImage(new Image(getClass().getResource("/assets/eye.png").toExternalForm()));
+        } else {
+            // Cacher le mot de passe
+            String password = modifpassword.getPromptText();
+            modifpassword.setText(password);
+            modifpassword.setPromptText("");
+            modifpassword.setStyle("");
+            eye_icon.setImage(new Image(getClass().getResource("/assets/eye-slash.png").toExternalForm()));
+        }
+        isPasswordVisible = !isPasswordVisible;
+    }*/
+
+    private void togglePasswordVisibility(PasswordField passwordField, Button button, ImageView eyeIcon, boolean isVisible) {
+        if (!isVisible) {
+            // Afficher le mot de passe
+            String password = passwordField.getText();
+            passwordField.setPromptText(passwordField.getText());
+            passwordField.clear();
+            passwordField.setStyle("-fx-text-inner-color: black;");
+            eyeIcon.setImage(new Image(getClass().getResource("/assets/eye.png").toExternalForm()));
+        } else {
+            // Cacher le mot de passe
+            String password = passwordField.getPromptText();
+            passwordField.setText(password);
+            passwordField.setPromptText("");
+            passwordField.setStyle("");
+            eyeIcon.setImage(new Image(getClass().getResource("/assets/eye-slash.png").toExternalForm()));
+        }
+
+        // Inverser l'état
+        if (passwordField == modifpassword) {
+            isPasswordVisible = !isPasswordVisible;}
     }
 }

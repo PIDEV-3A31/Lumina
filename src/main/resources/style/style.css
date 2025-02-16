@@ -1,4 +1,3 @@
-
 .search-box{
     -fx-background-color:#FFFFFF;
     -fx-background-radius: 100;
@@ -129,4 +128,15 @@
 
 .custom-button:pressed {
     -fx-background-color: #09998E;
+}
+
+.logout-button {
+    -fx-background-color: #ff4444;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.logout-button:hover {
+    -fx-background-color: #cc0000;
 }

@@ -78,17 +78,21 @@
                         </Pane>
                         <Pane prefHeight="60.0" prefWidth="273.0">
                             <children>
+                        <Button fx:id="deconnexion" layoutX="234.0" layoutY="13.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/logout.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                                 <ImageView fx:id="img_userconnecte" fitHeight="50.0" fitWidth="50.0" layoutX="40.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@assets/user.png" />
                                     </image>
                                 </ImageView>
-                                <Label fx:id="name_userconnecte" layoutX="90.0" layoutY="14.0" prefHeight="41.0" prefWidth="127.0" styleClass="username-box" stylesheets="@style/style.css" text="Nour Allegui" />
-                        <ImageView fx:id="deconnexion" fitHeight="35.0" fitWidth="35.0" layoutX="232.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/logout.png" />
-                           </image>
-                        </ImageView>
+                                <Label fx:id="name_userconnecte" layoutX="90.0" layoutY="14.0" prefHeight="41.0" prefWidth="179.0" styleClass="username-box" stylesheets="@style/style.css" text="Nour Allegui" />
                             </children>
                         </Pane>
                     </children>
@@ -137,7 +141,7 @@
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@assets/city-hall%201.png" />
+                                        <Image url="@assets/city-hall 1.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -262,7 +266,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Button layoutY="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="add-button1" stylesheets="@style/style.css">
+                        <Button fx:id="retour" layoutY="14.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="add-button1" stylesheets="@style/style.css">
                            <padding>
                               <Insets left="20.0" />
                            </padding>

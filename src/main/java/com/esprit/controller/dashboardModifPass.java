@@ -33,9 +33,36 @@ public class dashboardModifPass {
     private Button retour;
 
     @FXML
+    private Button affich_mdp1;
+    @FXML
+    private Button affich_mdp2;
+    @FXML
+    private Button affich_mdp3;
+    
+    @FXML
+    private ImageView eye_icon1;
+    @FXML
+    private ImageView eye_icon2;
+    @FXML
+    private ImageView eye_icon3;
+
+    @FXML
+    private Button deconnexion;
+
+    private boolean isOldPasswordVisible = false;
+    private boolean isNewPasswordVisible = false;
+    private boolean isConfirmPasswordVisible = false;
+
+    @FXML
     public void initialize() {
         update_password.setOnAction(event -> updatePassword());
         retour.setOnAction(event -> navigateBack());
+        deconnexion.setOnAction(event -> logout());
+
+        // Initialiser les gestionnaires pour les boutons d'affichage
+        affich_mdp1.setOnAction(event -> togglePasswordVisibility(old_password, affich_mdp1, eye_icon1, isOldPasswordVisible));
+        affich_mdp2.setOnAction(event -> togglePasswordVisibility(new_password, affich_mdp2, eye_icon2, isNewPasswordVisible));
+        affich_mdp3.setOnAction(event -> togglePasswordVisibility(confirm_new_password, affich_mdp3, eye_icon3, isConfirmPasswordVisible));
     }
 
     public void initData(user connectedUser, profile userProfile) {
@@ -101,7 +128,7 @@ public class dashboardModifPass {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboardAffichProf.fxml"));
             Parent root = loader.load();
 
-            dashboardAffichProf controller = loader.getController();
+            dashboardController controller = loader.getController();
             controller.initData(connectedUser, userProfile);
 
             Stage stage = (Stage) retour.getScene().getWindow();
@@ -117,5 +144,36 @@ public class dashboardModifPass {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    private void togglePasswordVisibility(PasswordField passwordField, Button button, ImageView eyeIcon, boolean isVisible) {
+        if (!isVisible) {
+            // Afficher le mot de passe
+            String password = passwordField.getText();
+            passwordField.setPromptText(passwordField.getText());
+            passwordField.clear();
+            passwordField.setStyle("-fx-text-inner-color: black;");
+            eyeIcon.setImage(new Image(getClass().getResource("/assets/eye.png").toExternalForm()));
+        } else {
+            // Cacher le mot de passe
+            String password = passwordField.getPromptText();
+            passwordField.setText(password);
+            passwordField.setPromptText("");
+            passwordField.setStyle("");
+            eyeIcon.setImage(new Image(getClass().getResource("/assets/eye-slash.png").toExternalForm()));
+        }
+
+        // Inverser l'état
+        if (passwordField == old_password) {
+            isOldPasswordVisible = !isOldPasswordVisible;
+        } else if (passwordField == new_password) {
+            isNewPasswordVisible = !isNewPasswordVisible;
+        } else if (passwordField == confirm_new_password) {
+            isConfirmPasswordVisible = !isConfirmPasswordVisible;
+        }
+    }
+    private void logout() {
+        Stage currentStage = (Stage) deconnexion.getScene().getWindow();
+        loginn.logout(currentStage);
     }
 }

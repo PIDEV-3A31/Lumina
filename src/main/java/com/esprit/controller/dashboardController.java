@@ -24,6 +24,7 @@ import java.util.Optional;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.beans.property.SimpleObjectProperty;
+import com.esprit.utils.NavigationHistory;
 
 public class dashboardController {
     private user connectedUser;
@@ -76,13 +77,14 @@ public class dashboardController {
     private ImageView image_userselectionne;
 
     @FXML
+    private Button deconnexion;
+
+    @FXML
     public void initialize() {
-        // Initialiser les colonnes de la TableView
         columnID_user.setCellValueFactory(new PropertyValueFactory<>("id_profile"));
         columnUsername.setCellValueFactory(new PropertyValueFactory<>("name_u"));
         columnRole.setCellValueFactory(new PropertyValueFactory<>("role"));
 
-        // Configurer la colonne image
         columnImage.setCellValueFactory(param -> {
             profile p = param.getValue();
             ImageView imageView = new ImageView();
@@ -108,23 +110,19 @@ public class dashboardController {
             }
         });
 
-        // Charger les données
         loadTableData();
 
-        // Ajouter le gestionnaire d'événement pour le bouton supprimer
         suppBtn.setOnAction(event -> Delete());
 
-        // Ajouter le gestionnaire d'événement pour le bouton modifier
         editBtn.setOnAction(event -> Edit());
 
-        // Ajouter le gestionnaire d'événement pour le bouton ajouter
         ajouter_user.setOnAction(event -> Add());
 
-        // Ajouter le gestionnaire d'événement pour le nom de l'utilisateur connecté
         name_current_user.setOnMouseClicked(event -> editCurrentUserProfile());
         
-        // Pour indiquer visuellement que c'est cliquable
         name_current_user.setStyle("-fx-cursor: hand;");
+
+        deconnexion.setOnAction(event -> logout());
     }
 
     public void initData(user user, profile profile) {
@@ -137,7 +135,6 @@ public class dashboardController {
         if (userProfile != null) {
             name_current_user.setText(userProfile.getName_u());
             
-            // Charger l'image de l'utilisateur connecté
             if (userProfile.getImage_u() != null) {
                 try {
                     Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + userProfile.getImage_u())).toExternalForm());
@@ -157,22 +154,18 @@ public class dashboardController {
 
     private void showUserDetails(profile selectedProfile) {
         if (selectedProfile != null) {
-            // Récupérer l'utilisateur correspondant
             ServiceUser serviceUser = new ServiceUser();
             user selectedUser = serviceUser.getUserById(selectedProfile.getId_user());
 
-            // Afficher les informations de base
             username_userselectionne.setText(selectedUser.getUsername());
             name_userselectionne.setText(selectedProfile.getName_u());
             email_userselectionne.setText(selectedProfile.getEmail_u());
             phone_userselectionne.setText(String.valueOf(selectedProfile.getPhone_u()));
             role_userselectionne.setText(selectedProfile.getRole());
             
-            // Afficher les IDs
             iduser_selectionne.setText(String.valueOf(selectedProfile.getId_user()));
             idprofil_userselectionne.setText(String.valueOf(selectedProfile.getId_profile()));
 
-            // Afficher les timestamps
             if (selectedProfile.getCreated_at() != null) {
                 createdat_userselectionne.setText(selectedProfile.getCreated_at().toString());
             }
@@ -180,7 +173,6 @@ public class dashboardController {
                 updatedat_userselectionne.setText(selectedProfile.getUpdated_at().toString());
             }
 
-            // Afficher l'image
             if (selectedProfile.getImage_u() != null) {
                 try {
                     Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + selectedProfile.getImage_u())).toExternalForm());
@@ -206,14 +198,11 @@ public class dashboardController {
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                // Supprimer l'utilisateur (la suppression en cascade s'occupera du profil)
                 ServiceUser serviceUser = new ServiceUser();
                 serviceUser.supprimer(selectedProfile.getId_user());
 
-                // Rafraîchir la TableView
                 loadTableData();
                 
-                // Effacer les détails de l'utilisateur
                 clearUserDetails();
                 
                 showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur supprimé avec succès!");
@@ -261,6 +250,7 @@ public class dashboardController {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboardModifProf.fxml"));
+            System.out.println(getClass().getResource("/dashboardModifProf.fxml"));
             Parent root = loader.load();
 
             // Récupérer le contrôleur et initialiser les données
@@ -281,7 +271,6 @@ public class dashboardController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboardModifProf.fxml"));
             Parent root = loader.load();
 
-            // Récupérer le contrôleur et initialiser pour l'ajout
             dashboardModifProf modifController = loader.getController();
             modifController.initDataForAdd(connectedUser, userProfile);
 
@@ -309,5 +298,33 @@ public class dashboardController {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la navigation!");
         }
+    }
+
+    /*private void navigateBack() {
+        try {
+            String previousPage = NavigationHistory.popPage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(previousPage));
+            Parent root = loader.load();
+            
+            // Initialiser le contrôleur selon la page
+            Object controller = loader.getController();
+            if (controller instanceof dashboardController) {
+                ((dashboardController) controller).initData(connectedUser, userProfile);
+            } else if (controller instanceof dashboardAffichProf) {
+                ((dashboardAffichProf) controller).initData(connectedUser, userProfile);
+            }
+            // ... autres cas selon vos contrôleurs
+
+            Stage stage = (Stage) retourBtn.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }*/
+
+    private void logout() {
+        Stage currentStage = (Stage) deconnexion.getScene().getWindow();
+        loginn.logout(currentStage);
     }
 }

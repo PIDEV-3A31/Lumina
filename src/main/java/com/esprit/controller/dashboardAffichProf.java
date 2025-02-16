@@ -45,11 +45,16 @@ public class dashboardAffichProf {
     private Button editProfileButton;
     @FXML
     private Button editPasswordButton;
+    @FXML
+    private Button retour;
+    @FXML
+    private Button deconnexion;
 
     @FXML
     public void initialize() {
         editProfileButton.setOnAction(event -> navigateToEditProfile());
         editPasswordButton.setOnAction(event -> navigateToEditPassword());
+        retour.setOnAction(event -> navigateBack());
     }
 
     public void initData(user connectedUser, profile userProfile) {
@@ -59,7 +64,6 @@ public class dashboardAffichProf {
     }
 
     private void updateUI() {
-        // Afficher les informations de l'utilisateur connecté
         name_userconnecte.setText(userProfile.getName_u());
         username.setText(connectedUser.getUsername());
         name.setText(userProfile.getName_u());
@@ -76,7 +80,6 @@ public class dashboardAffichProf {
             updated_at.setText(userProfile.getUpdated_at().toString());
         }
 
-        // Charger les images
         loadImage(userProfile.getImage_u(), img_userconnecte);
         loadImage(userProfile.getImage_u(), profileImage);
     }
@@ -122,5 +125,25 @@ public class dashboardAffichProf {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private void navigateBack() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
+            Parent root = loader.load();
+
+            dashboardController controller = loader.getController();
+            controller.initData(connectedUser, userProfile);
+
+            Stage stage = (Stage) retour.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void logout() {
+        Stage currentStage = (Stage) deconnexion.getScene().getWindow();
+        loginn.logout(currentStage);
     }
 }

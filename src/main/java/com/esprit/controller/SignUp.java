@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class SignUp {
@@ -20,6 +22,8 @@ public class SignUp {
     @FXML
     private PasswordField txtPassword;
     @FXML
+    private PasswordField txtConfirmPassword;
+    @FXML
     private TextField txtNom;
     @FXML
     private TextField txtTelephone;
@@ -29,10 +33,23 @@ public class SignUp {
     private CheckBox checkbox;
     @FXML
     private Button btnSignUp;
+    @FXML
+    private Button affichMdp1;
+    @FXML
+    private Button affichMdp2;
+    @FXML
+    private ImageView eyeIcon1;
+    @FXML
+    private ImageView eyeIcon2;
+
+    private boolean isPasswordVisible = false;
+    private boolean isConfirmPasswordVisible = false;
 
     @FXML
     public void initialize() {
         btnSignUp.setOnAction(this::SignUp);
+        affichMdp1.setOnAction(event -> togglePasswordVisibility(txtPassword, affichMdp1, eyeIcon1, isPasswordVisible));
+        affichMdp2.setOnAction(event -> togglePasswordVisibility(txtConfirmPassword, affichMdp2, eyeIcon2, isConfirmPasswordVisible));
     }
 
     private void SignUp(ActionEvent event) {
@@ -116,6 +133,11 @@ public class SignUp {
             return false;
         }
 
+        if (!txtPassword.getText().equals(txtConfirmPassword.getText())) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Passwords do not match!");
+            return false;
+        }
+
         return true;
     }
 
@@ -148,6 +170,28 @@ public class SignUp {
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "Could not load admin dashboard!");
+        }
+    }
+
+    private void togglePasswordVisibility(PasswordField passwordField, Button button, ImageView eyeIcon, boolean isVisible) {
+        if (!isVisible) {
+            String password = passwordField.getText();
+            passwordField.setPromptText(passwordField.getText());
+            passwordField.clear();
+            passwordField.setStyle("-fx-text-inner-color: black;");
+            eyeIcon.setImage(new Image(getClass().getResource("/assets/eye.png").toExternalForm()));
+        } else {
+            String password = passwordField.getPromptText();
+            passwordField.setText(password);
+            passwordField.setPromptText("");
+            passwordField.setStyle("");
+            eyeIcon.setImage(new Image(getClass().getResource("/assets/eye-slash.png").toExternalForm()));
+        }
+
+        if (passwordField == txtPassword) {
+            isPasswordVisible = !isPasswordVisible;
+        } else {
+            isConfirmPasswordVisible = !isConfirmPasswordVisible;
         }
     }
 }
