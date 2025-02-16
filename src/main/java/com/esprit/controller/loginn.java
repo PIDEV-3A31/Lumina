@@ -27,7 +27,7 @@ public class loginn {
     }
 
     @FXML
-    public void handleLogin() {
+    public void Login() {
         String username = txtUsername.getText();
         String password = txtPassword.getText();
 

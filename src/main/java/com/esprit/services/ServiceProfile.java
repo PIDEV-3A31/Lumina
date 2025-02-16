@@ -86,6 +86,8 @@ public class ServiceProfile implements CrudService<profile>{
                     rs.getString("role"),
                     rs.getString("image_u")
                 );
+                profile.setCreated_at(rs.getTimestamp("created_at"));
+                profile.setUpdated_at(rs.getTimestamp("updated_at"));
                 profiles.add(profile);
             }
         } catch (SQLException e) {
@@ -117,7 +119,7 @@ public class ServiceProfile implements CrudService<profile>{
             ResultSet rs = stmt.executeQuery();
             
             if (rs.next()) {
-                return new profile(
+                profile p = new profile(
                     rs.getInt("id_user"),
                     rs.getInt("id_profile"),
                     rs.getString("name_u"),
@@ -126,6 +128,9 @@ public class ServiceProfile implements CrudService<profile>{
                     rs.getString("role"),
                     rs.getString("image_u")
                 );
+                p.setCreated_at(rs.getTimestamp("created_at"));
+                p.setUpdated_at(rs.getTimestamp("updated_at"));
+                return p;
             }
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération du profil : " + e.getMessage());

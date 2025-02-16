@@ -29,7 +29,7 @@
             <Font name="System Bold" size="12.0" />
          </font></Label>
       <Label layoutX="458.0" layoutY="515.0" text="Don't you have an account ? Sign Up" />
-      <Button fx:id="btnSignIn" onAction="#handleLogin" layoutX="400.0" layoutY="396.0" mnemonicParsing="false" styleClass="button-selected" stylesheets="@style.css" text="Sign in" />
+      <Button fx:id="btnSignIn" onAction="#Login" layoutX="400.0" layoutY="396.0" mnemonicParsing="false" styleClass="button-selected" stylesheets="@style.css" text="Sign in" />
 
    </children>
 </AnchorPane>

@@ -23,6 +23,7 @@ import java.util.Objects;
 import java.util.Optional;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.beans.property.SimpleObjectProperty;
 
 public class dashboardController {
     private user connectedUser;
@@ -42,13 +43,25 @@ public class dashboardController {
 
     // Labels pour les détails de l'utilisateur sélectionné
     @FXML
-    private Label name;
+    private Label username_userselectionne;
     @FXML
-    private Label email;
+    private Label name_userselectionne;
     @FXML
-    private Label phone;
+    private Label email_userselectionne;
     @FXML
-    private Label id_user;
+    private Label phone_userselectionne;
+    @FXML
+    private Label role_userselectionne;
+    @FXML
+    private Label createdat_userselectionne;
+    @FXML
+    private Label updatedat_userselectionne;
+    @FXML
+    private Label iduser_selectionne;
+    @FXML
+    private Label idprofil_userselectionne;
+    @FXML
+    private TableColumn<profile, ImageView> columnImage;
 
     @FXML
     private Button suppBtn;
@@ -68,6 +81,25 @@ public class dashboardController {
         columnID_user.setCellValueFactory(new PropertyValueFactory<>("id_profile"));
         columnUsername.setCellValueFactory(new PropertyValueFactory<>("name_u"));
         columnRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+
+        // Configurer la colonne image
+        columnImage.setCellValueFactory(param -> {
+            profile p = param.getValue();
+            ImageView imageView = new ImageView();
+            imageView.setFitHeight(40);
+            imageView.setFitWidth(40);
+            
+            if (p.getImage_u() != null) {
+                try {
+                    Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + p.getImage_u())).toExternalForm());
+                    imageView.setImage(img);
+                } catch (Exception e) {
+                    System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
+                }
+            }
+            
+            return new SimpleObjectProperty<>(imageView);
+        });
 
         // Ajouter un listener pour la sélection dans la TableView
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -125,15 +157,33 @@ public class dashboardController {
 
     private void showUserDetails(profile selectedProfile) {
         if (selectedProfile != null) {
-            name.setText(selectedProfile.getName_u());
-            email.setText(selectedProfile.getEmail_u());
-            phone.setText(String.valueOf(selectedProfile.getPhone_u()));
-            id_user.setText("ID : " + selectedProfile.getId_profile());
+            // Récupérer l'utilisateur correspondant
+            ServiceUser serviceUser = new ServiceUser();
+            user selectedUser = serviceUser.getUserById(selectedProfile.getId_user());
 
-            // Charger l'image de l'utilisateur sélectionné
+            // Afficher les informations de base
+            username_userselectionne.setText(selectedUser.getUsername());
+            name_userselectionne.setText(selectedProfile.getName_u());
+            email_userselectionne.setText(selectedProfile.getEmail_u());
+            phone_userselectionne.setText(String.valueOf(selectedProfile.getPhone_u()));
+            role_userselectionne.setText(selectedProfile.getRole());
+            
+            // Afficher les IDs
+            iduser_selectionne.setText(String.valueOf(selectedProfile.getId_user()));
+            idprofil_userselectionne.setText(String.valueOf(selectedProfile.getId_profile()));
+
+            // Afficher les timestamps
+            if (selectedProfile.getCreated_at() != null) {
+                createdat_userselectionne.setText(selectedProfile.getCreated_at().toString());
+            }
+            if (selectedProfile.getUpdated_at() != null) {
+                updatedat_userselectionne.setText(selectedProfile.getUpdated_at().toString());
+            }
+
+            // Afficher l'image
             if (selectedProfile.getImage_u() != null) {
                 try {
-                    Image img = new Image(getClass().getResource("/" + selectedProfile.getImage_u()).toExternalForm());
+                    Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + selectedProfile.getImage_u())).toExternalForm());
                     image_userselectionne.setImage(img);
                 } catch (Exception e) {
                     System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
@@ -191,10 +241,15 @@ public class dashboardController {
     }
 
     private void clearUserDetails() {
-        name.setText("");
-        email.setText("");
-        phone.setText("");
-        id_user.setText("ID : ");
+        username_userselectionne.setText("");
+        name_userselectionne.setText("");
+        email_userselectionne.setText("");
+        phone_userselectionne.setText("");
+        role_userselectionne.setText("");
+        createdat_userselectionne.setText("");
+        updatedat_userselectionne.setText("");
+        iduser_selectionne.setText("");
+        idprofil_userselectionne.setText("");
     }
 
     private void Edit() {
@@ -241,13 +296,11 @@ public class dashboardController {
 
     private void editCurrentUserProfile() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboardModifProf.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboardAffichProf.fxml"));
             Parent root = loader.load();
 
-            // Récupérer le contrôleur et initialiser les données
-            dashboardModifProf modifController = loader.getController();
-            // Passer l'utilisateur connecté comme utilisateur à modifier
-            modifController.initDataForCurrentUser(connectedUser, userProfile);
+            dashboardAffichProf controller = loader.getController();
+            controller.initData(connectedUser, userProfile);
 
             Stage stage = (Stage) name_current_user.getScene().getWindow();
             stage.setScene(new Scene(root));

@@ -32,10 +32,10 @@ public class SignUp {
 
     @FXML
     public void initialize() {
-        btnSignUp.setOnAction(this::handleSignUp);
+        btnSignUp.setOnAction(this::SignUp);
     }
 
-    private void handleSignUp(ActionEvent event) {
+    private void SignUp(ActionEvent event) {
         if (!validateInputs()) {
             return;
         }
