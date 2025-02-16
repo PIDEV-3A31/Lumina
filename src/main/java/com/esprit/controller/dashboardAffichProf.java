@@ -55,6 +55,7 @@ public class dashboardAffichProf {
         editProfileButton.setOnAction(event -> navigateToEditProfile());
         editPasswordButton.setOnAction(event -> navigateToEditPassword());
         retour.setOnAction(event -> navigateBack());
+        deconnexion.setOnAction(event -> logout());
     }
 
     public void initData(user connectedUser, profile userProfile) {
@@ -141,7 +142,6 @@ public class dashboardAffichProf {
             e.printStackTrace();
         }
     }
-
     private void logout() {
         Stage currentStage = (Stage) deconnexion.getScene().getWindow();
         loginn.logout(currentStage);

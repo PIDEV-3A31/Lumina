@@ -78,7 +78,7 @@
                         </Pane>
                         <Pane prefHeight="60.0" prefWidth="273.0">
                             <children>
-                        <Button fx:id="deconnexion" layoutX="234.0" layoutY="13.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                        <Button fx:id="deconnexion" layoutX="234.0" layoutY="13.0" mnemonicParsing="false" styleClass="logout-button">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

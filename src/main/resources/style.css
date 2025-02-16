@@ -142,6 +142,7 @@
     -fx-padding: 5px;
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
+    -fx-cursor: hand;
 }
 
 .table-view .column-header-background {

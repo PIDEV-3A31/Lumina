@@ -85,7 +85,7 @@
                                     </image>
                                 </ImageView>
                                 <Label fx:id="name_userconnecte" layoutX="90.0" layoutY="14.0" prefHeight="41.0" prefWidth="165.0" styleClass="username-box" stylesheets="@style/style.css" text="Nour Allegui" />
-                        <Button fx:id="deconnexion" layoutX="231.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                        <Button fx:id="deconnexion" layoutX="231.0" layoutY="14.0" mnemonicParsing="false" styleClass="logout-button">
                            <graphic>
                                       <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                           <image>

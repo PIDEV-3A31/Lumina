@@ -81,13 +81,13 @@
                         </Pane>
                         <Pane prefHeight="60.0" prefWidth="270.0">
                             <children>
-                                <ImageView fx:id="img_userconnecte" fitHeight="50.0" fitWidth="50.0" layoutX="40.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="img_current_user" fitHeight="50.0" fitWidth="50.0" layoutX="40.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@assets/user.png" />
                                     </image>
                                 </ImageView>
-                                <Label fx:id="name_userconnecte" layoutX="90.0" layoutY="14.0" prefHeight="41.0" prefWidth="197.0" styleClass="username-box" stylesheets="@style/style.css" text="Nour Allegui" />
-                        <Button fx:id="deconnexion" layoutX="231.0" layoutY="13.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                                <Label fx:id="name_current_user" layoutX="90.0" layoutY="14.0" prefHeight="41.0" prefWidth="197.0" styleClass="username-box" stylesheets="@style/style.css" text="Nour Allegui" />
+                        <Button fx:id="deconnexion" layoutX="231.0" layoutY="13.0" mnemonicParsing="false" styleClass="logout-button">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

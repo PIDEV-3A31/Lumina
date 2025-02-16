@@ -86,7 +86,7 @@
                                         <Image url="@assets/user.png" />
                                     </image>
                                 </ImageView>
-                        <Button fx:id="deconnexion" layoutX="252.0" layoutY="13.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                        <Button fx:id="deconnexion" layoutX="252.0" layoutY="13.0" mnemonicParsing="false" styleClass="logout-button">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

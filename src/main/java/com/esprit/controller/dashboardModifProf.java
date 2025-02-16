@@ -29,7 +29,7 @@ public class dashboardModifProf {
     private boolean isCurrentUser = false;
 
     @FXML
-    private Label name_userconnecte;
+    private Label name_current_user;
     @FXML
     private Label passwordLabel;
     @FXML
@@ -61,7 +61,7 @@ public class dashboardModifProf {
     @FXML
     private ImageView eye_icon;
     @FXML
-    private ImageView img_userconnecte;
+    private ImageView img_current_user;
     
     private String selectedImagePath = null;
     private boolean isPasswordVisible = false;
@@ -75,9 +75,10 @@ public class dashboardModifProf {
         
         // Ajouter le gestionnaire pour l'affichage du mot de passe
         affich_mdp.setOnAction(event -> togglePasswordVisibility(modifpassword, affich_mdp, eye_icon, isPasswordVisible));
-        name_userconnecte.setOnMouseClicked(event -> editCurrentUserProfile());
+        name_current_user.setOnMouseClicked(event -> editCurrentUserProfile());
 
-        name_userconnecte.setStyle("-fx-cursor: hand;");
+        name_current_user.setStyle("-fx-cursor: hand;");
+
     }
 
     public void initData(user connectedUser, profile userProfile, profile selectedProfile) {
@@ -86,7 +87,7 @@ public class dashboardModifProf {
         this.selectedProfile = selectedProfile;
         this.isAddMode = false;
 
-        name_userconnecte.setText(userProfile.getName_u());
+        name_current_user.setText(userProfile.getName_u());
 
         ServiceUser serviceUser = new ServiceUser();
         user selectedUser = serviceUser.getUserById(selectedProfile.getId_user());
@@ -111,7 +112,7 @@ public class dashboardModifProf {
         this.userProfile = userProfile;
         this.isAddMode = true;
 
-        name_userconnecte.setText(userProfile.getName_u());
+        name_current_user.setText(userProfile.getName_u());
 
         // Vider tous les champs pour l'ajout
         modifusername.setText("");
@@ -134,7 +135,7 @@ public class dashboardModifProf {
         this.isAddMode = false;
         this.isCurrentUser = true;
 
-        name_userconnecte.setText(userProfile.getName_u());
+        name_current_user.setText(userProfile.getName_u());
 
         modifusername.setText(connectedUser.getUsername());
         modifpassword.setText(connectedUser.getPassword());
@@ -171,12 +172,12 @@ public class dashboardModifProf {
 
     private void updateUI() {
         if (userProfile != null) {
-            name_userconnecte.setText(userProfile.getName_u());
+            name_current_user.setText(userProfile.getName_u());
 
             if (userProfile.getImage_u() != null) {
                 try {
                     Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + userProfile.getImage_u())).toExternalForm());
-                    img_userconnecte.setImage(img);
+                    img_current_user.setImage(img);
                 } catch (Exception e) {
                     System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
                 }
@@ -217,13 +218,12 @@ public class dashboardModifProf {
     }
 
     private void Update() {
-        if (!validateInputs()) {
-            return;
-        }
-
         try {
+            if (!validateInputs()) {
+                return;
+            }
+
             if (isAddMode) {
-                // Créer un nouvel utilisateur
                 user newUser = new user(modifusername.getText(), modifpassword.getText());
                 ServiceUser serviceUser = new ServiceUser();
                 int userId = serviceUser.ajouterAvecId(newUser);
@@ -233,7 +233,6 @@ public class dashboardModifProf {
                     return;
                 }
 
-                // Créer un nouveau profil avec l'image
                 profile newProfile = new profile(
                     userId,
                     modifname.getText(),
@@ -247,13 +246,11 @@ public class dashboardModifProf {
 
                 showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur ajouté avec succès!");
             } else {
-                // Mettre à jour l'utilisateur
                 user updatedUser = new user(selectedProfile.getId_user(),
                     modifusername.getText(), modifpassword.getText());
                 ServiceUser serviceUser = new ServiceUser();
                 serviceUser.modifer(updatedUser, selectedProfile.getId_user());
 
-                // Mettre à jour le profil avec l'image
                 profile updatedProfile = new profile(
                     selectedProfile.getId_user(),
                     selectedProfile.getId_profile(),
@@ -266,7 +263,6 @@ public class dashboardModifProf {
                 ServiceProfile serviceProfile = new ServiceProfile();
                 serviceProfile.modifer(updatedProfile, selectedProfile.getId_profile());
 
-                // Si c'est l'utilisateur connecté qui est modifié, mettre à jour ses données
                 if (isCurrentUser) {
                     this.connectedUser = updatedUser;
                     this.userProfile = updatedProfile;
@@ -275,7 +271,10 @@ public class dashboardModifProf {
                 showAlert(Alert.AlertType.INFORMATION, "Succès", 
                     isCurrentUser ? "Votre profil a été mis à jour avec succès!" : "Modifications enregistrées avec succès!");
             }
-            navigateToDashboard();
+            
+            // Utiliser la nouvelle méthode de navigation
+            navigateAfterAction();
+            
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", 
                 "Erreur lors de la " + (isAddMode ? "l'ajout" : "modification") + ": " + e.getMessage());
@@ -318,22 +317,30 @@ public class dashboardModifProf {
         return true;
     }
 
-    private void navigateToDashboard() {
+    private void navigateAfterAction() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
-            Parent root = loader.load();
-
-            dashboardController dashCtrl = loader.getController();
-            dashCtrl.initData(connectedUser, userProfile);
+            FXMLLoader loader;
+            if (isCurrentUser) {
+                loader = new FXMLLoader(getClass().getResource("/dashboardAffichProf.fxml"));
+                Parent root = loader.load();
+                dashboardAffichProf controller = loader.getController();
+                controller.initData(connectedUser, userProfile);
+            } else {
+                loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
+                Parent root = loader.load();
+                dashboardController controller = loader.getController();
+                controller.initData(connectedUser, userProfile);
+            }
 
             Stage stage = (Stage) Save.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(loader.load()));
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la navigation!");
         }
     }
+
     private void editCurrentUserProfile() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboardAffichProf.fxml"));
@@ -342,7 +349,7 @@ public class dashboardModifProf {
             dashboardAffichProf controller = loader.getController();
             controller.initData(connectedUser, userProfile);
 
-            Stage stage = (Stage) name_userconnecte.getScene().getWindow();
+            Stage stage = (Stage) name_current_user.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) {
@@ -359,19 +366,31 @@ public class dashboardModifProf {
     }
     private void navigateBack() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboardAffichProf.fxml"));
-            Parent root = loader.load();
+            FXMLLoader loader;
+            Parent root = null;
 
-            dashboardController controller = loader.getController();
-            controller.initData(connectedUser, userProfile);
+            if (isCurrentUser) {
+                loader = new FXMLLoader(getClass().getResource("/dashboardAffichProf.fxml"));
+                root = loader.load();
+                dashboardAffichProf controller = loader.getController();
+                controller.initData(connectedUser, userProfile);
+            } else {
+                loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
+                root = loader.load();
+                dashboardController controller = loader.getController();
+                controller.initData(connectedUser, userProfile);
+            }
 
             Stage stage = (Stage) retour.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la navigation!");
         }
     }
+
     private void logout() {
         Stage currentStage = (Stage) deconnexion.getScene().getWindow();
         loginn.logout(currentStage);

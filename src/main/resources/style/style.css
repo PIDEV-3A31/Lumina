@@ -14,6 +14,7 @@
 .search-button{
     -fx-background-color: #0CBEB8;
     -fx-background-radius: 30;
+    -fx-cursor: hand;
 
 }
 
@@ -88,11 +89,13 @@
 .add-button{
     -fx-background-color: #0CBEB8;
     -fx-background-radius: 7;
+    -fx-cursor: hand;
 
 }
 .add-button1{
     -fx-background-color: transparent;
     -fx-background-radius: 7;
+    -fx-cursor: hand;
 
 }
 
@@ -131,12 +134,13 @@
 }
 
 .logout-button {
-    -fx-background-color: #ff4444;
+    -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-background-radius: 5px;
     -fx-cursor: hand;
 }
 
 .logout-button:hover {
-    -fx-background-color: #cc0000;
+    -fx-background-color: blue;
 }
+
