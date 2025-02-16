@@ -82,6 +82,8 @@ public class AfficherDocuments {
     @FXML
     private TableColumn<Demandes, String> supprimerDemande;
 
+    @FXML
+    private Button gererButton;
 
 
 
@@ -89,6 +91,7 @@ public class AfficherDocuments {
 
     private ServiceDocuments serviceDocument = new ServiceDocuments();
     private ServiceDemande serviceDemande = new ServiceDemande();
+    private Demandes selectedDemande;  // Variable pour stocker la demande sélectionnée
 
     @FXML
     public void initialize() {
@@ -124,6 +127,25 @@ public class AfficherDocuments {
 
         supprimerDemande.setCellFactory(createDeleteDemandeButtonFactory());
 
+        loadDataDemandes();
+
+        // Cacher initialement le bouton "Gérer"
+        gererButton.setVisible(false);
+
+        // Détecter le clic sur une ligne de la table des demandes
+        table_demande.setOnMouseClicked(event -> {
+            selectedDemande = table_demande.getSelectionModel().getSelectedItem();
+            if (selectedDemande != null) {
+                gererButton.setVisible(true);  // Afficher le bouton "Gérer"
+            }
+        });
+
+        // Ajouter l'action pour le bouton "Gérer"
+        gererButton.setOnAction(event -> {
+            if (selectedDemande != null) {
+                handleGerer(selectedDemande);
+            }
+        });
         loadDataDemandes();
     }
 
@@ -274,6 +296,62 @@ public class AfficherDocuments {
     }
 
 
+    // Fonction pour gérer une demande
+    private void handleGerer(Demandes demande) {
+        String status = demande.getStatut_demande();
+        if ("nouvelle".equals(status)) {
+            // Si la demande est "nouvelle", ajouter un document
+            handleAjouterDocumentForDemande(demande);
+        } else if ("en cours".equals(status)) {
+            // Si la demande est "en cours", modifier le document
+            handleModifyDocumentForDemande(demande);
+        }
+    }
+
+    // Fonction pour ajouter un document à la demande
+    private void handleAjouterDocumentForDemande(Demandes demande) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/forumAjouterDocument.fxml"));
+            Parent root = loader.load();
+            AjouterDocumentsController controller = loader.getController();
+            controller.setDemande(demande);  // Passer la demande au contrôleur
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+            // Mettre à jour le statut de la demande après ajout
+            demande.setStatut_demande("en cours");
+            serviceDemande.modifier(demande);
+            loadDataDemandes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Fonction pour modifier le document d'une demande
+    private void handleModifyDocumentForDemande(Demandes demande) {
+        Documents document = serviceDocument.getDocumentForDemande(demande.getId_demande());
+        if (document != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/forumModifierDocument.fxml"));
+                Parent root = loader.load();
+                ModifierDocumentController controller = loader.getController();
+                controller.setDocument(document, serviceDocument);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+
+                //demande.setStatut_demande("validée");
+                serviceDemande.modifier(demande);
+                loadDataDemandes();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 }

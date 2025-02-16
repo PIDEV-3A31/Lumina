@@ -1,5 +1,6 @@
 package com.esprit.controllers;
 
+import com.esprit.models.Demandes;
 import com.esprit.models.Documents;
 import com.esprit.services.ServiceDocuments;
 import javafx.fxml.FXML;
@@ -40,6 +41,7 @@ public class AjouterDocumentsController {
     private ImageView back;
 
     private ServiceDocuments serviceDocument = new ServiceDocuments();
+    private Demandes demande;
 
     @FXML
     private void initialize() {
@@ -128,5 +130,10 @@ public class AjouterDocumentsController {
         description_label.clear();
         fichier_label.clear();
         type_document_label.clear();
+    }
+
+    public void setDemande(Demandes demande) {
+        this.demande = demande;
+        // Vous pouvez utiliser la demande ici pour afficher des informations ou effectuer des actions
     }
 }
