@@ -1,3 +1,4 @@
+
 .search-box{
     -fx-background-color:#FFFFFF;
     -fx-background-radius: 100;
@@ -22,12 +23,6 @@
     -fx-font-size: 16px; /* Taille du texte */
     -fx-text-fill: #333333; /* Texte gris foncé */
     -fx-font-weight: bold; /* Texte en gras */
-    -fx-cursor: hand;
-    -fx-underline: false;
-}
-
-.username-box:hover {
-    -fx-underline: true;
 }
 
 .button-selected {
@@ -62,12 +57,24 @@
     font-family: "Outfit";
     src: url("/assets/Outfit.ttf");
 }
+.label{
+    -fx-font-family: "Outfit";
+}
 
 .center-layout {
     -fx-background-color: #E9E9E9;
 }
 
 .element-ajout {
+    -fx-background-color: #F3F3F3;
+    -fx-background-radius: 22;
+}
+
+.element-home {
+    -fx-background-color: white;
+}
+
+.element-stat {
     -fx-background-color: white;
     -fx-background-radius: 22;
 }
@@ -83,4 +90,43 @@
     -fx-background-color: #0CBEB8;
     -fx-background-radius: 7;
 
+}
+.add-button1{
+    -fx-background-color: transparent;
+    -fx-background-radius: 7;
+
+}
+
+.split-pane {
+    -fx-background-color: #F9F9F9;
+}
+
+.custom-button {
+    -fx-background-color: #0CBEB8;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 20px;
+    -fx-pref-width: 150px;
+    -fx-pref-height: 150px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 5);
+}
+
+.pane-hover:hover {
+    -fx-background-color: #0AA89F;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-cursor: hand;
+
+}
+
+.custom-button:hover {
+    -fx-background-color: #0AA89F;
+    -fx-cursor: hand;
+}
+
+.custom-button:pressed {
+    -fx-background-color: #09998E;
 }

@@ -5,8 +5,8 @@ import java.sql.Timestamp;
 public class profile {
     private int id_profile;
     private int id_user,phone_u;
-    private String name_u,email_u,role;
-    private Timestamp updated_at;
+    private String name_u,email_u,role,image_u;
+    private Timestamp updated_at,created_at;
 
     public profile(int id_user, String name_u, String email_u, int phone_u, String role) {
         this.id_user = id_user;
@@ -14,6 +14,14 @@ public class profile {
         this.email_u = email_u;
         this.phone_u = phone_u;
         this.role = role;
+    }
+    public profile(int id_user, String name_u, String email_u, int phone_u, String role, String image) {
+        this.id_user = id_user;
+        this.name_u = name_u;
+        this.email_u = email_u;
+        this.phone_u = phone_u;
+        this.role = role;
+        this.image_u = image;
     }
     public profile(int id_user, int id_profile, String name_u, String email_u,int phone_u, String role) {
         this.id_user = id_user;

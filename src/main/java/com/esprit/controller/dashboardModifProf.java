@@ -25,7 +25,7 @@ public class dashboardModifProf {
     @FXML
     private TextField modifemail;
     @FXML
-    private PasswordField modifpassword;
+    private TextField modifpassword;
     @FXML
     private TextField modifname;
     @FXML

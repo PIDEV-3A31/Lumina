@@ -78,14 +78,19 @@
                                 <Insets left="30.0" />
                             </HBox.margin>
                         </Pane>
-                        <Pane prefHeight="200.0" prefWidth="200.0">
+                        <Pane prefHeight="60.0" prefWidth="291.0">
                             <children>
-                                <Label fx:id="name_current_user" layoutX="17.0" layoutY="14.0" prefHeight="41.0" prefWidth="158.0" styleClass="username-box" stylesheets="@style/style.css" text="Sarra Ounais" />
-                                <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="-24.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                                <Label fx:id="name_current_user" layoutX="90.0" layoutY="14.0" prefHeight="41.0" prefWidth="158.0" styleClass="username-box" stylesheets="@style/style.css" text="Nour Allegui" />
+                                <ImageView fx:id="img_current_user" fitHeight="50.0" fitWidth="50.0" layoutX="40.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@assets/user.png" />
                                     </image>
                                 </ImageView>
+                        <ImageView fx:id="deconnexion" fitHeight="35.0" fitWidth="35.0" layoutX="232.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/logout.png" />
+                           </image>
+                        </ImageView>
                             </children>
                         </Pane>
                     </children>
@@ -179,7 +184,7 @@
                               </Button>
                            </children>
                         </HBox>
-                        <TableView fx:id="tableView" prefHeight="538.0" prefWidth="596.0">
+                        <TableView fx:id="tableView" prefHeight="634.0" prefWidth="531.0" stylesheets="@style.css">
                           <columns>
                               <TableColumn fx:id="columnID_user" prefWidth="55.19998091459274" text="ID" />
                             <TableColumn fx:id="columnImage" prefWidth="196.80002212524414" text="Image" />
@@ -194,52 +199,131 @@
                   </VBox>
                </left>
                <right>
-                  <VBox prefHeight="580.0" prefWidth="340.0" spacing="15.0" BorderPane.alignment="CENTER">
+                  <VBox prefHeight="575.0" prefWidth="489.0" spacing="15.0" BorderPane.alignment="CENTER">
                      <children>
-                        <HBox>
+                        <Pane prefHeight="578.0" prefWidth="490.0">
                            <children>
-                              <ImageView fx:id="image_user" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="image_userselectionne" fitHeight="150.0" fitWidth="169.0" layoutX="43.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@assets/user.png" />
                                  </image>
                               </ImageView>
-                              <VBox prefHeight="200.0" prefWidth="186.0">
-                                 <children>
-                                    <Label fx:id="id_user" alignment="CENTER" contentDisplay="CENTER" text="ID : 1" />
-                                    <Label fx:id="id_profile" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" text="Label" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <Label fx:id="name" text="Nour Allegui">
-                           <font>
-                              <Font size="23.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="email" layoutX="10.0" layoutY="176.0" text="Email">
-                           <font>
-                              <Font size="23.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="phone" layoutX="10.0" layoutY="225.0" text="+21627732307">
-                           <font>
-                              <Font size="23.0" />
-                           </font>
-                        </Label>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
-                           <children>
-                              <Button fx:id="editBtn" mnemonicParsing="false" styleClass="add-button" stylesheets="@style/style.css" text="Edit" textFill="WHITE">
+                              <Button fx:id="editBtn" layoutX="320.0" layoutY="482.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="add-button1" stylesheets="@style/style.css" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
+                                 <graphic>
+                                    <ImageView fitHeight="49.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@assets/update.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                               </Button>
-                              <Button fx:id="suppBtn" mnemonicParsing="false" styleClass="add-button" stylesheets="@style/style.css" text="Poubellee" textFill="WHITE">
+                              <Button fx:id="suppBtn" layoutX="387.0" layoutY="482.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="53.0" styleClass="add-button1" stylesheets="@style/style.css" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
+                                 <graphic>
+                                    <ImageView fitHeight="37.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@assets/delete.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                               </Button>
+                              <Label fx:id="usernameLabel" layoutX="221.0" layoutY="120.0" styleClass="profile-label" text="Username :">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="name_userselectionne" layoutX="157.0" layoutY="223.0" styleClass="profile-label" text="********">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="usernameLabel1" layoutX="25.0" layoutY="403.0" styleClass="profile-label" text="Created at  :">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="usernameLabel11" layoutX="25.0" layoutY="448.0" styleClass="profile-label" text="Last update at :">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="usernameLabel2" layoutX="25.0" layoutY="223.0" styleClass="profile-label" text="Name :">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="usernameLabel21" layoutX="25.0" layoutY="268.0" styleClass="profile-label" text="Email :">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="usernameLabel211" layoutX="25.0" layoutY="313.0" styleClass="profile-label" text="Phone :">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="usernameLabel2111" layoutX="25.0" layoutY="358.0" styleClass="profile-label" text="Role :">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="createdat_userselectionne" layoutX="157.0" layoutY="403.0" styleClass="profile-label" text="********">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="updatedat_userselectionne" layoutX="157.0" layoutY="448.0" styleClass="profile-label" text="********">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="email_userselectionne" layoutX="157.0" layoutY="268.0" styleClass="profile-label" text="********">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="phone_userselectionne" layoutX="157.0" layoutY="313.0" styleClass="profile-label" text="********">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="role_userselectionne" layoutX="157.0" layoutY="358.0" styleClass="profile-label" text="********">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="username_userselectionne" layoutX="335.0" layoutY="120.0" styleClass="profile-label" text="********">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="usernameLabel3" layoutX="221.0" layoutY="48.0" prefHeight="18.0" prefWidth="66.0" styleClass="profile-label" text="ID User:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="usernameLabel4" layoutX="221.0" layoutY="84.0" styleClass="profile-label" text="ID Profile:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="idprofil_userselectionne" layoutX="335.0" layoutY="84.0" styleClass="profile-label" text="**">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="iduser_selectionne" layoutX="335.0" layoutY="48.0" styleClass="profile-label" text="**">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
                            </children>
-                        </HBox>
+                        </Pane>
                      </children>
                      <BorderPane.margin>
                         <Insets top="20.0" />
