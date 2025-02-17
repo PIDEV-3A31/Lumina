@@ -150,6 +150,7 @@ public class dashboardController {
         ServiceProfile serviceProfile = new ServiceProfile();
         ObservableList<profile> profiles = FXCollections.observableArrayList(serviceProfile.afficher());
         tableView.setItems(profiles);
+
     }
 
     private void showUserDetails(profile selectedProfile) {
@@ -326,5 +327,29 @@ public class dashboardController {
     private void logout() {
         Stage currentStage = (Stage) deconnexion.getScene().getWindow();
         loginn.logout(currentStage);
+    }
+
+    public void refreshTableView() {
+        ServiceProfile serviceProfile = new ServiceProfile();
+        ObservableList<profile> profiles = FXCollections.observableArrayList(serviceProfile.afficher());
+        tableView.setItems(profiles);
+        tableView.refresh();
+    }
+    private void loadImage(String imagePath, ImageView imageView) {
+        if (imagePath != null) {
+            try {
+                Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + imagePath)).toExternalForm());
+                imageView.setImage(img);
+            } catch (Exception e) {
+                System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
+            }
+        }
+    }
+
+    private void handleUserSelection(profile selectedProfile) {
+        if (selectedProfile != null) {
+            // ... code existant ...
+            loadImage(selectedProfile.getImage_u(), image_userselectionne);
+        }
     }
 }

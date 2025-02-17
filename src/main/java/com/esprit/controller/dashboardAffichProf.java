@@ -56,6 +56,7 @@ public class dashboardAffichProf {
         editPasswordButton.setOnAction(event -> navigateToEditPassword());
         retour.setOnAction(event -> navigateBack());
         deconnexion.setOnAction(event -> logout());
+
     }
 
     public void initData(user connectedUser, profile userProfile) {

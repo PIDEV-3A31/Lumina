@@ -78,7 +78,6 @@ public class dashboardModifProf {
         name_current_user.setOnMouseClicked(event -> editCurrentUserProfile());
 
         name_current_user.setStyle("-fx-cursor: hand;");
-
     }
 
     public void initData(user connectedUser, profile userProfile, profile selectedProfile) {
@@ -100,6 +99,7 @@ public class dashboardModifProf {
         modifrole.setValue(selectedProfile.getRole());
         Save.setText("Save Changes");
         identfLabel.setText("Modify Account Details");
+        updateUI();
 
         if (selectedProfile.getImage_u() != null) {
             Image img = new Image(getClass().getResource("/" + selectedProfile.getImage_u()).toExternalForm());
@@ -184,6 +184,16 @@ public class dashboardModifProf {
             }
         }
     }
+    private void loadImage(String imagePath, ImageView imageView) {
+        if (imagePath != null) {
+            try {
+                Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + imagePath)).toExternalForm());
+                imageView.setImage(img);
+            } catch (Exception e) {
+                System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
+            }
+        }
+    }
 
     private void ImageUpload() {
         FileChooser fileChooser = new FileChooser();
@@ -246,38 +256,50 @@ public class dashboardModifProf {
 
                 showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur ajouté avec succès!");
             } else {
-                user updatedUser = new user(selectedProfile.getId_user(),
-                    modifusername.getText(), modifpassword.getText());
+                // Mise à jour du user
                 ServiceUser serviceUser = new ServiceUser();
-                serviceUser.modifer(updatedUser, selectedProfile.getId_user());
-
-                profile updatedProfile = new profile(
-                    selectedProfile.getId_user(),
-                    selectedProfile.getId_profile(),
-                    modifname.getText(),
-                    modifemail.getText(),
-                    Integer.parseInt(modifphone.getText()),
-                    modifrole.getValue(),
-                    selectedImagePath != null ? selectedImagePath : selectedProfile.getImage_u()
-                );
-                ServiceProfile serviceProfile = new ServiceProfile();
-                serviceProfile.modifer(updatedProfile, selectedProfile.getId_profile());
-
                 if (isCurrentUser) {
-                    this.connectedUser = updatedUser;
-                    this.userProfile = updatedProfile;
+                    connectedUser.setUsername(modifusername.getText());
+                    serviceUser.modifer(connectedUser, connectedUser.getId());
+                } else {
+                    user selectedUser = serviceUser.getUserById(selectedProfile.getId_user());
+                    selectedUser.setUsername(modifusername.getText());
+                    serviceUser.modifer(selectedUser, selectedUser.getId());
                 }
+
+                // Mise à jour du profile
+                profile profileToUpdate = isCurrentUser ? userProfile : selectedProfile;
+                profileToUpdate.setName_u(modifname.getText());
+                profileToUpdate.setEmail_u(modifemail.getText());
+                profileToUpdate.setPhone_u(Integer.parseInt(modifphone.getText()));
+                
+                if (selectedImagePath != null) {
+                    profileToUpdate.setImage_u(selectedImagePath);
+                    // Mettre à jour immédiatement toutes les ImageView
+                    updateAllImages(selectedImagePath);
+                }
+
+                ServiceProfile serviceProfile = new ServiceProfile();
+                serviceProfile.modifer(profileToUpdate, profileToUpdate.getId_profile());
 
                 showAlert(Alert.AlertType.INFORMATION, "Succès", 
                     isCurrentUser ? "Votre profil a été mis à jour avec succès!" : "Modifications enregistrées avec succès!");
+                
+                navigateAfterAction();
             }
-            
-            // Utiliser la nouvelle méthode de navigation
-            navigateAfterAction();
-            
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", 
-                "Erreur lors de la " + (isAddMode ? "l'ajout" : "modification") + ": " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la mise à jour: " + e.getMessage());
+        }
+    }
+
+    private void updateAllImages(String imagePath) {
+        // Mettre à jour l'image dans la vue actuelle
+        loadImage(imagePath, img_current_user);
+        loadImage(imagePath, image);
+
+        // Mettre à jour l'image dans le tableau principal si nécessaire
+        if (!isCurrentUser && selectedProfile != null) {
+            selectedProfile.setImage_u(imagePath);
         }
     }
 
@@ -322,24 +344,28 @@ public class dashboardModifProf {
             FXMLLoader loader;
             if (isCurrentUser) {
                 loader = new FXMLLoader(getClass().getResource("/dashboardAffichProf.fxml"));
-                Parent root = loader.load();
-                dashboardAffichProf controller = loader.getController();
-                controller.initData(connectedUser, userProfile);
             } else {
                 loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
-                Parent root = loader.load();
-                dashboardController controller = loader.getController();
-                controller.initData(connectedUser, userProfile);
+            }
+
+            Parent root = loader.load(); // Charge le FXML avant de récupérer le contrôleur
+            Object controller = loader.getController(); // Récupérer le contrôleur après le load()
+
+            if (controller instanceof dashboardAffichProf) {
+                ((dashboardAffichProf) controller).initData(connectedUser, userProfile);
+            } else if (controller instanceof dashboardController) {
+                ((dashboardController) controller).initData(connectedUser, userProfile);
             }
 
             Stage stage = (Stage) Save.getScene().getWindow();
-            stage.setScene(new Scene(loader.load()));
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la navigation!");
         }
     }
+
 
     private void editCurrentUserProfile() {
         try {

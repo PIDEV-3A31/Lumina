@@ -70,10 +70,11 @@ public class loginn {
         System.out.println(userProfile);
 
         if (userProfile != null) {
-            if (userProfile.getRole().equals("Admin")) {
-                navigateToWithData("/dashboard.fxml", connectedUser, userProfile);
-            } else if (userProfile.getRole().equals("User")) {
-                navigateToWithData("/Accueil.fxml", connectedUser, userProfile);
+            String role = userProfile.getRole();
+            if (role.equals("Admin")) {
+                navigateToDashboard(connectedUser, userProfile);
+            } else {
+                navigateToUserHome(connectedUser, userProfile);
             }
         } else {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Profil non trouvé!");
@@ -87,9 +88,9 @@ public class loginn {
         alert.showAndWait();
     }
 
-    private void navigateToWithData(String fxmlPath, user connectedUser, profile userProfile) {
+    private void navigateToDashboard(user user, profile userProfile) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
             Parent root = loader.load();
 
             // Récupérer le contrôleur de la nouvelle vue
@@ -98,11 +99,11 @@ public class loginn {
             // Vérifier le type de contrôleur et définir les données
             if (controller instanceof dashboardController) {
                 dashboardController dashCtrl = (dashboardController) controller;
-                dashCtrl.initData(connectedUser, userProfile);
+                dashCtrl.initData(user, userProfile);
             } else {
                 // Pour le contrôleur Accueil (à créer si ce n'est pas déjà fait)
                 AccueilController accCtrl = (AccueilController) controller;
-                accCtrl.initData(connectedUser, userProfile);
+                accCtrl.initData(user, userProfile);
             }
 
             Stage stage = (Stage) btnSignIn.getScene().getWindow();
@@ -111,6 +112,23 @@ public class loginn {
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur de navigation!");
+        }
+    }
+
+    private void navigateToUserHome(user user, profile userProfile) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/interface_home.fxml"));
+            Parent root = loader.load();
+
+            frontHome controller = loader.getController();
+            controller.initData(user, userProfile);
+
+            Stage stage = (Stage) btnSignIn.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la navigation!");
         }
     }
 

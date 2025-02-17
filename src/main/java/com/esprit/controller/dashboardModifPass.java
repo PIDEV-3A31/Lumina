@@ -128,7 +128,7 @@ public class dashboardModifPass {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboardAffichProf.fxml"));
             Parent root = loader.load();
 
-            dashboardController controller = loader.getController();
+            dashboardAffichProf controller = loader.getController();
             controller.initData(connectedUser, userProfile);
 
             Stage stage = (Stage) retour.getScene().getWindow();

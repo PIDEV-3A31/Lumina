@@ -188,6 +188,18 @@
                            </children>
                         </Pane>
                      </children></Pane>
+                  <Button fx:id="retour" layoutX="10.0" layoutY="30.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="add-button1" stylesheets="@style/style.css">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                     <graphic>
+                        <ImageView fitHeight="43.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/retour.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                     </children>
                 </Pane>
             </center>
