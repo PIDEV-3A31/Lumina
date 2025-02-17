@@ -3,17 +3,22 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="680.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.documentsUser">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.documentsUser">
     <children>
         <BorderPane layoutX="2.0" prefHeight="680.0" prefWidth="1280.0">
             <top>
@@ -21,7 +26,7 @@
                     <children>
                         <ImageView fitHeight="25.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../assets/lumina.png" />
+                                <Image url="@/assets/lumina.png" />
                             </image>
                             <HBox.margin>
                                 <Insets left="10.0" top="20.0" />
@@ -64,7 +69,7 @@
                             <children>
                                 <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);;">
                                     <image>
-                                        <Image url="@/assets/Icon_notif.png" />
+                                        <Image url="@../css/style.css" />
                                     </image>
                                 </ImageView>
                             </children>
@@ -96,7 +101,7 @@
                     <children>
                         <Pane prefHeight="620.0" prefWidth="85.0" styleClass="split-pane" stylesheets="@../css/style.css">
                             <children>
-                                <ImageView fitHeight="52.0" fitWidth="53.0" layoutX="17.0" layoutY="258.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="return_home" fitHeight="52.0" fitWidth="53.0" layoutX="17.0" layoutY="258.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@/assets/home.png" />
                                     </image>
@@ -122,14 +127,55 @@
                 </HBox>
             </left>
             <center>
-                <Pane prefHeight="620.0" prefWidth="1198.0" styleClass="element-home" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
+                <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Pane layoutX="38.0" layoutY="37.0" prefHeight="544.0" prefWidth="1115.0" styleClass="element-ajout" stylesheets="@../css/style.css" />
+                        <Pane layoutX="678.0" layoutY="14.0" prefHeight="588.0" prefWidth="470.0" styleClass="element-ajout" stylesheets="@../css/style.css">
+                            <children>
+                                <HBox layoutX="30.0" layoutY="225.0" prefHeight="342.0" prefWidth="410.0" styleClass="transparent">
+                                    <children>
+                                        <ScrollPane fx:id="scroll" prefHeight="342.0" prefWidth="470.0" styleClass="transparent" stylesheets="@../css/style.css">
+                                            <content>
+                                                <GridPane fx:id="grid" prefHeight="1.0" prefWidth="0.0">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                    </rowConstraints>
+                                                </GridPane>
+                                            </content>
+                                        </ScrollPane>
+                                    </children>
+                                </HBox>
+                        <Pane layoutX="22.0" layoutY="14.0" prefHeight="214.0" prefWidth="442.0" styleClass="element-stat" stylesheets="@../css/style.css">
+                           <children>
+                              <Label layoutX="45.0" layoutY="14.0" prefHeight="26.0" prefWidth="154.0" styleClass="AddDocument" stylesheets="@../css/style.css" text="Add Demande" />
+                              <Label layoutX="45.0" layoutY="54.0" prefWidth="130.0" styleClass="text-ajout" stylesheets="@../css/style.css" text="Type document" />
+                              <Label layoutX="45.0" layoutY="108.0" prefWidth="130.0" styleClass="text-ajout" stylesheets="@../css/style.css" text="Description" />
+                              <Button fx:id="file_chooser" layoutX="317.0" layoutY="359.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="31.0" styleClass="transparent" stylesheets="@../css/style.css" text="Button">
+                                 <graphic>
+                                    <Pane prefHeight="21.0" prefWidth="21.0" styleClass="transparent" stylesheets="@../css/style.css" />
+                                 </graphic>
+                              </Button>
+                              <TextField fx:id="description_label" layoutX="46.0" layoutY="129.0" prefHeight="69.0" prefWidth="276.0" />
+                              <ComboBox fx:id="type_document_label" layoutX="47.0" layoutY="81.0" prefHeight="27.0" prefWidth="274.0" styleClass="text-field" stylesheets="@../css/style.css" />
+                           </children>
+                        </Pane>
+                        <Button fx:id="button_add" layoutX="369.0" layoutY="168.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="73.0" styleClass="add-button" stylesheets="@../css/style.css" text="Add" />
+                            </children>
+                        </Pane>
+                        <Pane layoutX="70.0" layoutY="27.0" prefHeight="547.0" prefWidth="591.0" styleClass="element-stat" stylesheets="@../css/style.css">
+                            <children>
+                                <ImageView fx:id="mapImage" fitHeight="556.0" fitWidth="591.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@/assets/Group 1686553073.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
                     </children>
                 </Pane>
             </center>
-
-
         </BorderPane>
     </children>
 </AnchorPane>

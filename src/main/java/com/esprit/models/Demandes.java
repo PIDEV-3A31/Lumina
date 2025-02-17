@@ -5,7 +5,7 @@ import java.util.Date;
 public class Demandes {
     private int id_demande;
     private int id_utilisateur;
-    private int id_document;
+    private Integer id_document;
     private String type_document;
     private Date date_demande;
     private String statut_demande;
@@ -51,10 +51,13 @@ public class Demandes {
     }
 
     public int getId_document() {
-        return id_document;
+        if (id_document == null) {
+            return -1;  // Valeur par défaut si l'id_document est null
+        }
+        return id_document.intValue();
     }
 
-    public void setId_document(int id_document) {
+    public void setId_document(Integer id_document) {
         this.id_document = id_document;
     }
 
