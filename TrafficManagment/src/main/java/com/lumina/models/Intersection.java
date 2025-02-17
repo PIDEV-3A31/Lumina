@@ -28,7 +28,15 @@ public class Intersection {
     }
 
 
-    public Intersection( String name, float longitude, float latitude, float traffic_density, int createdById) {
+    public float getTraffic_density() {
+        return traffic_density;
+    }
+
+    public void setTraffic_density(float traffic_density) {
+        this.traffic_density = traffic_density;
+    }
+
+    public Intersection(String name, float longitude, float latitude, float traffic_density, int createdById) {
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -83,6 +91,7 @@ public class Intersection {
     public void setTrafficDensity(float traffic_density) {
         this.traffic_density = traffic_density;
     }
+
 
     @Override
     public String toString() {

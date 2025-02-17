@@ -9,5 +9,5 @@ public interface CrudTrafficLight <T>{
     void updateTrafficLightState(T trafficLight);
     List<T> getAllTrafficLight();
     T getTrafficLightById(int id);
-
+    List<TrafficLight> getTrafficLightsByIntersectionId(int id);
 }

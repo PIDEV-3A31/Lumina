@@ -116,4 +116,38 @@ public class ServiceTrafficLight implements CrudTrafficLight<TrafficLight> {
         }
         return trafficLight;  // Return the found traffic light, or null if not found
     }
+
+
+    @Override
+    public List<TrafficLight> getTrafficLightsByIntersectionId(int id) {
+        List<TrafficLight> trafficLights = new ArrayList<>();  // List to store all traffic lights for this intersection
+        String query = "SELECT * FROM trafficlight WHERE intersectionID = ?";  // Query to get traffic lights by intersectionID
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            // Set the 'id' parameter in the query
+            statement.setInt(1, id);
+
+            // Execute the query
+            try (ResultSet resultSet = statement.executeQuery()) {
+                // Loop through all results (in case there are multiple traffic lights)
+                while (resultSet.next()) {
+                    TrafficLight trafficLight = new TrafficLight();
+                    trafficLight.setId(resultSet.getInt("id"));
+                    trafficLight.setName(resultSet.getString("name"));
+                    trafficLight.setDomain(resultSet.getString("domain"));
+                    trafficLight.setState(resultSet.getInt("state"));
+                    trafficLight.setIdIntersection(resultSet.getInt("intersectionID"));
+                    trafficLight.setNumberOfCars(resultSet.getInt("numberofcars"));  // Retrieve the 'numberofcars' field
+
+                    // Add the created traffic light to the list
+                    trafficLights.add(trafficLight);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching traffic lights by Intersection ID: " + e);
+        }
+
+        return trafficLights;  // Return the list of traffic lights, or an empty list if none are found
+    }
+
 }

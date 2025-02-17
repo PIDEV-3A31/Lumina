@@ -40,6 +40,8 @@ public class ServiceIntersection implements CrudIntersection<Intersection> {
         return intersection;  // Return the found intersection, or null if not found
     }
 
+
+
     @Override
     public List<Intersection> getAllIntersection() {
         List<Intersection> intersections = new ArrayList<>();
