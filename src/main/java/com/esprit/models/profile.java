@@ -134,11 +134,12 @@ public class profile {
         return "profile{" +
                 "id_profile=" + id_profile +
                 ", id_user=" + id_user +
+                ", phone_u=" + phone_u +
                 ", name_u='" + name_u + '\'' +
                 ", email_u='" + email_u + '\'' +
-                ", phone_u='" + phone_u + '\'' +
                 ", role='" + role + '\'' +
+                ", image_u='" + image_u + '\'' +
+                ", updated_at=" + updated_at +
                 '}';
     }
-
 }

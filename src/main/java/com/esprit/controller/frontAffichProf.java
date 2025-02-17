@@ -52,6 +52,7 @@ public class frontAffichProf {
         editPasswordButton.setOnAction(event -> navigateToEditPassword());
         to_home.setOnMouseClicked(event -> navigateToHome());
         deconnexion.setOnMouseClicked(event -> logout());
+        profileImage.setOnMouseClicked(event -> navigateToProfile());
 
         // Style du curseur
         to_home.setStyle("-fx-cursor: hand;");
@@ -141,6 +142,21 @@ public class frontAffichProf {
             stage.setScene(new Scene(root));
             stage.show();
             updateUI();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void navigateToProfile() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FrontAffichProf.fxml"));
+            Parent root = loader.load();
+
+            frontAffichProf controller = loader.getController();
+            controller.initData(connectedUser, userProfile);
+
+            Stage stage = (Stage) name_current_user.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -99,12 +99,12 @@ public class dashboardModifProf {
         modifrole.setValue(selectedProfile.getRole());
         Save.setText("Save Changes");
         identfLabel.setText("Modify Account Details");
-        updateUI();
 
         if (selectedProfile.getImage_u() != null) {
             Image img = new Image(getClass().getResource("/" + selectedProfile.getImage_u()).toExternalForm());
             image.setImage(img);
         }
+        updateUI();
     }
 
     public void initDataForAdd(user connectedUser, profile userProfile) {
@@ -125,6 +125,7 @@ public class dashboardModifProf {
         // Changer le texte du bouton
         Save.setText("Add User");
         identfLabel.setText("Add New Account");
+        updateUI();
 
     }
 
@@ -163,6 +164,7 @@ public class dashboardModifProf {
         // Masquer aussi le label du mot de passe si vous en avez un
         passwordLabel.setVisible(false);
         passwordLabel.setManaged(false);
+        updateUI();
     }
     public void initData(user user, profile profile) {
         this.connectedUser = user;
@@ -193,6 +195,7 @@ public class dashboardModifProf {
                 System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
             }
         }
+        updateUI();
     }
 
     private void ImageUpload() {
@@ -273,14 +276,18 @@ public class dashboardModifProf {
                 profileToUpdate.setEmail_u(modifemail.getText());
                 profileToUpdate.setPhone_u(Integer.parseInt(modifphone.getText()));
                 
+                // Conserver l'image existante si aucune nouvelle image n'est sélectionnée
                 if (selectedImagePath != null) {
                     profileToUpdate.setImage_u(selectedImagePath);
-                    // Mettre à jour immédiatement toutes les ImageView
-                    updateAllImages(selectedImagePath);
                 }
 
                 ServiceProfile serviceProfile = new ServiceProfile();
                 serviceProfile.modifer(profileToUpdate, profileToUpdate.getId_profile());
+
+                // Mettre à jour le profil dans la mémoire
+                if (!isCurrentUser) {
+                    selectedProfile = serviceProfile.getOneById(profileToUpdate.getId_profile());
+                }
 
                 showAlert(Alert.AlertType.INFORMATION, "Succès", 
                     isCurrentUser ? "Votre profil a été mis à jour avec succès!" : "Modifications enregistrées avec succès!");
@@ -348,13 +355,15 @@ public class dashboardModifProf {
                 loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
             }
 
-            Parent root = loader.load(); // Charge le FXML avant de récupérer le contrôleur
-            Object controller = loader.getController(); // Récupérer le contrôleur après le load()
+            Parent root = loader.load();
+            Object controller = loader.getController();
 
             if (controller instanceof dashboardAffichProf) {
                 ((dashboardAffichProf) controller).initData(connectedUser, userProfile);
             } else if (controller instanceof dashboardController) {
-                ((dashboardController) controller).initData(connectedUser, userProfile);
+                dashboardController dashController = (dashboardController) controller;
+                dashController.initData(connectedUser, userProfile);
+                dashController.refreshTableView(); // Forcer le rafraîchissement
             }
 
             Stage stage = (Stage) Save.getScene().getWindow();

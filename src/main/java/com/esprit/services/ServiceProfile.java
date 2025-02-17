@@ -137,4 +137,31 @@ public class ServiceProfile implements CrudService<profile>{
         }
         return null;
     }
+
+    public profile getOneById(int profileId) {
+        String sql = "SELECT * FROM profile WHERE id_profile = ?";
+        
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, profileId);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                profile p = new profile(
+                    rs.getInt("id_user"),
+                    rs.getInt("id_profile"),
+                    rs.getString("name_u"),
+                    rs.getString("email_u"),
+                    rs.getInt("phone_u"),
+                    rs.getString("role"),
+                    rs.getString("image_u")
+                );
+                p.setCreated_at(rs.getTimestamp("created_at"));
+                p.setUpdated_at(rs.getTimestamp("updated_at"));
+                return p;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération du profil : " + e.getMessage());
+        }
+        return null;
+    }
 }

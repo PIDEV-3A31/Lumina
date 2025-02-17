@@ -84,6 +84,9 @@ public class dashboardAffichProf {
 
         loadImage(userProfile.getImage_u(), img_userconnecte);
         loadImage(userProfile.getImage_u(), profileImage);
+        System.out.println("test");
+        System.out.println("Chemin de l'image: " + userProfile.getImage_u());
+
     }
 
     private void loadImage(String imagePath, ImageView imageView) {

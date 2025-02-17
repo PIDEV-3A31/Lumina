@@ -85,6 +85,7 @@ public class dashboardController {
         columnUsername.setCellValueFactory(new PropertyValueFactory<>("name_u"));
         columnRole.setCellValueFactory(new PropertyValueFactory<>("role"));
 
+        // Configurer la colonne d'image une seule fois
         columnImage.setCellValueFactory(param -> {
             profile p = param.getValue();
             ImageView imageView = new ImageView();
@@ -102,7 +103,7 @@ public class dashboardController {
             
             return new SimpleObjectProperty<>(imageView);
         });
-
+        loadTableData();
         // Ajouter un listener pour la sélection dans la TableView
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -110,7 +111,7 @@ public class dashboardController {
             }
         });
 
-        loadTableData();
+
 
         suppBtn.setOnAction(event -> Delete());
 
@@ -129,6 +130,7 @@ public class dashboardController {
         this.connectedUser = user;
         this.userProfile = profile;
         updateUI();
+        loadTableData();
     }
 
     private void updateUI() {
@@ -149,8 +151,29 @@ public class dashboardController {
     private void loadTableData() {
         ServiceProfile serviceProfile = new ServiceProfile();
         ObservableList<profile> profiles = FXCollections.observableArrayList(serviceProfile.afficher());
-        tableView.setItems(profiles);
+        
+        // Reconfigurer la colonne d'image
+        columnImage.setCellValueFactory(param -> {
+            profile p = param.getValue();
+            ImageView imageView = new ImageView();
+            imageView.setFitHeight(40);
+            imageView.setFitWidth(40);
+            
+            if (p.getImage_u() != null) {
+                try {
+                    Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + p.getImage_u())).toExternalForm());
+                    imageView.setImage(img);
+                    System.out.println("Loading image for profile " + p.getId_profile() + ": " + p.getImage_u());
+                } catch (Exception e) {
+                    System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
+                }
+            }
+            
+            return new SimpleObjectProperty<>(imageView);
+        });
 
+        tableView.setItems(profiles);
+        tableView.refresh();
     }
 
     private void showUserDetails(profile selectedProfile) {
@@ -175,12 +198,7 @@ public class dashboardController {
             }
 
             if (selectedProfile.getImage_u() != null) {
-                try {
-                    Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + selectedProfile.getImage_u())).toExternalForm());
-                    image_userselectionne.setImage(img);
-                } catch (Exception e) {
-                    System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
-                }
+                loadImage(selectedProfile.getImage_u(), image_userselectionne);
             }
         }
     }
@@ -334,19 +352,28 @@ public class dashboardController {
         ObservableList<profile> profiles = FXCollections.observableArrayList(serviceProfile.afficher());
         tableView.setItems(profiles);
         tableView.refresh();
+        
+        // Forcer le rafraîchissement de chaque cellule
+        for (profile p : profiles) {
+            if (p.getImage_u() != null) {
+                System.out.println("Refreshing image for profile " + p.getId_profile() + ": " + p.getImage_u());
+            }
+        }
     }
+
     private void loadImage(String imagePath, ImageView imageView) {
         if (imagePath != null) {
             try {
                 Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + imagePath)).toExternalForm());
                 imageView.setImage(img);
+                System.out.println(img);
             } catch (Exception e) {
-                System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
+                System.out.println("Erreur lors du chargement de l'image: du loadimg " + e.getMessage());
             }
         }
     }
 
-    private void handleUserSelection(profile selectedProfile) {
+    private void UserSelection(profile selectedProfile) {
         if (selectedProfile != null) {
             // ... code existant ...
             loadImage(selectedProfile.getImage_u(), image_userselectionne);
