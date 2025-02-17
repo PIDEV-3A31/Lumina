@@ -44,12 +44,6 @@ public class Intersection {
         CreatedById = createdById;
     }
 
-    // Constructor
-    public Intersection(int longitude, int latitude, float traffic_density) {
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.traffic_density = traffic_density;
-    }
 
     public Intersection() {
 

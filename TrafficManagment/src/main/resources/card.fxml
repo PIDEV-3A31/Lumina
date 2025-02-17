@@ -8,14 +8,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Card">
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Card">
    <children>
       <ScrollPane hbarPolicy="NEVER" layoutX="82.0" layoutY="52.0" prefHeight="313.0" prefWidth="218.0" vbarPolicy="ALWAYS">
          <content>
@@ -150,4 +149,4 @@
          </children>
       </VBox>
    </children>
-</AnchorPane>
+</VBox>

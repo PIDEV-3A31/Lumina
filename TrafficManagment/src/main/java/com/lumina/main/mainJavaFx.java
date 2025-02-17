@@ -16,7 +16,7 @@ public class mainJavaFx extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load the FXML file and set it as the root of the scene
-        AnchorPane root = FXMLLoader.load(getClass().getResource("/interface_commune.fxml"));
+        AnchorPane root = FXMLLoader.load(getClass().getResource("/gestion_traffic.fxml"));
 
         // Set up the scene and stage
         Scene scene = new Scene(root);

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" maxHeight="350.0" maxWidth="450.0" minHeight="350.0" minWidth="450.0" prefHeight="350.0" prefWidth="450.0" spacing="45.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lumina.controller.CUD_intersection">
+   <children>
+      <HBox alignment="CENTER" layoutX="59.0" layoutY="48.0" prefHeight="45.0" prefWidth="314.0" spacing="20.0">
+         <children>
+            <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/plus.png" />
+               </image>
+            </ImageView>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Intersection" wrappingWidth="289.0">
+               <font>
+                  <Font name="Arial Black" size="25.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+      <HBox alignment="BASELINE_CENTER" layoutX="81.0" layoutY="126.0" prefHeight="86.0" prefWidth="289.0">
+         <children>
+            <VBox prefHeight="89.0" prefWidth="133.0" spacing="14.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Intersection Name:" wrappingWidth="132.78515625">
+                     <font>
+                        <Font name="Arial Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Intersection longitude:" wrappingWidth="132.78515625">
+                     <font>
+                        <Font name="Arial Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Intersection latitude:" wrappingWidth="132.78515625">
+                     <font>
+                        <Font name="Arial Bold" size="12.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox prefHeight="72.0" prefWidth="131.0" spacing="3.0">
+               <children>
+                  <TextField fx:id="intersection_name_add" promptText="Main St1..." />
+                  <TextField fx:id="intersection_long_add" promptText="0.0" />
+                  <TextField fx:id="intersection_lat_add" promptText="0.0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Hyperlink alignment="CENTER" contentDisplay="CENTER" layoutX="153.0" layoutY="212.0" onAction="#handleHyperlinkClick" prefHeight="23.0" prefWidth="131.0" text="Chose on maps" />
+      <HBox alignment="CENTER" layoutX="5.0" layoutY="256.0" prefHeight="45.0" prefWidth="441.0" spacing="50.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#AddIntersection" prefHeight="20.0" prefWidth="177.0" styleClass="Primary-btn" stylesheets="@style/style.css" text="Ajouter" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

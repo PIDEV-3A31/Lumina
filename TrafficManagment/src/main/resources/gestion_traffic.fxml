@@ -170,7 +170,7 @@
                               <Image url="@../../../../../../Downloads/google-maps.jpg" />
                            </image>
                         </ImageView>
-                        <VBox layoutX="7.0" layoutY="84.0" prefHeight="475.0" prefWidth="358.0">
+                        <VBox layoutX="646.0" layoutY="89.0" prefHeight="475.0" prefWidth="358.0">
                            <children>
                               <TableView fx:id="intersection_table" prefHeight="479.0" prefWidth="454.0" stylesheets="@style/style.css">
                                 <columns>
@@ -186,9 +186,9 @@
                         </VBox>
                         <HBox alignment="CENTER" layoutX="371.0" layoutY="25.0" prefHeight="38.0" prefWidth="683.0" spacing="75.0">
                            <children>
-                              <Button ellipsisString="Modify" mnemonicParsing="false" prefHeight="37.0" prefWidth="89.0" styleClass="Primary-btn" text="Ajouter" />
-                              <Button ellipsisString="Modify" mnemonicParsing="false" prefHeight="45.0" prefWidth="116.0" styleClass="button-modify" text="Modifier" />
-                              <Button ellipsisString="Modify" mnemonicParsing="false" prefHeight="45.0" prefWidth="106.0" styleClass="button-del" text="Delete" />
+                              <Button ellipsisString="ajouter" mnemonicParsing="false" prefHeight="37.0" prefWidth="89.0" styleClass="Primary-btn" text="Ajouter" onAction="#ShowAddIntersection" />
+                              <Button ellipsisString="Modify" mnemonicParsing="false" prefHeight="45.0" prefWidth="116.0" styleClass="button-modify" text="Modifier" onAction="#ShowModifyIntersection" />
+                              <Button ellipsisString="delete" mnemonicParsing="false" prefHeight="45.0" prefWidth="106.0" styleClass="button-del" text="Delete" onAction="#ShowDeleteIntersection" />
                            </children>
                         </HBox>
                      </children>
