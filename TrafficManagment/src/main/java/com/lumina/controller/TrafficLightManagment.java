@@ -1,0 +1,161 @@
+package com.lumina.controller;
+
+import com.lumina.models.TrafficLight;
+import com.lumina.services.ServiceTrafficLight;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+public class TrafficLightManagment {
+
+    // Correctly define TableColumns with proper types
+    @FXML
+    private TableColumn<TrafficLight, Integer> inter_id;
+    @FXML
+    private TableColumn<TrafficLight, String> id;
+    @FXML
+    private TableColumn<TrafficLight, Integer> state;
+    @FXML
+    private TableColumn<TrafficLight, Integer> nbr_car;
+    @FXML
+    private TableColumn<TrafficLight, Integer> waittime;
+
+    @FXML
+    private TableView<TrafficLight> traffic_table;
+
+    @FXML
+    public TextField traffic_id;
+    @FXML
+    public TextField traffic_name;
+    @FXML
+    public TextField traffic_intersection_id;
+    @FXML
+    public TextField traffics_state;
+    @FXML
+    public TextField traffics_waittime;
+
+    void showdata() {
+        ServiceTrafficLight STL = new ServiceTrafficLight();
+        ObservableList<TrafficLight> data = FXCollections.observableList(STL.getAllTrafficLight());
+
+        traffic_table.setItems(data);
+
+        // Make sure to correctly reference the columns for each field
+        inter_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        id.setCellValueFactory(new PropertyValueFactory<>("name"));
+        state.setCellValueFactory(new PropertyValueFactory<>("state"));
+        waittime.setCellValueFactory(new PropertyValueFactory<>("CurrentWaitTime"));
+    }
+
+    @FXML
+    public void addTrafficLight() {
+        try {
+            // Input validation
+            if (traffic_name.getText().isEmpty() ||
+                    traffic_intersection_id.getText().isEmpty() || traffics_state.getText().isEmpty() ||
+                    traffics_waittime.getText().isEmpty()) {
+
+                showAlert("Input Error", "Please fill in all fields", AlertType.ERROR);
+                return;
+            }
+
+            String name = traffic_name.getText();
+            int intersectionId = Integer.parseInt(traffic_intersection_id.getText());
+            int state = Integer.parseInt(traffics_state.getText());
+            int waitTime = Integer.parseInt(traffics_waittime.getText());
+
+            // Create a new traffic light and add it
+            TrafficLight newTrafficLight = new TrafficLight(name, state, waitTime, intersectionId);
+            ServiceTrafficLight service = new ServiceTrafficLight();
+            service.addTrafficLight(newTrafficLight);
+            showdata();
+            clearTextFields();
+
+            showAlert("Success", "Traffic Light added successfully!", AlertType.INFORMATION);
+
+        } catch (NumberFormatException e) {
+            showAlert("Input Error", "Please enter valid numeric values where appropriate.", AlertType.ERROR);
+        } catch (Exception e) {
+            showAlert("Error", "An unexpected error occurred while adding the traffic light.", AlertType.ERROR);
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    public void modifyTrafficLight() {
+        try {
+            // Input validation
+            if (traffic_id.getText().isEmpty() || traffic_name.getText().isEmpty() ||
+                    traffic_intersection_id.getText().isEmpty() || traffics_state.getText().isEmpty() ||
+                    traffics_waittime.getText().isEmpty()) {
+
+                showAlert("Input Error", "Please fill in all fields", AlertType.ERROR);
+                return;
+            }
+
+            int id = Integer.parseInt(traffic_id.getText());
+            String name = traffic_name.getText();
+            int intersectionId = Integer.parseInt(traffic_intersection_id.getText());
+            int state = Integer.parseInt(traffics_state.getText());
+            int waitTime = Integer.parseInt(traffics_waittime.getText());
+
+            // Create updated traffic light object
+            TrafficLight updatedTrafficLight = new TrafficLight(name, state, waitTime, intersectionId);
+            ServiceTrafficLight service = new ServiceTrafficLight();
+            service.updateTrafficLightState(updatedTrafficLight);
+
+            showdata();
+            clearTextFields();
+
+            showAlert("Success", "Traffic Light updated successfully!", AlertType.INFORMATION);
+
+        } catch (NumberFormatException e) {
+            showAlert("Input Error", "Please enter valid numeric values where appropriate.", AlertType.ERROR);
+        } catch (Exception e) {
+            showAlert("Error", "An unexpected error occurred while modifying the traffic light.", AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    public void deleteTrafficLight() {
+        try {
+            TrafficLight selectedTrafficLight = traffic_table.getSelectionModel().getSelectedItem();
+            if (selectedTrafficLight != null) {
+                ServiceTrafficLight service = new ServiceTrafficLight();
+                TrafficLight temp = new TrafficLight();
+                temp.setId(selectedTrafficLight.getId());
+                service.removeTrafficLight(temp);
+
+                showdata();
+                showAlert("Success", "Traffic Light deleted successfully!", AlertType.INFORMATION);
+            } else {
+                showAlert("Selection Error", "No traffic light selected for deletion.", AlertType.WARNING);
+            }
+        } catch (Exception e) {
+            showAlert("Error", "An unexpected error occurred while deleting the traffic light.", AlertType.ERROR);
+        }
+    }
+
+    private void clearTextFields() {
+        traffic_id.clear();
+        traffic_name.clear();
+        traffic_intersection_id.clear();
+        traffics_state.clear();
+        traffics_waittime.clear();
+    }
+
+    private void showAlert(String title, String message, AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+}

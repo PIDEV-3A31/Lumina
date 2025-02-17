@@ -163,7 +163,7 @@
          <center>
             <VBox prefHeight="620.0" prefWidth="870.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane prefHeight="624.0" prefWidth="1025.0" stylesheets="@style/style.css">
+                  <Pane prefHeight="620.0" prefWidth="1037.0" stylesheets="@style/style.css">
                      <children>
                         <VBox layoutX="646.0" layoutY="89.0" prefHeight="475.0" prefWidth="358.0">
                            <children>
@@ -179,11 +179,20 @@
                               </TableView>
                            </children>
                         </VBox>
-                        <HBox alignment="CENTER" layoutX="371.0" layoutY="25.0" prefHeight="38.0" prefWidth="683.0" spacing="75.0">
+                        <HBox alignment="CENTER" layoutX="351.0" layoutY="21.0" prefHeight="38.0" prefWidth="683.0" spacing="75.0">
                            <children>
                               <Button ellipsisString="ajouter" mnemonicParsing="false" onAction="#ShowAddIntersection" prefHeight="37.0" prefWidth="89.0" styleClass="Primary-btn" text="Ajouter" />
                               <Button ellipsisString="Modify" mnemonicParsing="false" onAction="#ShowModifyIntersection" prefHeight="45.0" prefWidth="116.0" styleClass="button-modify" text="Modifier" />
                               <Button ellipsisString="delete" mnemonicParsing="false" onAction="#ShowDeleteIntersection" prefHeight="45.0" prefWidth="106.0" styleClass="button-del" text="Delete" />
+                              <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="3.0" styleClass="more-button" stylesheets="@style/style.css" onAction="#TrafficLightCrud">
+                                 <graphic>
+                                    <ImageView fitHeight="41.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@assets/icons8-rechercher-plus-50.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
                         </HBox>
                      </children>

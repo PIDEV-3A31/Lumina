@@ -108,7 +108,9 @@
     -fx-text-fill: white; /* White text on hover */
     -fx-effect: dropshadow(gaussian, rgba(0, 118, 255, 0.23), 20, 0.2, 0, 6); /* Match the Primary-btn hover effect */
 }
-
+.more-button{
+    -fx-background-color: transparent;
+}
 
 .button-modify {
     -fx-background-color: transparent;

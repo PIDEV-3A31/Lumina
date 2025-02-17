@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -18,6 +19,8 @@ import java.io.IOException;
 
 public class DisplayIntersections {
 
+    public Label traffic_density;
+    public Label intersection_title;
     @FXML
     private TableView<Intersection> intersection_table;
 
@@ -51,15 +54,25 @@ public class DisplayIntersections {
 
         // Get data from the service (assuming it returns a list of Intersection objects)
         ObservableList<Intersection> intersectionList = FXCollections.observableList(SIC.getAllIntersection());
-        intersectionList.forEach(intersection -> System.out.println(intersection));
 
         intersection_table.setItems(intersectionList);
         intersection_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         intersection_name.setCellValueFactory(new PropertyValueFactory<>("name"));
         intersection_density.setCellValueFactory(new PropertyValueFactory<>("traffic_density"));
     }
+    public void ShowIntersectionsV2(){
+        ServiceIntersection SIC = new ServiceIntersection();
+        for ( Intersection intersection : SIC.getAllIntersection() ) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(DisplayIntersections.class.getResource("/cardItem.fxml"));
+            //AnchorPane anchorPane = loader.load();
 
-    public void ShowAddIntersection(javafx.event.ActionEvent actionEvent) {
+            //continute adding carditem
+        }
+
+    }
+
+    public void ShowAddIntersection() {
         try {
             // Load the child FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Add_ui.fxml"));
@@ -77,14 +90,14 @@ public class DisplayIntersections {
         ShowData();
     }
 
-    public void ShowDeleteIntersection(ActionEvent actionEvent) {
+    public void TrafficLightCrud(){
         try {
             // Load the child FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/delete_ui.fxml"));
-            VBox root = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trafficLightManagement.fxml"));
+            AnchorPane root = loader.load();
             Stage addIntersectionStage = new Stage();
             addIntersectionStage.initModality(Modality.APPLICATION_MODAL); // Make it modal (on top of the main window)
-            addIntersectionStage.setTitle("delete Intersection");
+            addIntersectionStage.setTitle("Traffic Light Management");
             addIntersectionStage.setScene(new Scene(root));
             addIntersectionStage.show();
 
@@ -94,7 +107,25 @@ public class DisplayIntersections {
         ShowData();
     }
 
-    public void ShowModifyIntersection(ActionEvent actionEvent) {
+
+    public void ShowDeleteIntersection() {
+        try {
+            // Load the child FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/delete_ui.fxml"));
+            VBox root = loader.load();
+            Stage addIntersectionStage = new Stage();
+            addIntersectionStage.initModality(Modality.APPLICATION_MODAL); // Make it modal (on top of the main window)
+            addIntersectionStage.setTitle("Traffic Light Management");
+            addIntersectionStage.setScene(new Scene(root));
+            addIntersectionStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ShowData();
+    }
+
+    public void ShowModifyIntersection() {
         try {
             // Load the child FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/modify_ui.fxml"));
