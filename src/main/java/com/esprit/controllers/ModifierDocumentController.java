@@ -35,7 +35,7 @@ public class ModifierDocumentController {
     private TextField titre_label;
 
     @FXML
-    private TextField type_document_label;
+    private ComboBox<String> type_document_label;
 
     @FXML
     private ImageView back;
@@ -43,6 +43,17 @@ public class ModifierDocumentController {
     @FXML
     private void initialize() {
         back.setOnMouseClicked(event -> handleBack());
+
+        type_document_label.getItems().addAll(
+                "Acte de naissance",
+                "Carte d'identité nationale",
+                "Permis de construire",
+                "Certificat de résidence",
+                "Extrait de mariage",
+                "Certificat de décès",
+                "Autorisation de commerce",
+                "Extrait du registre de commerce"
+        );
 
         // Associer les boutons à leurs actions
         button_add.setOnAction(event -> modifier());
@@ -57,7 +68,7 @@ public class ModifierDocumentController {
         // Pré-remplir les champs avec les données actuelles du document
         if (document != null) {
             titre_label.setText(document.getTitre());
-            type_document_label.setText(document.getType_document());
+            type_document_label.setValue(document.getType_document());
             description_label.setText(document.getDescription());
             fichier_label.setText(document.getChemin_fichier());
         }
@@ -66,7 +77,7 @@ public class ModifierDocumentController {
     // Handle save operation
     @FXML
     private void modifier() {
-        String type_document = type_document_label.getText();
+        String type_document = type_document_label.getValue();
         String titre = titre_label.getText();
         String description = description_label.getText();
         String chemin_fichier = fichier_label.getText();
@@ -74,6 +85,24 @@ public class ModifierDocumentController {
         // Vérifier si les champs sont remplis
         if (titre.isEmpty() || description.isEmpty() || chemin_fichier.isEmpty()) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs !");
+            return;
+        }
+
+        // Vérification du titre (minimum 3 caractères, lettres et chiffres uniquement)
+        if (!titre.matches("^[a-zA-Z0-9\\s]{3,50}$")) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le titre doit contenir entre 3 et 50 caractères (lettres et chiffres uniquement) !");
+            return;
+        }
+
+        // Vérification de la description (minimum 10 caractères, pas de caractères spéciaux interdits)
+        if (!description.matches("^[a-zA-Z0-9\\s.,'\"-]{10,500}$")) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "La description doit contenir entre 10 et 500 caractères !");
+            return;
+        }
+
+        // Vérification du fichier (doit être un chemin valide avec une extension correcte)
+        if (!chemin_fichier.matches("^.+\\.(pdf|docx|txt|jpg|png)$")) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le fichier doit être au format PDF, DOCX, TXT, JPG ou PNG !");
             return;
         }
 

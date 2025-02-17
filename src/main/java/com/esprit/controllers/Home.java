@@ -15,13 +15,15 @@ public class Home extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/afficherDocuments.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/adminUser.fxml"));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
+
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-
     }
+
 }

@@ -2,6 +2,7 @@ package com.esprit.controllers;
 
 import com.esprit.models.Demandes;
 import com.esprit.models.Documents;
+import com.esprit.services.ServiceDemande;
 import com.esprit.services.ServiceDocuments;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,18 +36,35 @@ public class AjouterDocumentsController {
     private TextField titre_label;
 
     @FXML
-    private TextField type_document_label;
+    private ComboBox<String> type_document_label;
 
     @FXML
     private ImageView back;
 
+    @FXML
+    private Button valider_button;
+
     private ServiceDocuments serviceDocument = new ServiceDocuments();
     private Demandes demande;
+    private Documents nouveauDocument;
 
     @FXML
     private void initialize() {
 
+        type_document_label.getItems().addAll(
+                "Acte de naissance",
+                "Carte d'identité nationale",
+                "Permis de construire",
+                "Certificat de résidence",
+                "Extrait de mariage",
+                "Certificat de décès",
+                "Autorisation de commerce",
+                "Extrait du registre de commerce"
+        );
+
         back.setOnMouseClicked(event -> handleBack());
+
+
 
         // Associer les boutons à leurs actions
         button_add.setOnAction(event -> ajouter());
@@ -87,7 +105,7 @@ public class AjouterDocumentsController {
 
     @FXML
     private void ajouter() {
-        String type_document = type_document_label.getText();
+        String type_document = type_document_label.getValue();
         String titre = titre_label.getText();
         String description = description_label.getText();
         String chemin_fichier = fichier_label.getText();
@@ -95,6 +113,24 @@ public class AjouterDocumentsController {
         // Vérifier si les champs sont remplis
         if (titre.isEmpty() || description.isEmpty() || chemin_fichier.isEmpty()) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs !");
+            return;
+        }
+
+        // Vérification du titre (minimum 3 caractères, lettres et chiffres uniquement)
+        if (!titre.matches("^[a-zA-Z0-9\\s]{3,50}$")) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le titre doit contenir entre 3 et 50 caractères (lettres et chiffres uniquement) !");
+            return;
+        }
+
+        // Vérification de la description (minimum 10 caractères, pas de caractères spéciaux interdits)
+        if (!description.matches("^[a-zA-Z0-9\\s.,'\"-]{10,500}$")) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "La description doit contenir entre 10 et 500 caractères !");
+            return;
+        }
+
+        // Vérification du fichier (doit être un chemin valide avec une extension correcte)
+        if (!chemin_fichier.matches("^.+\\.(pdf|docx|txt|jpg|png)$")) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le fichier doit être au format PDF, DOCX, TXT, JPG ou PNG !");
             return;
         }
 
@@ -129,11 +165,37 @@ public class AjouterDocumentsController {
         titre_label.clear();
         description_label.clear();
         fichier_label.clear();
-        type_document_label.clear();
+        type_document_label.setValue(null);
+
     }
 
     public void setDemande(Demandes demande) {
         this.demande = demande;
-        // Vous pouvez utiliser la demande ici pour afficher des informations ou effectuer des actions
     }
+
+    // Cette méthode peut être appelée après la création du document
+    public void setNouveauDocument(Documents document) {
+        this.nouveauDocument = document;
+    }
+
+    public Documents getNouveauDocument() {
+        return nouveauDocument;
+    }
+
+    // Cette méthode pourrait être utilisée pour créer le document
+    @FXML
+    private void handleSaveDocument() {
+        // Créer et enregistrer le document, en s'assurant que l'objet est bien créé
+        if (nouveauDocument == null) {
+            nouveauDocument = new Documents();
+            // Remplir les informations de `nouveauDocument` à partir de l'interface
+            // Exemple : nouveauDocument.setTitre(titreTextField.getText());
+            // Une fois créé, le document peut être enregistré avec la méthode ajouter()
+            serviceDocument.ajouter(nouveauDocument);
+            setNouveauDocument(nouveauDocument);  // Assurez-vous que `nouveauDocument` est bien défini
+        }
+    }
+
+
+
 }

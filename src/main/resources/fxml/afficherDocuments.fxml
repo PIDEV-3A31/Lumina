@@ -225,7 +225,8 @@
                                           <Image url="@../assets/ajouter-des-documents%20(1).png" />
                                        </image>
                                     </ImageView>
-                                    <Button fx:id="gererButton" layoutX="895.0" layoutY="333.0" mnemonicParsing="false" text="gérer" />
+                                    <Button fx:id="gererButton" layoutX="891.0" layoutY="333.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="61.0" styleClass="button-del" stylesheets="@../css/style.css" text="gérer" />
+                                    <Button fx:id="valider_button" layoutX="891.0" layoutY="385.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="61.0" styleClass="button-del" stylesheets="@../css/style.css" text="Valider" />
                                  </children>
                               </Pane>
                            </children>

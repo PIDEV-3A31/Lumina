@@ -39,6 +39,7 @@
     -fx-background-color: white;
     -fx-background-radius: 22;
 }
+
 .AddDocument{
     -fx-text-fill: #0CBEB8;
     -fx-font-family: "Outfit";
@@ -347,4 +348,25 @@
 .custom-button:pressed {
     -fx-background-color: #09998E;
 }
+
+.button-del {
+    -fx-background-color: transparent;
+    -fx-border-color: #09998E;
+    -fx-border-radius: 6px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #09998E;
+    -fx-font-size: 13px;
+    -fx-font-weight: 800;
+    -fx-padding: 6px;
+    -fx-pref-height: 30px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.07), 4, 0.2, 0, 2);
+    -fx-cursor: hand;
+    -fx-alignment: center;
+}
+.button-del:hover {
+    -fx-background-color: #09998E; /* Red background on hover */
+    -fx-text-fill: white; /* White text on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0, 118, 255, 0.23), 20, 0.2, 0, 6); /* Match the Primary-btn hover effect */
+}
+
 

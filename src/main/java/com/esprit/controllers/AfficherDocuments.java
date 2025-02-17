@@ -85,6 +85,9 @@ public class AfficherDocuments {
     @FXML
     private Button gererButton;
 
+    @FXML
+    private Button valider_button;
+
 
 
 
@@ -92,6 +95,9 @@ public class AfficherDocuments {
     private ServiceDocuments serviceDocument = new ServiceDocuments();
     private ServiceDemande serviceDemande = new ServiceDemande();
     private Demandes selectedDemande;  // Variable pour stocker la demande sélectionnée
+
+    private Demandes demande;
+
 
     @FXML
     public void initialize() {
@@ -112,6 +118,8 @@ public class AfficherDocuments {
 
         // Ajout du bouton Modifier
         modifier.setCellFactory(createEditButtonFactory());
+
+
 
         loadDataDocument();
 
@@ -144,6 +152,13 @@ public class AfficherDocuments {
         gererButton.setOnAction(event -> {
             if (selectedDemande != null) {
                 handleGerer(selectedDemande);
+            }
+        });
+
+        valider_button.setOnAction(event -> {
+            if (selectedDemande != null) {
+                handleValiderDemande(selectedDemande);
+                loadDataDemandes();
             }
         });
         loadDataDemandes();
@@ -308,43 +323,55 @@ public class AfficherDocuments {
         }
     }
 
-    // Fonction pour ajouter un document à la demande
     private void handleAjouterDocumentForDemande(Demandes demande) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/forumAjouterDocument.fxml"));
+            // Charger l'interface d'ajout d'ID document
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ajouterIdDocumentDemande.fxml"));
             Parent root = loader.load();
-            AjouterDocumentsController controller = loader.getController();
-            controller.setDemande(demande);  // Passer la demande au contrôleur
+
+            // Récupérer le contrôleur et lui passer la demande sélectionnée
+            ajouterIdDocument controller = loader.getController();
+            controller.setDemande(demande, serviceDemande);
+
+            // Création d'une nouvelle fenêtre modale
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            stage.setTitle("Ajouter ID Document à la Demande");
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+
+            // Afficher la fenêtre et attendre sa fermeture
             stage.showAndWait();
 
-            // Mettre à jour le statut de la demande après ajout
-            demande.setStatut_demande("en cours");
-            serviceDemande.modifier(demande);
+            // Recharger la liste des demandes après la modification
             loadDataDemandes();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+
+
     // Fonction pour modifier le document d'une demande
     private void handleModifyDocumentForDemande(Demandes demande) {
         Documents document = serviceDocument.getDocumentForDemande(demande.getId_demande());
         if (document != null) {
             try {
+                // Récupérer la fenêtre actuelle
+                Stage currentStage = (Stage) ajouter_documents.getScene().getWindow();
+
+                // Charger la nouvelle interface
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/forumModifierDocument.fxml"));
                 Parent root = loader.load();
+
+                // Obtenir le contrôleur et passer les données
                 ModifierDocumentController controller = loader.getController();
                 controller.setDocument(document, serviceDocument);
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
 
+                // Créer et appliquer la nouvelle scène
+                Scene newScene = new Scene(root);
+                currentStage.setScene(newScene);
 
-                //demande.setStatut_demande("validée");
+                // Mettre à jour les données après modification
                 serviceDemande.modifier(demande);
                 loadDataDemandes();
             } catch (IOException e) {
@@ -352,6 +379,32 @@ public class AfficherDocuments {
             }
         }
     }
+
+    @FXML
+    private void handleValiderDemande(Demandes demande) {
+        if (demande != null && "en cours".equals(demande.getStatut_demande())) {
+            // Changer le statut à "validée"
+            demande.setStatut_demande("validée");
+
+            // Mettre à jour la demande dans la base de données
+            serviceDemande.modifier(demande);
+
+            // Afficher une confirmation (facultatif)
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Validation");
+            alert.setHeaderText(null);
+            alert.setContentText("Le statut de la demande a été mis à jour en 'validée'.");
+            alert.showAndWait();
+        } else {
+            // Afficher un message si la demande n'est pas "en cours"
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Action non autorisée");
+            alert.setHeaderText(null);
+            alert.setContentText("Le statut de la demande ne peut pas être modifié.");
+            alert.showAndWait();
+        }
+    }
+
 
 
 }
