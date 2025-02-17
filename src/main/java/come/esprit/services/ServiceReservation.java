@@ -107,9 +107,11 @@ public class ServiceReservation implements CrudService<Reservation> {
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
                 Reservation reservation = new Reservation(
+
                         rs.getInt("id_parck"),
                         rs.getTimestamp("date_reservation"),
-                        rs.getString("matricule_voiture")
+                        rs.getString("matricule_voiture"),
+                        rs.getInt("id_reservation")
                 );
                 reservations.add(reservation);
             }

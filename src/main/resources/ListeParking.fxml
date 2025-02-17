@@ -168,7 +168,7 @@
                <children>
                   <Pane prefHeight="600.0" prefWidth="1200.0" stylesheets="@style/style.css">
                      <children>
-                        <TableView fx:id="tableparkings" layoutX="22.0" layoutY="147.0" prefHeight="303.0" prefWidth="919.0" stylesheets="@style/style.css">
+                        <TableView fx:id="tableparkings" layoutX="35.0" layoutY="55.0" prefHeight="216.0" prefWidth="919.0" stylesheets="@style/style.css">
                            <columns>
                               <TableColumn fx:id="col_id" prefWidth="41.5999755859375" text="id_parck" />
                               <TableColumn fx:id="col_name" prefWidth="111.19998168945312" text="name_parck" />
@@ -182,6 +182,24 @@
       
                                        </columns>
                         </TableView>
+                        <Label layoutX="37.0" layoutY="14.0" prefHeight="30.0" prefWidth="187.0" styleClass="AddDocument" stylesheets="@../../../../../Music/Lumina-gestion_documents_municipaux/src/main/resources/css/style.css" text="Liste Des Parkings" />
+                        <TableView fx:id="table_reservation" layoutX="37.0" layoutY="326.0" prefHeight="226.0" prefWidth="919.0" stylesheets="@style/style.css">
+                           <columns>
+                              <TableColumn fx:id="col_idres" prefWidth="62.39999771118164" text="id_res" />
+                              <TableColumn fx:id="col_iduser" prefWidth="48.0" text="id_user" />
+                              <TableColumn fx:id="col_icparking" prefWidth="106.39996337890625" text="id_parking" />
+                              <TableColumn fx:id="col_datereservation" prefWidth="277.5999298095703" text="date_reservation" />
+                              <TableColumn fx:id="col_matriculevoiture" prefWidth="182.39996337890625" text="matricule_voiture" />
+                              <TableColumn fx:id="Supprimer_res" prefWidth="100.79998779296875" text="Supprimer" />
+                              <TableColumn fx:id="Update_res" prefWidth="154.4000244140625" text="Update" />
+                           </columns>
+                        </TableView>
+                        <ImageView fx:id="ajouter_parking1" fitHeight="40.0" fitWidth="30.0" layoutX="913.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" x="-7.0">
+                           <image>
+                              <Image url="@Assets/ajouter_parking.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="37.0" layoutY="285.0" prefHeight="30.0" prefWidth="214.0" styleClass="AddDocument" stylesheets="@../../../../../Music/Lumina-gestion_documents_municipaux/src/main/resources/css/style.css" text="Liste des Réservations" />
                      </children>
                   </Pane>
                </children></VBox>

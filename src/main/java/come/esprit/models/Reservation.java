@@ -1,6 +1,5 @@
 package come.esprit.models;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Reservation {
@@ -8,6 +7,10 @@ public class Reservation {
     private int id_parck;
     private Timestamp date_reservation;
     private String matricule_voiture;
+
+    public Reservation() {
+
+    }
 
 
     public int getId_reservation() {
@@ -42,7 +45,12 @@ public class Reservation {
         this.matricule_voiture = matricule_voiture;
     }
 
-    public Reservation() {
+    public Reservation(int idParck, Timestamp dateReservation, String matriculeVoiture, int id_reservation) {
+        this.id_parck = idParck;
+        this.date_reservation = dateReservation;
+        this.matricule_voiture = matriculeVoiture;
+        this.id_reservation = id_reservation;
+
     }
 
     public Reservation(int id_parck, Timestamp date_reservation, String matricule_voiture) {

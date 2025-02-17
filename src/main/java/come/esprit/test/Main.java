@@ -4,7 +4,6 @@ import come.esprit.models.Reservation;
 import come.esprit.services.ServiceReservation;
 import come.esprit.models.Parking;
 import come.esprit.services.ServiceParking;
-import come.esprit.utils.DataBase;
 
 
 // TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -14,11 +13,11 @@ public class Main {
 
 
         ServiceParking serviceParking = new ServiceParking();
-        serviceParking.ajouter(new Parking("LC03", 160, "place_disponibles", "Bardo", "2DT/H",19));
+       //serviceParking.ajouter(new Parking("nour", 160, "place_disponibles", "Bardo", "2DT/H",19));
 
 
          Parking p = new Parking("radesss", 600 , "place_disponibles", "Ariana", "6DT/H",600);
-        p.setId_parck(6);  // Définir l'ID du parking à modifier
+        p.setId_parck(16);  // Définir l'ID du parking à modifier
        // serviceParking.modifier(p);  // Appeler la méthode pour modifier ce parking
 
 
@@ -37,17 +36,17 @@ public class Main {
         ServiceReservation ServiceReservation = new ServiceReservation();
 
 
-        Reservation reservation1 = new Reservation();
-        reservation1.setId_parck(5);  // Assure-toi qu'il y a un parking avec id 1
+       Reservation reservation1 = new Reservation();
+        reservation1.setId_parck(22);  // Assure-toi qu'il y a un parking avec id 1
         //  reservation1.setDate_reservation(java.sql.Date.valueOf("2025-02-12"));  // Exemple de date
-        reservation1.setMatricule_voiture("200 tn 7755");
+        reservation1.setMatricule_voiture("120 tn 9758");
 
-       //ServiceReservation.ajouter(reservation1);
+      ServiceReservation.ajouter(reservation1);
 
-        reservation1.setId_reservation(3);  // ID de la réservation à modifier
-        reservation1.setId_parck(15);  // ID du parking associé à la réservation
+       // reservation1.setId_reservation(3);  // ID de la réservation à modifier
+       // reservation1.setId_parck(15);  // ID du parking associé à la réservation
         //reservation1.setDate_reservation(new java.util.Date());  // Nouvelle date de réservation
-        reservation1.setMatricule_voiture("173 tn 1000");  // Matricule de la voiture de la réservation
+      // reservation1.setMatricule_voiture("173 tn 1000");  // Matricule de la voiture de la réservation
 
 // Appel de la méthode pour modifier la réservation
         // ServiceReservation.modifier(reservation1);
@@ -60,12 +59,12 @@ public class Main {
         //ServiceReservation.supprimer(idReservation);  // Supprimer la réservation dans la base de données
 
 
-       // List<Reservation> reservations = ServiceReservation.afficher();  // Afficher toutes les réservations
+       List<Reservation> reservations = ServiceReservation.afficher();  // Afficher toutes les réservations
 
-// Affichage de chaque réservation
-      //  for (Reservation reservation : reservations) {
-        //    System.out.println(reservation.toString());  // Afficher les détails de chaque réservation
-        //}
+ //Affichage de chaque réservation
+        for (Reservation reservation : reservations) {
+            System.out.println(reservation.toString());  // Afficher les détails de chaque réservation
+        }
 
 
     }

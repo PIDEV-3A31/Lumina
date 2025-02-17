@@ -3,7 +3,14 @@ package come.esprit.controllers;
 import come.esprit.models.Parking;
 import come.esprit.services.ServiceParking;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class ajoutparking {
 
@@ -14,7 +21,11 @@ public class ajoutparking {
     private TextField adresse_label;
 
     @FXML
+    private ImageView back;
+
+    @FXML
     private TextField capacity_label;
+
 
     @FXML
     private TextField place_reservees_label;
@@ -33,7 +44,31 @@ public class ajoutparking {
     @FXML
     private void initialize() {
         button_add_parking.setOnAction(event -> ajouter());
+
+        back.setOnMouseClicked(event -> handleBack());
     }
+
+
+   private void handleBack() {
+        try {
+            // Récupérer la fenêtre actuelle
+            Stage currentStage = (Stage) back.getScene().getWindow();
+
+            // Charger la première interface (ex: ListeParking.fxml)
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeParking.fxml"));
+            Parent root = loader.load();
+
+            // Remplacer la scène actuelle par la scène de la première interface
+            Scene previousScene = new Scene(root);
+            currentStage.setScene(previousScene);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     @FXML
     private void ajouter() {
@@ -48,6 +83,7 @@ public class ajoutparking {
         if (name_parck.isEmpty() || adresses.isEmpty() || status_parking.isEmpty() ||
                 capacityStr.isEmpty() || placesReserveesStr.isEmpty() || tarif.isEmpty()) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs !");
+
             return;
         }
 
@@ -59,6 +95,7 @@ public class ajoutparking {
         } catch (NumberFormatException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Capacité et places réservées doivent être des nombres valides !");
             return;
+
         }
 
         // Création du parking (id_parck est auto-incrémenté donc non inclus)
@@ -70,6 +107,15 @@ public class ajoutparking {
 
         // Vider les champs après ajout
         viderChamps();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeParking.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) button_add_parking.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void afficherAlerte(Alert.AlertType type, String titre, String message) {
