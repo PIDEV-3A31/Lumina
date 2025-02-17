@@ -144,11 +144,7 @@ public class CUD_intersection {
 
         // Check if the intersection ID is empty
         if (intersectionID.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Please provide an intersection ID.");
-            alert.show();
+            showAlert(Alert.AlertType.ERROR, "Error", "Please provide an intersection ID.");
             return;
         }
 
@@ -158,39 +154,51 @@ public class CUD_intersection {
             Intersection existingIntersection = serviceIntersection.getIntersectionById(id);
 
             if (existingIntersection != null) {
-                if(!(existingIntersection.getName().equals(intersection_name_add.getText()))) {
-                    existingIntersection.setName(intersection_name_add.getText());  // Modify name based on input
+                String newName = intersection_name_add.getText();
+                String longitudeText = intersection_long_add.getText();
+                String latitudeText = intersection_lat_add.getText();
+
+                boolean updated = false;  // To track if any modification is made
+
+                // Modify the name only if it is provided and different from the existing one
+                if (!newName.isEmpty() && (existingIntersection.getName() == null || !existingIntersection.getName().equals(newName))) {
+                    existingIntersection.setName(newName);
+                    updated = true;
                 }
-                if(!(existingIntersection.getName().equals(intersection_name_add.getText()))) {
-                    existingIntersection.setName(intersection_name_add.getText());  // Modify name based on input
-                }if(!(existingIntersection.getName().equals(intersection_name_add.getText()))) {
-                    existingIntersection.setName(intersection_name_add.getText());  // Modify name based on input
+
+                // Modify longitude only if it is provided
+                if (!longitudeText.isEmpty()) {
+                    existingIntersection.setLongitude(Float.parseFloat(longitudeText));
+                    updated = true;
                 }
 
-                existingIntersection.setLongitude(Float.parseFloat(intersection_long_add.getText()));  // Modify longitude
-                existingIntersection.setLatitude(Float.parseFloat(intersection_lat_add.getText()));  // Modify latitude
+                // Modify latitude only if it is provided
+                if (!latitudeText.isEmpty()) {
+                    existingIntersection.setLatitude(Float.parseFloat(latitudeText));
+                    updated = true;
+                }
 
-                serviceIntersection.updateIntersection(existingIntersection);
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Information");
-                alert.setHeaderText(null);
-                alert.setContentText("Intersection modified successfully.");
-                alert.show();
+                // If any modification was made, update the intersection
+                if (updated) {
+                    serviceIntersection.updateIntersection(existingIntersection);
+                    showAlert(Alert.AlertType.INFORMATION, "Information", "Intersection modified successfully.");
+                } else {
+                    showAlert(Alert.AlertType.INFORMATION, "Information", "No modifications were made.");
+                }
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Intersection not found.");
-                alert.show();
+                showAlert(Alert.AlertType.ERROR, "Error", "Intersection not found.");
             }
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Invalid input. Please enter valid numbers for ID, longitude, and latitude.");
-            alert.show();
+            showAlert(Alert.AlertType.ERROR, "Error", "Invalid input. Please enter valid numbers for ID, longitude, and latitude.");
         }
+    }
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.show();
+    }
     }
 
 
@@ -198,4 +206,3 @@ public class CUD_intersection {
 
 
 
-}

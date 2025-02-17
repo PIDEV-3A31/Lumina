@@ -165,11 +165,6 @@
                <children>
                   <Pane prefHeight="624.0" prefWidth="1025.0" stylesheets="@style/style.css">
                      <children>
-                        <ImageView fitHeight="533.0" fitWidth="978.0" layoutX="40.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../Downloads/google-maps.jpg" />
-                           </image>
-                        </ImageView>
                         <VBox layoutX="646.0" layoutY="89.0" prefHeight="475.0" prefWidth="358.0">
                            <children>
                               <TableView fx:id="intersection_table" prefHeight="479.0" prefWidth="454.0" stylesheets="@style/style.css">
@@ -186,9 +181,9 @@
                         </VBox>
                         <HBox alignment="CENTER" layoutX="371.0" layoutY="25.0" prefHeight="38.0" prefWidth="683.0" spacing="75.0">
                            <children>
-                              <Button ellipsisString="ajouter" mnemonicParsing="false" prefHeight="37.0" prefWidth="89.0" styleClass="Primary-btn" text="Ajouter" onAction="#ShowAddIntersection" />
-                              <Button ellipsisString="Modify" mnemonicParsing="false" prefHeight="45.0" prefWidth="116.0" styleClass="button-modify" text="Modifier" onAction="#ShowModifyIntersection" />
-                              <Button ellipsisString="delete" mnemonicParsing="false" prefHeight="45.0" prefWidth="106.0" styleClass="button-del" text="Delete" onAction="#ShowDeleteIntersection" />
+                              <Button ellipsisString="ajouter" mnemonicParsing="false" onAction="#ShowAddIntersection" prefHeight="37.0" prefWidth="89.0" styleClass="Primary-btn" text="Ajouter" />
+                              <Button ellipsisString="Modify" mnemonicParsing="false" onAction="#ShowModifyIntersection" prefHeight="45.0" prefWidth="116.0" styleClass="button-modify" text="Modifier" />
+                              <Button ellipsisString="delete" mnemonicParsing="false" onAction="#ShowDeleteIntersection" prefHeight="45.0" prefWidth="106.0" styleClass="button-del" text="Delete" />
                            </children>
                         </HBox>
                      </children>

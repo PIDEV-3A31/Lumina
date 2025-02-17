@@ -35,10 +35,18 @@ public class DisplayIntersections {
 
 
 
+
     // This method is automatically called when the FXML is loaded
     @FXML
     public void initialize() {
-        // Create service object to get intersections
+        String GoogleMapsEmbedding = "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15633.84701723704!2d10.169757788201208!3d36.850617327160805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2stn!4v1739792162611!5m2!1sen!2stn\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>";
+        ShowData();
+
+
+
+    }
+
+    public void ShowData(){
         ServiceIntersection SIC = new ServiceIntersection();
 
         // Get data from the service (assuming it returns a list of Intersection objects)
@@ -49,9 +57,6 @@ public class DisplayIntersections {
         intersection_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         intersection_name.setCellValueFactory(new PropertyValueFactory<>("name"));
         intersection_density.setCellValueFactory(new PropertyValueFactory<>("traffic_density"));
-
-
-
     }
 
     public void ShowAddIntersection(javafx.event.ActionEvent actionEvent) {
@@ -69,6 +74,7 @@ public class DisplayIntersections {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        ShowData();
     }
 
     public void ShowDeleteIntersection(ActionEvent actionEvent) {
@@ -76,16 +82,16 @@ public class DisplayIntersections {
             // Load the child FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/delete_ui.fxml"));
             VBox root = loader.load();
-
-            // Create a new Stage for the child window
             Stage addIntersectionStage = new Stage();
             addIntersectionStage.initModality(Modality.APPLICATION_MODAL); // Make it modal (on top of the main window)
             addIntersectionStage.setTitle("delete Intersection");
             addIntersectionStage.setScene(new Scene(root));
             addIntersectionStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        ShowData();
     }
 
     public void ShowModifyIntersection(ActionEvent actionEvent) {
@@ -100,8 +106,10 @@ public class DisplayIntersections {
             addIntersectionStage.setTitle("Modify Intersection");
             addIntersectionStage.setScene(new Scene(root));
             addIntersectionStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        ShowData();
     }
 }

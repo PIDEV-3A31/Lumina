@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project [
-        <!ELEMENT project (modelVersion|groupId|artifactId|version|properties|dependencies)*>
+        <!ELEMENT project (modelVersion|groupId|artifactId|version|properties|dependencies|build)*>
         <!ATTLIST project
                 xmlns CDATA #REQUIRED
                 xmlns:xsi CDATA #REQUIRED
@@ -15,6 +15,11 @@
         <!ELEMENT project.build.sourceEncoding (#PCDATA)>
         <!ELEMENT dependencies (dependency)*>
         <!ELEMENT dependency (groupId|artifactId|version)*>
+        <!ELEMENT build (plugins)*>
+        <!ELEMENT plugins (plugin)*>
+        <!ELEMENT plugin (groupId|artifactId|version|configuration)*>
+        <!ELEMENT configuration (mainClass)*>
+        <!ELEMENT mainClass (#PCDATA)>
         ]>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -52,6 +57,12 @@
             <artifactId>javafx-fxml</artifactId>
             <version>23-ea+20</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>23-ea+27</version>
+        </dependency>
+
     </dependencies>
 
     <build>
