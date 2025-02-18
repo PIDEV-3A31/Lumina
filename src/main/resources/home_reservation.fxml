@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="680.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="come.esprit.controllers.interface_home">
+<AnchorPane prefHeight="680.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="come.esprit.controllers.home_reservation">
     <children>
         <BorderPane layoutX="2.0" prefHeight="680.0" prefWidth="1280.0">
             <top>
@@ -127,42 +127,22 @@
             <center>
                 <Pane prefHeight="620.0" prefWidth="1198.0" styleClass="element-home" BorderPane.alignment="CENTER">
                     <children>
-                  <TableView fx:id="tableparkings1" layoutX="98.0" layoutY="45.0" prefHeight="216.0" prefWidth="698.0" stylesheets="@style/style.css">
+                        <Label layoutX="97.0" layoutY="46.0" prefHeight="30.0" prefWidth="221.0" styleClass="AddDocument" stylesheets="@../../../../../Music/Lumina-gestion_documents_municipaux/src/main/resources/css/style.css" text="Liste Des Reservations" />
+                  <TableView fx:id="table_reservation1" layoutX="130.0" layoutY="127.0" prefHeight="366.0" prefWidth="835.0" stylesheets="@style/style.css">
                      <columns>
-                        <TableColumn fx:id="col_id1" prefWidth="41.5999755859375" text="id_parck" />
-                        <TableColumn fx:id="col_name1" prefWidth="129.5999755859375" text="name_parck" />
-                        <TableColumn fx:id="col_capacity1" prefWidth="95.20001220703125" text="capacity" />
-                        <TableColumn fx:id="col_status1" prefWidth="143.20004272460938" text="status_parking" />
-                        <TableColumn fx:id="col_adresses1" prefWidth="111.20001220703125" text="adresses" />
-                        <TableColumn fx:id="col_tarif1" prefWidth="70.39996337890625" text="tarif" />
-                        <TableColumn fx:id="col_place1" prefWidth="108.00006103515625" text="place_reservees" />
+                        <TableColumn fx:id="col_idres" prefWidth="62.39999771118164" text="id_res1" />
+                        <TableColumn fx:id="col_iduser" prefWidth="91.20001220703125" text="id_user1" />
+                        <TableColumn fx:id="col_icparking" prefWidth="113.5999755859375" text="id_parking1" />
+                        <TableColumn fx:id="col_datereservation" prefWidth="316.00006103515625" text="date_reservation1" />
+                        <TableColumn fx:id="col_matriculevoiture" prefWidth="251.199951171875" text="matricule_voiture1" />
                      </columns>
                   </TableView>
-                  <Label layoutX="98.0" layoutY="14.0" prefHeight="30.0" prefWidth="187.0" styleClass="AddDocument" stylesheets="@../../../../../Music/Lumina-gestion_documents_municipaux/src/main/resources/css/style.css" text="Liste Des Parkings" />
-                  <Pane layoutX="248.0" layoutY="249.0" prefHeight="301.0" prefWidth="398.0">
-                     <children>
-                        <Label layoutX="39.0" layoutY="36.0" text="Ajouter reservation " textFill="#0cbeb8">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="idpark1" layoutX="39.0" layoutY="112.0" prefHeight="27.0" prefWidth="313.0" />
-                        <Label layoutX="39.0" layoutY="91.0" styleClass="text-ajout" stylesheets="@../../../../../Music/Lumina-gestion_transport/src/main/resources/style/style.css" text="Id Parking " />
-                        <TextField fx:id="matricule1" layoutX="39.0" layoutY="168.0" prefHeight="27.0" prefWidth="313.0" />
-                        <Label layoutX="39.0" layoutY="147.0" prefHeight="21.0" prefWidth="138.0" styleClass="text-ajout" stylesheets="@../../../../../Music/Lumina-gestion_transport/src/main/resources/style/style.css" text="matricule_voiture" />
-                        <Label layoutX="39.0" layoutY="307.0" />
-                        <Button fx:id="add1" layoutX="247.0" layoutY="235.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="114.0" styleClass="add-button" stylesheets="@../../../../../Music/Lumina-gestion_transport/src/main/resources/style/style.css" text="Add" textFill="#fffefe">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </Pane>
+
                     </children>
-               <stylesheets>
-                  <URL value="@style/style.css" />
-                  <URL value="@../../../../../Music/Lumina-gestion_transport/src/main/resources/style/style.css" />
-               </stylesheets>
+                    <stylesheets>
+                        <URL value="@style/style.css" />
+                        <URL value="@../../../../../Music/Lumina-gestion_transport/src/main/resources/style/style.css" />
+                    </stylesheets>
                 </Pane>
             </center>
 

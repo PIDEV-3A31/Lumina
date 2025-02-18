@@ -53,6 +53,13 @@ public class Reservation {
 
     }
 
+    public Reservation(int idParck, String matriculeVoiture) {
+        this.id_parck = idParck;
+        this.matricule_voiture = matriculeVoiture;
+        this.date_reservation = new Timestamp(System.currentTimeMillis());  // Date actuelle
+        //this.id_reservation = generateId(); // Implémente cette méthode pour générer l'ID
+    }
+
     public Reservation(int id_parck, Timestamp date_reservation, String matricule_voiture) {
         this.id_parck = id_parck;
         this.date_reservation = date_reservation;

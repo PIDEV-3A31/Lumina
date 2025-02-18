@@ -37,11 +37,11 @@ public class Main {
 
 
        Reservation reservation1 = new Reservation();
-        reservation1.setId_parck(22);  // Assure-toi qu'il y a un parking avec id 1
+        reservation1.setId_parck(26);  // Assure-toi qu'il y a un parking avec id 1
         //  reservation1.setDate_reservation(java.sql.Date.valueOf("2025-02-12"));  // Exemple de date
-        reservation1.setMatricule_voiture("120 tn 9758");
+        reservation1.setMatricule_voiture("111 tn 1920");
 
-      ServiceReservation.ajouter(reservation1);
+      //ServiceReservation.ajouter(reservation1);
 
        // reservation1.setId_reservation(3);  // ID de la réservation à modifier
        // reservation1.setId_parck(15);  // ID du parking associé à la réservation
