@@ -160,13 +160,11 @@ public class CUD_intersection {
 
                 boolean updated = false;  // To track if any modification is made
 
-                // Modify the name only if it is provided and different from the existing one
                 if (!newName.isEmpty() && (existingIntersection.getName() == null || !existingIntersection.getName().equals(newName))) {
                     existingIntersection.setName(newName);
                     updated = true;
                 }
 
-                // Modify longitude only if it is provided
                 if (!longitudeText.isEmpty()) {
                     existingIntersection.setLongitude(Float.parseFloat(longitudeText));
                     updated = true;
