@@ -94,7 +94,7 @@
                               <Image url="@../assets/user.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="48.0" layoutY="14.0" prefHeight="41.0" prefWidth="127.0" styleClass="username-box" stylesheets="@../css/style.css" text="Sarra Ounais" />
+                        <Label layoutX="48.0" layoutY="14.0" prefHeight="41.0" prefWidth="151.0" styleClass="username-box" stylesheets="@../css/style.css" text="Syrine Ounais" />
                      </children>
                   </Pane>
                </children>

@@ -87,6 +87,33 @@ public class ServiceDocuments implements CrudMunicipalites<Documents>{
         return documents;
     }
 
+    public List<Documents> recupererDocumentsSelonIdUser(int idUser) {
+        List<Documents> documents = new ArrayList<>();
+        String req = "SELECT * FROM documents WHERE id_document IN (SELECT id_document FROM demandes WHERE id_utilisateur = ?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(req)) {
+            statement.setInt(1, idUser);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                Documents document = new Documents();
+                document.setId_document(rs.getInt("id_document"));
+                document.setType_document(rs.getString("type_document"));
+                document.setTitre(rs.getString("titre"));
+                document.setDescription(rs.getString("description"));
+                document.setDate_creation(rs.getDate("date_creation"));
+                document.setDate_modification(rs.getDate("date_modification"));
+                document.setChemin_fichier(rs.getString("chemin_fichier"));
+                documents.add(document);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération des documents de l'utilisateur " + idUser + " : " + e.getMessage());
+        }
+        return documents;
+    }
+
+
+
     public Documents getDocumentForDemande(int id_demande) {
         Documents document = null;
         String req = "SELECT d.* FROM documents d " +
@@ -113,32 +140,6 @@ public class ServiceDocuments implements CrudMunicipalites<Documents>{
         }
 
         return document;  // Retourne le document trouvé ou null si aucun document n'est associé à la demande
-    }
-
-    public Documents getDocumentById(int id_document) {
-        Documents document = null;
-        String req = "SELECT * FROM documents WHERE id_document = ?";
-
-        try (PreparedStatement statement = connection.prepareStatement(req)) {
-            statement.setInt(1, id_document); // Remplace le ? par l'id du document
-            try (ResultSet rs = statement.executeQuery()) {
-                if (rs.next()) {
-                    // Création du document à partir des données récupérées
-                    document = new Documents();
-                    document.setId_document(rs.getInt("id_document"));
-                    document.setType_document(rs.getString("type_document"));
-                    document.setTitre(rs.getString("titre"));
-                    document.setDescription(rs.getString("description"));
-                    document.setDate_creation(rs.getDate("date_creation"));
-                    document.setDate_modification(rs.getDate("date_modification"));
-                    document.setChemin_fichier(rs.getString("chemin_fichier"));
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la récupération du document par ID : " + e.getMessage());
-        }
-
-        return document; // Retourne le document trouvé ou null si aucun document n'est trouvé
     }
 
 

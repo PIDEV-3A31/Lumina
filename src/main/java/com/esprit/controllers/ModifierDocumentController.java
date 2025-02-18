@@ -125,7 +125,7 @@ public class ModifierDocumentController {
     @FXML
     private void choisirFichier() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Documents", "*.pdf", "*.docx", "*.txt"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Documents", "*.pdf", "*.docx", "*.txt","*.jpg","*.png"));
         File file = fileChooser.showOpenDialog(new Stage());
 
         if (file != null) {

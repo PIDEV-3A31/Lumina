@@ -87,7 +87,7 @@
                                         <Image url="@/assets/db282033-a123-437f-beb2-4a0b1338a761-modified.png" />
                                     </image>
                                 </ImageView>
-                                <Label layoutX="48.0" layoutY="14.0" prefHeight="41.0" prefWidth="127.0" styleClass="username-box" stylesheets="@../css/style.css" text="Sarra Ounais" />
+                                <Label layoutX="48.0" layoutY="14.0" prefHeight="41.0" prefWidth="145.0" styleClass="username-box" stylesheets="@../css/style.css" text="Syrine Ounais" />
                             </children>
                         </Pane>
                     </children>
@@ -147,7 +147,7 @@
                                         </ScrollPane>
                                     </children>
                                 </HBox>
-                        <Pane layoutX="22.0" layoutY="14.0" prefHeight="214.0" prefWidth="442.0" styleClass="element-stat" stylesheets="@../css/style.css">
+                        <Pane layoutX="14.0" prefHeight="214.0" prefWidth="442.0" styleClass="element-stat" stylesheets="@../css/style.css">
                            <children>
                               <Label layoutX="45.0" layoutY="14.0" prefHeight="26.0" prefWidth="154.0" styleClass="AddDocument" stylesheets="@../css/style.css" text="Add Demande" />
                               <Label layoutX="45.0" layoutY="54.0" prefWidth="130.0" styleClass="text-ajout" stylesheets="@../css/style.css" text="Type document" />
@@ -164,9 +164,9 @@
                         <Button fx:id="button_add" layoutX="369.0" layoutY="168.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="73.0" styleClass="add-button" stylesheets="@../css/style.css" text="Add" />
                             </children>
                         </Pane>
-                        <Pane layoutX="70.0" layoutY="27.0" prefHeight="547.0" prefWidth="591.0" styleClass="element-stat" stylesheets="@../css/style.css">
+                        <Pane layoutX="70.0" layoutY="17.0" prefHeight="557.0" prefWidth="591.0" styleClass="element-stat" stylesheets="@../css/style.css">
                             <children>
-                                <ImageView fx:id="mapImage" fitHeight="556.0" fitWidth="591.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="fichier_img" fitHeight="556.0" fitWidth="591.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@/assets/Group 1686553073.png" />
                                     </image>
