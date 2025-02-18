@@ -178,10 +178,7 @@
                        <Pane fx:id="profilePane" prefHeight="546.0" prefWidth="873.0" styleClass="profile-pane">
 
                            <!-- Image de profil -->
-                           <ImageView fx:id="profileImage" fitHeight="160.0" fitWidth="170.0" layoutX="51.0" layoutY="80.0" styleClass="profile-image">
-                           <image>
-                              <Image url="@assets/user.png" />
-                           </image></ImageView>
+                           <ImageView fx:id="profileImage" fitHeight="160.0" fitWidth="170.0" layoutX="51.0" layoutY="80.0" styleClass="profile-image" />
 
                            <!-- Informations du profil -->
                            <Label fx:id="usernameLabel" layoutX="311.0" layoutY="83.0" styleClass="profile-label" text="Username :">

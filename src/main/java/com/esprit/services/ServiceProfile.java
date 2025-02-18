@@ -164,4 +164,22 @@ public class ServiceProfile implements CrudService<profile>{
         }
         return null;
     }
-}
+    public String getImagePathByUserId(int userId) {
+        String imagePath = null;
+        String query = "SELECT image_u FROM profile WHERE id_profile = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                imagePath = rs.getString("image_u");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return imagePath; // Retourne `null` si l'utilisateur n'a pas d'image
+    }
+
+    }

@@ -142,4 +142,5 @@ public class profile {
                 ", updated_at=" + updated_at +
                 '}';
     }
+
 }

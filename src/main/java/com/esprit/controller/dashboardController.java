@@ -200,6 +200,7 @@ public class dashboardController {
             if (selectedProfile.getImage_u() != null) {
                 loadImage(selectedProfile.getImage_u(), image_userselectionne);
             }
+            System.out.println(selectedProfile.getImage_u());
         }
     }
 

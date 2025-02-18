@@ -178,7 +178,7 @@
                <children>
                   <Pane prefHeight="565.0" prefWidth="885.0">
                      <children>
-                        <HBox layoutX="79.0" layoutY="38.0" prefHeight="485.0" prefWidth="641.0" styleClass="element-ajout" stylesheets="@../../../../../Desktop/javafx/Lumina-interface/src/main/resources/style/style.css">
+                        <HBox layoutX="79.0" layoutY="38.0" prefHeight="485.0" prefWidth="641.0" styleClass="element-ajout" stylesheets="@style/style.css">
                            <children>
                               <Pane prefHeight="486.0" prefWidth="653.0">
                                  <children>
@@ -204,7 +204,7 @@
                                           </FXCollections>
                                        </items>
                                     </ComboBox>
-                                    <Button fx:id="Save" layoutX="239.0" layoutY="412.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="114.0" styleClass="add-button" stylesheets="@../../../../../Desktop/javafx/Lumina-interface/src/main/resources/style/style.css" text="Add" textFill="#fffefe">
+                                    <Button fx:id="Save" layoutX="239.0" layoutY="412.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="114.0" styleClass="add-button" stylesheets="@style/style.css" text="Add" textFill="#fffefe">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -228,7 +228,7 @@
                                           <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </Pane>
-                                    <Button fx:id="uploadImg" layoutX="458.0" layoutY="273.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="61.0" styleClass="add-button" stylesheets="@../../../../../Desktop/javafx/Lumina-interface/src/main/resources/style/style.css" text="Image" textFill="#fffefe">
+                                    <Button fx:id="uploadImg" layoutX="458.0" layoutY="273.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="61.0" styleClass="add-button" stylesheets="@style/style.css" text="Image" textFill="#fffefe">
                                        <font>
                                           <Font size="14.0" />
                                        </font>

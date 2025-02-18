@@ -62,7 +62,7 @@ public class dashboardModifProf {
     private ImageView eye_icon;
     @FXML
     private ImageView img_current_user;
-    
+
     private String selectedImagePath = null;
     private boolean isPasswordVisible = false;
 
@@ -72,7 +72,7 @@ public class dashboardModifProf {
         uploadImg.setOnAction(event -> ImageUpload());
         retour.setOnAction(event -> navigateBack());
         deconnexion.setOnAction(event -> logout());
-        
+
         // Ajouter le gestionnaire pour l'affichage du mot de passe
         affich_mdp.setOnAction(event -> togglePasswordVisibility(modifpassword, affich_mdp, eye_icon, isPasswordVisible));
         name_current_user.setOnMouseClicked(event -> editCurrentUserProfile());
@@ -144,10 +144,10 @@ public class dashboardModifProf {
         modifemail.setText(userProfile.getEmail_u());
         modifphone.setText(String.valueOf(userProfile.getPhone_u()));
         modifrole.setValue(userProfile.getRole());
-        
+
         // Désactiver la modification du rôle pour l'utilisateur connecté
         modifrole.setDisable(true);
-        
+
         Save.setText("Save My Profile");
         identfLabel.setText("Edit My Profile");
 
@@ -200,30 +200,23 @@ public class dashboardModifProf {
 
     private void ImageUpload() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(
-            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
         );
-        
+
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
             try {
-                // Créer un nom unique pour l'image
-                String uniqueFileName = System.currentTimeMillis() + "_" + selectedFile.getName();
-                Path destinationPath = Paths.get("src/main/resources/uploads", uniqueFileName);
-                
-                // Créer le dossier uploads s'il n'existe pas
-                Files.createDirectories(destinationPath.getParent());
-                
                 // Copier l'image vers le dossier uploads
-                Files.copy(selectedFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
-                
-                // Sauvegarder le chemin relatif
-                selectedImagePath = "uploads/" + uniqueFileName;
-                
-                // Afficher l'image dans l'ImageView
-                Image img = new Image(selectedFile.toURI().toString());
+                Path sourcePath = selectedFile.toPath();
+                Path targetPath = Paths.get("src/main/resources/uploads/" + selectedFile.getName());
+                Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+
+                // Mettre à jour l'affichage et sauvegarder le chemin
+                selectedImagePath = "uploads/" + selectedFile.getName();
+                Image img = new Image(targetPath.toUri().toString());
                 image.setImage(img);
-                
             } catch (Exception e) {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors du chargement de l'image: " + e.getMessage());
             }
@@ -247,12 +240,12 @@ public class dashboardModifProf {
                 }
 
                 profile newProfile = new profile(
-                    userId,
-                    modifname.getText(),
-                    modifemail.getText(),
-                    Integer.parseInt(modifphone.getText()),
-                    modifrole.getValue(),
-                    selectedImagePath
+                        userId,
+                        modifname.getText(),
+                        modifemail.getText(),
+                        Integer.parseInt(modifphone.getText()),
+                        modifrole.getValue(),
+                        selectedImagePath
                 );
                 ServiceProfile serviceProfile = new ServiceProfile();
                 serviceProfile.ajouter(newProfile);
@@ -275,7 +268,7 @@ public class dashboardModifProf {
                 profileToUpdate.setName_u(modifname.getText());
                 profileToUpdate.setEmail_u(modifemail.getText());
                 profileToUpdate.setPhone_u(Integer.parseInt(modifphone.getText()));
-                
+
                 // Conserver l'image existante si aucune nouvelle image n'est sélectionnée
                 if (selectedImagePath != null) {
                     profileToUpdate.setImage_u(selectedImagePath);
@@ -289,9 +282,9 @@ public class dashboardModifProf {
                     selectedProfile = serviceProfile.getOneById(profileToUpdate.getId_profile());
                 }
 
-                showAlert(Alert.AlertType.INFORMATION, "Succès", 
-                    isCurrentUser ? "Votre profil a été mis à jour avec succès!" : "Modifications enregistrées avec succès!");
-                
+                showAlert(Alert.AlertType.INFORMATION, "Succès",
+                        isCurrentUser ? "Votre profil a été mis à jour avec succès!" : "Modifications enregistrées avec succès!");
+
                 navigateAfterAction();
             }
         } catch (Exception e) {
@@ -312,9 +305,9 @@ public class dashboardModifProf {
 
     private boolean validateInputs() {
         // Vérification des champs vides
-        if (modifusername.getText().isEmpty() || modifemail.getText().isEmpty() || 
-            modifpassword.getText().isEmpty() || modifname.getText().isEmpty() || 
-            modifphone.getText().isEmpty() || modifrole.getValue() == null) {
+        if (modifusername.getText().isEmpty() || modifemail.getText().isEmpty() ||
+                modifpassword.getText().isEmpty() || modifname.getText().isEmpty() ||
+                modifphone.getText().isEmpty() || modifrole.getValue() == null) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs!");
             return false;
         }

@@ -127,11 +127,7 @@
                         <Pane layoutX="14.0" layoutY="14.0" prefHeight="538.0" prefWidth="1053.0" styleClass="element-ajout" stylesheets="@style/style.css" />
                   <Pane fx:id="profilePane" layoutX="10.0" layoutY="10.0" prefHeight="546.0" prefWidth="873.0" styleClass="profile-pane">
                      <children>
-                        <ImageView fx:id="profileImage" fitHeight="160.0" fitWidth="170.0" layoutX="51.0" layoutY="80.0" styleClass="profile-image">
-                           <image>
-                              <Image url="@assets/user.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fx:id="profileImage" fitHeight="160.0" fitWidth="170.0" layoutX="51.0" layoutY="80.0" styleClass="profile-image" />
                         <Label fx:id="usernameLabel" layoutX="311.0" layoutY="83.0" styleClass="profile-label" text="Username :">
                            <font>
                               <Font size="18.0" />

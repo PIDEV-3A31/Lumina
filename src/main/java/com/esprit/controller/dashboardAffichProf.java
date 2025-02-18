@@ -2,6 +2,7 @@ package com.esprit.controller;
 
 import com.esprit.models.profile;
 import com.esprit.models.user;
+import com.esprit.services.ServiceProfile;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -92,13 +93,13 @@ public class dashboardAffichProf {
     private void loadImage(String imagePath, ImageView imageView) {
         if (imagePath != null) {
             try {
-                Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + imagePath)).toExternalForm());
-                imageView.setImage(img);
+                imageView.setImage(new Image("/" + imagePath));
             } catch (Exception e) {
                 System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
             }
         }
     }
+
 
     private void navigateToEditProfile() {
         try {
