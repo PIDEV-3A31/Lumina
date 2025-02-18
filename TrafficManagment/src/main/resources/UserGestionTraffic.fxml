@@ -179,6 +179,11 @@
                               </TableView>
                            </children>
                         </VBox>
+                        <ImageView fitHeight="464.0" fitWidth="593.0" layoutX="31.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/maps.PNG" />
+                           </image>
+                        </ImageView>
                      </children>
                   </Pane>
                </children>

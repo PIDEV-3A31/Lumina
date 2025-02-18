@@ -184,7 +184,7 @@
                               <Button ellipsisString="ajouter" mnemonicParsing="false" onAction="#ShowAddIntersection" prefHeight="37.0" prefWidth="89.0" styleClass="Primary-btn" text="Ajouter" />
                               <Button ellipsisString="Modify" mnemonicParsing="false" onAction="#ShowModifyIntersection" prefHeight="45.0" prefWidth="116.0" styleClass="button-modify" text="Modifier" />
                               <Button ellipsisString="delete" mnemonicParsing="false" onAction="#ShowDeleteIntersection" prefHeight="45.0" prefWidth="106.0" styleClass="button-del" text="Delete" />
-                              <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="3.0" styleClass="more-button" stylesheets="@style/style.css" onAction="#TrafficLightCrud">
+                              <Button mnemonicParsing="false" onAction="#TrafficLightCrud" prefHeight="43.0" prefWidth="3.0" styleClass="more-button" stylesheets="@style/style.css">
                                  <graphic>
                                     <ImageView fitHeight="41.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -195,6 +195,11 @@
                               </Button>
                            </children>
                         </HBox>
+                        <ImageView fitHeight="492.0" fitWidth="593.0" layoutX="31.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/maps.PNG" />
+                           </image>
+                        </ImageView>
                      </children>
                   </Pane>
                </children>

@@ -5,6 +5,7 @@ import com.lumina.services.ServiceTrafficLight;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -13,13 +14,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class TrafficLightManagment {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class TrafficLightManagment implements Initializable {
 
     // Correctly define TableColumns with proper types
     @FXML
     private TableColumn<TrafficLight, Integer> inter_id;
     @FXML
-    private TableColumn<TrafficLight, String> id;
+    private TableColumn<TrafficLight, String> name;
     @FXML
     private TableColumn<TrafficLight, Integer> state;
     @FXML
@@ -41,6 +45,11 @@ public class TrafficLightManagment {
     @FXML
     public TextField traffics_waittime;
 
+
+
+
+
+
     void showdata() {
         ServiceTrafficLight STL = new ServiceTrafficLight();
         ObservableList<TrafficLight> data = FXCollections.observableList(STL.getAllTrafficLight());
@@ -49,7 +58,7 @@ public class TrafficLightManagment {
 
         // Make sure to correctly reference the columns for each field
         inter_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        id.setCellValueFactory(new PropertyValueFactory<>("name"));
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
         state.setCellValueFactory(new PropertyValueFactory<>("state"));
         waittime.setCellValueFactory(new PropertyValueFactory<>("CurrentWaitTime"));
     }
@@ -91,28 +100,34 @@ public class TrafficLightManagment {
     @FXML
     public void modifyTrafficLight() {
         try {
-            // Input validation
-            if (traffic_id.getText().isEmpty() || traffic_name.getText().isEmpty() ||
-                    traffic_intersection_id.getText().isEmpty() || traffics_state.getText().isEmpty() ||
-                    traffics_waittime.getText().isEmpty()) {
+            TrafficLight selectedTrafficLight = traffic_table.getSelectionModel().getSelectedItem();
 
-                showAlert("Input Error", "Please fill in all fields", AlertType.ERROR);
+            // Ensure a traffic light is selected
+            if (selectedTrafficLight == null) {
+                showAlert("Selection Error", "Please select a traffic light to modify.", AlertType.ERROR);
                 return;
             }
 
-            int id = Integer.parseInt(traffic_id.getText());
-            String name = traffic_name.getText();
-            int intersectionId = Integer.parseInt(traffic_intersection_id.getText());
-            int state = Integer.parseInt(traffics_state.getText());
-            int waitTime = Integer.parseInt(traffics_waittime.getText());
+            // Get the current values of the selected traffic light
+            int currentId = selectedTrafficLight.getId();
+            int currentIntersectionId = selectedTrafficLight.getIdIntersection();
+            int currentState = selectedTrafficLight.getState();
+            int currentWaitTime = selectedTrafficLight.getWaitTime();
+            String currentName = selectedTrafficLight.getName();
+
+            // Use the input values only if they are not empty
+            String name = traffic_name.getText().isEmpty() ? currentName : traffic_name.getText();
+            int intersectionId = traffic_intersection_id.getText().isEmpty() ? currentIntersectionId : Integer.parseInt(traffic_intersection_id.getText());
+            int state = traffics_state.getText().isEmpty() ? currentState : Integer.parseInt(traffics_state.getText());
+            int waitTime = traffics_waittime.getText().isEmpty() ? currentWaitTime : Integer.parseInt(traffics_waittime.getText());
 
             // Create updated traffic light object
-            TrafficLight updatedTrafficLight = new TrafficLight(name, state, waitTime, intersectionId);
+            TrafficLight updatedTrafficLight = new TrafficLight(currentId, name, state, waitTime, intersectionId, currentIntersectionId, 0);
             ServiceTrafficLight service = new ServiceTrafficLight();
-            service.updateTrafficLightState(updatedTrafficLight);
+            service.updateTrafficLight(updatedTrafficLight);
 
-            showdata();
-            clearTextFields();
+            showdata();  // Refresh the displayed data
+            clearTextFields();  // Clear the input fields
 
             showAlert("Success", "Traffic Light updated successfully!", AlertType.INFORMATION);
 
@@ -122,6 +137,7 @@ public class TrafficLightManagment {
             showAlert("Error", "An unexpected error occurred while modifying the traffic light.", AlertType.ERROR);
         }
     }
+
 
     @FXML
     public void deleteTrafficLight() {
@@ -157,5 +173,10 @@ public class TrafficLightManagment {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        showdata();
     }
 }

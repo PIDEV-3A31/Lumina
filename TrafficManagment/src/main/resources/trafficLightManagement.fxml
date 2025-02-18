@@ -15,7 +15,7 @@
    <children>
       <TableView fx:id="traffic_table" layoutX="277.0" layoutY="49.0" prefHeight="285.0" prefWidth="486.0">
         <columns>
-          <TableColumn fx:id="id" prefWidth="40.0" text="ID" />
+          <TableColumn fx:id="name" prefWidth="40.0" text="ID" />
           <TableColumn fx:id="inter_id" prefWidth="165.0" text="interseciotn_id" />
             <TableColumn fx:id="state" prefWidth="58.0" text="state" />
             <TableColumn fx:id="nbr_car" prefWidth="130.0" text="number of cars" />

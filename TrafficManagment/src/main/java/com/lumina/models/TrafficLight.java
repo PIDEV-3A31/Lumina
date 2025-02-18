@@ -11,7 +11,15 @@ public class TrafficLight {
     private int numberOfCars;
     private int CurrentWaitTime;
 
+    public TrafficLight(int id, String name, int state, int waitTime, int intersectionId, int idIntersection, int numberOfCars) {
+        this.id = id;
+        this.name = name;
+        this.state = state;
+        this.waitTime = waitTime;
+        IdIntersection = intersectionId;
+        this.numberOfCars = numberOfCars;
 
+    }
 
 
     public int getCurrentWaitTime() {

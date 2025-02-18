@@ -4,6 +4,7 @@ import com.lumina.models.TrafficLight;
 import java.util.List;
 
 public interface CrudTrafficLight <T>{
+    void updateTrafficLight(T trafficLight);
     void addTrafficLight(TrafficLight trafficLight);
     void removeTrafficLight(T trafficLight);
     void updateTrafficLightState(T trafficLight);

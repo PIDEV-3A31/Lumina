@@ -15,6 +15,32 @@ public class ServiceTrafficLight implements CrudTrafficLight<TrafficLight> {
     }
 
     @Override
+    public void updateTrafficLight(TrafficLight trafficLight) {
+        String query = "UPDATE `trafficlight` SET `name` = ?, `domain` = ?, `state` = ?, `intersectionID` = ?, `numberofcars` = ? WHERE `id` = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            // Set the parameters for the query
+            statement.setString(1, trafficLight.getName());  // Update name
+            statement.setString(2, trafficLight.getDomain());  // Update domain
+            statement.setInt(3, trafficLight.getState());  // Update state
+            statement.setInt(4, trafficLight.getIdIntersection());  // Update intersectionID
+            statement.setInt(5, trafficLight.getNumberOfCars());  // Update numberofcars
+            statement.setInt(6, trafficLight.getId());  // Specify which traffic light to update (by its ID)
+
+            // Execute the update
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Traffic light updated successfully");
+            } else {
+                System.out.println("No traffic light found with the given ID");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error updating traffic light: " + e);
+        }
+    }
+
+
+    @Override
     public void addTrafficLight(TrafficLight trafficLight) {
         String query = "INSERT INTO `trafficlight`(`name`, `domain`, `state`, `intersectionID`, `numberofcars`) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
