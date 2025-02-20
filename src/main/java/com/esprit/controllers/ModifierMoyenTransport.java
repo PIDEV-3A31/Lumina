@@ -45,7 +45,7 @@ public class ModifierMoyenTransport {
             Stage currentStage = (Stage) return_consulterMoyen.getScene().getWindow();
 
             // Charger la nouvelle interface
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/consulter_LigneTransport.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/consulter_ligneTransport.fxml"));
             Parent root = loader.load();
 
             // Changer la scène actuelle

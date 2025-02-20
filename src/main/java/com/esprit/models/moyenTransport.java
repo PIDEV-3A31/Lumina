@@ -14,14 +14,14 @@ public class moyenTransport {
     }
 
 
-    public moyenTransport(int idMoyenTransport, int idLigne, String typeTransport, int capaciteMax, String immatriculation, String etat) {
+    public moyenTransport(int idMoyenTransport, int idLigne, String typeTransport, int capaciteMax, String immatriculation, String etat,int place_reservees) {
         this.idMoyenTransport = idMoyenTransport;
         this.idLigne = idLigne;
         this.typeTransport = typeTransport;
         this.capaciteMax = capaciteMax;
         this.immatriculation = immatriculation;
         this.etat = etat;
-        this.place_reservees = 0;
+        this.place_reservees = place_reservees;
     }
 
     public moyenTransport(int idLigne, String typeTransport, int capaciteMax, String immatriculation, String etat) {
@@ -82,6 +82,17 @@ public class moyenTransport {
         this.etat = etat;
     }
 
+    public int getIdMoyenTransport() {
+        return idMoyenTransport;
+    }
+
+    public void setIdMoyenTransport(int idMoyenTransport) {
+        this.idMoyenTransport = idMoyenTransport;
+    }
+
+    public int getPlaces_reservees(){
+        return place_reservees;
+    }
 
     @Override
     public String toString() {
@@ -92,6 +103,7 @@ public class moyenTransport {
                 ", capaciteMax=" + capaciteMax +
                 ", immatriculation='" + immatriculation + '\'' +
                 ", etat='" + etat + '\'' +
+                ", place_reservees='" + place_reservees + '\'' +
                 '}';
     }
 

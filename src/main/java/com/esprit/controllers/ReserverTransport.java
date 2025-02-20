@@ -50,7 +50,7 @@ public class ReserverTransport {
 
                 // Gérer la disposition (ex : 2 colonnes par ligne)
                 col++;
-                if (col == 2) {
+                if (col == 1) {
                     col = 0;
                     row++;
                 }
