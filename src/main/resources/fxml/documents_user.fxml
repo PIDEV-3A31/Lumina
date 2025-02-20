@@ -129,25 +129,9 @@
             <center>
                 <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Pane layoutX="678.0" layoutY="14.0" prefHeight="588.0" prefWidth="470.0" styleClass="element-ajout" stylesheets="@../css/style.css">
+                        <Pane layoutX="677.0" layoutY="14.0" prefHeight="227.0" prefWidth="515.0" styleClass="element-ajout" stylesheets="@../css/style.css">
                             <children>
-                                <HBox layoutX="30.0" layoutY="225.0" prefHeight="342.0" prefWidth="410.0" styleClass="transparent">
-                                    <children>
-                                        <ScrollPane fx:id="scroll" prefHeight="342.0" prefWidth="470.0" styleClass="transparent" stylesheets="@../css/style.css">
-                                            <content>
-                                                <GridPane fx:id="grid" prefHeight="1.0" prefWidth="0.0">
-                                                    <columnConstraints>
-                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                    </columnConstraints>
-                                                    <rowConstraints>
-                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                    </rowConstraints>
-                                                </GridPane>
-                                            </content>
-                                        </ScrollPane>
-                                    </children>
-                                </HBox>
-                        <Pane layoutX="14.0" prefHeight="214.0" prefWidth="442.0" styleClass="element-stat" stylesheets="@../css/style.css">
+                        <Pane layoutX="117.0" layoutY="2.0" prefHeight="214.0" prefWidth="381.0" styleClass="element-stat" stylesheets="@../css/style.css">
                            <children>
                               <Label layoutX="45.0" layoutY="14.0" prefHeight="26.0" prefWidth="154.0" styleClass="AddDocument" stylesheets="@../css/style.css" text="Add Demande" />
                               <Label layoutX="45.0" layoutY="54.0" prefWidth="130.0" styleClass="text-ajout" stylesheets="@../css/style.css" text="Type document" />
@@ -159,20 +143,52 @@
                               </Button>
                               <TextField fx:id="description_label" layoutX="46.0" layoutY="129.0" prefHeight="69.0" prefWidth="276.0" />
                               <ComboBox fx:id="type_document_label" layoutX="47.0" layoutY="81.0" prefHeight="27.0" prefWidth="274.0" styleClass="text-field" stylesheets="@../css/style.css" />
+                              <Button fx:id="button_add" layoutX="328.0" layoutY="160.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="40.0" styleClass="add-button" stylesheets="@../css/style.css" text="+" />
                            </children>
                         </Pane>
-                        <Button fx:id="button_add" layoutX="369.0" layoutY="168.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="73.0" styleClass="add-button" stylesheets="@../css/style.css" text="Add" />
                             </children>
                         </Pane>
-                        <Pane layoutX="70.0" layoutY="17.0" prefHeight="557.0" prefWidth="591.0" styleClass="element-stat" stylesheets="@../css/style.css">
+                        <Pane layoutX="387.0" layoutY="17.0" prefHeight="557.0" prefWidth="401.0" styleClass="element-stat" stylesheets="@../css/style.css">
                             <children>
-                                <ImageView fx:id="fichier_img" fitHeight="556.0" fitWidth="591.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="fichier_img" fitHeight="523.0" fitWidth="363.0" layoutX="18.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@/assets/Group 1686553073.png" />
                                     </image>
                                 </ImageView>
                             </children>
                         </Pane>
+                  <Pane layoutX="792.0" layoutY="258.0" prefHeight="316.0" prefWidth="388.0">
+                     <children>
+                        <ScrollPane fx:id="scroll" layoutX="4.0" layoutY="1.0" prefHeight="319.0" prefWidth="380.0" styleClass="transparent" stylesheets="@../css/style.css">
+                           <content>
+                              <GridPane fx:id="grid" prefHeight="1.0" prefWidth="0.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="578.0" prefWidth="380.0">
+                     <children>
+                        <ScrollPane fx:id="scroll1" layoutX="21.0" layoutY="1.0" prefHeight="565.0" prefWidth="355.0" styleClass="transparent" stylesheets="@../css/style.css">
+                           <content>
+                              <GridPane fx:id="grid1" prefHeight="1.0" prefWidth="0.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </Pane>
                     </children>
                 </Pane>
             </center>

@@ -89,7 +89,8 @@ public class ServiceDocuments implements CrudMunicipalites<Documents>{
 
     public List<Documents> recupererDocumentsSelonIdUser(int idUser) {
         List<Documents> documents = new ArrayList<>();
-        String req = "SELECT * FROM documents WHERE id_document IN (SELECT id_document FROM demandes WHERE id_utilisateur = ?)";
+        String req = "SELECT * FROM documents WHERE id_document IN " +
+                "(SELECT id_document FROM demandes WHERE id_utilisateur = ? AND status_demande = 'validée')";
 
         try (PreparedStatement statement = connection.prepareStatement(req)) {
             statement.setInt(1, idUser);

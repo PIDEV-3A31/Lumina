@@ -29,15 +29,21 @@ public class ItemDocument {
         titreDocumentLabel.setText(document.getTitre());
         descriptionLabel.setText(document.getDescription());
         typeLabel.setText(document.getType_document());
+
+        titreDocumentLabel.setPickOnBounds(true);
+        descriptionLabel.setPickOnBounds(true);
+        typeLabel.setPickOnBounds(true);
     }
 
     /**
      * Lorsque l'utilisateur clique sur un élément, affiche ses détails
      */
     @FXML
-    private void onClickListener(MouseEvent event) {
+    private void onClickListener() {
+        //System.out.println("Clic détecté sur : " + (document != null ? document.getTitre() : "Aucun document"));
         if (mainController != null) {
             mainController.afficherDetailsDocument(document);
         }
     }
+
 }

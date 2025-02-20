@@ -36,11 +36,19 @@ public class documentsUser implements Initializable {
     @FXML
     private ScrollPane scroll;
 
+
+    @FXML
+    private ScrollPane scroll1;
+
     @FXML
     private GridPane grid;
 
     @FXML
+    private GridPane grid1;
+
+    @FXML
     private ImageView fichier_img;
+
 
     private ServiceDemande serviceDemande = new ServiceDemande();  // Instance du service
 
@@ -61,11 +69,26 @@ public class documentsUser implements Initializable {
         // Action associée au bouton d'ajout
         button_add.setOnAction(event -> {
             try {
-                ajouterDemande();
+                ajouterDemande(); // Appel de la méthode d'ajout
+
+                // Afficher une alerte après l'ajout réussi
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Succès");
+                alert.setHeaderText(null);
+                alert.setContentText("Ajout effectué avec succès !");
+                alert.showAndWait(); // Affiche l'alerte et attend la confirmation de l'utilisateur
             } catch (Exception e) {
                 e.printStackTrace();
+
+                // En cas d'erreur, afficher une alerte d'erreur
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText("Ajout échoué");
+                alert.setContentText("Une erreur s'est produite lors de l'ajout !");
+                alert.showAndWait();
             }
         });
+
         ServiceDocuments serviceDocuments = new ServiceDocuments();
         List<Documents> documentsList = serviceDocuments.recupererDocumentsSelonIdUser(1);
         int column = 0;
@@ -78,7 +101,39 @@ public class documentsUser implements Initializable {
                 AnchorPane anchorPane = fxmlLoader.load();
 
                 ItemDocument itemController = fxmlLoader.getController();
-                itemController.setData(doc,this); // Passer les données au contrôleur de l'item
+                itemController.setData(doc,this);
+
+                if (column == 1) {
+                    column = 0;
+                    row++;
+                }
+
+                grid1.add(anchorPane, column++, row);
+                grid1.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid1.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid1.setMaxWidth(Region.USE_PREF_SIZE);
+                grid1.setMinHeight(Region.USE_COMPUTED_SIZE);
+                grid1.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                grid1.setMaxHeight(Region.USE_PREF_SIZE);
+
+                GridPane.setMargin(anchorPane, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ServiceDemande serviceDemande2 = new ServiceDemande();
+        List<Demandes> demandesList = serviceDemande2.getDemandesByUserId(1);
+
+
+        try {
+            for (Demandes doc : demandesList) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/fxml/itemDemande.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                itemDemande itemController = fxmlLoader.getController();
+                itemController.setDataDemande(doc,this);
 
                 if (column == 1) {
                     column = 0;
@@ -98,6 +153,8 @@ public class documentsUser implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 
     // Méthode pour récupérer les données et appeler le service d'ajout
@@ -166,22 +223,6 @@ public class documentsUser implements Initializable {
         }
     }
 
-
-
-
-    public void afficherImageDocument(Documents document) {
-        if (document != null && document.getChemin_fichier() != null) {
-            File file = new File(document.getChemin_fichier());
-            if (file.exists()) {
-                Image image = new Image(file.toURI().toString());
-                fichier_img.setImage(image);
-            } else {
-                System.out.println("Fichier image introuvable : " + document.getChemin_fichier());
-            }
-        } else {
-            System.out.println("Document ou chemin fichier invalide.");
-        }
-    }
 
 
 

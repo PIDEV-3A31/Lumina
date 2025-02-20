@@ -13,18 +13,55 @@ import org.apache.http.entity.mime.content.FileBody;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
+import com.onfido.ApiClient;
+import com.onfido.ApiException;
+import com.onfido.Configuration;
+import com.onfido.auth.ApiKeyAuth;
+import com.onfido.api.DefaultApi;
+import com.onfido.model.Document;
+
 
 import java.io.UnsupportedEncodingException;
 
 public class KYC {
     private static final String API_KEY = "api_sandbox.XYgAch5UAbc.zmjrSDL4rUcWmpHN8cR4tQT0vs2f7dCB";
-    private static final String API_URL = "https://api.onfido.com/v3.4/";
-    private static final String API_URL_DOCUMENT = "https://api.onfido.com/v3.4/documents";  // URL de l'API pour télécharger un document
-    private static final String API_URL_STATUS = "https://api.onfido.com/v3.4/checks/{check_id}";  // URL de l'API pour consulter l'état de la vérification
-    private static final String API_URL_CHECKS = "https://api.onfido.com/v3.4/checks";
+    private static final String API_URL = "https://api.onfido.com/v3.6/";
+    private static final String API_URL_DOCUMENT = "https://api.onfido.com/v3.6/documents";  // URL de l'API pour télécharger un document
+    private static final String API_URL_STATUS = "https://api.onfido.com/v3.6/checks/{check_id}";  // URL de l'API pour consulter l'état de la vérification
+    private static final String API_URL_CHECKS = "https://api.onfido.com/v3.6/checks";
+
+    public static String createApplicant(String firstName, String lastName) throws UnsupportedEncodingException {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost postRequest = new HttpPost(API_URL + "applicants");
+
+        // Set headers
+        postRequest.setHeader("Authorization", "Token token=" + API_KEY);
+        postRequest.setHeader("Content-Type", "application/json");
+
+        // Create JSON data
+        String jsonData = "{ \"first_name\": \"" + firstName + "\", \"last_name\": \"" + lastName + "\" }";
+        postRequest.setEntity(new StringEntity(jsonData));
+
+        try (CloseableHttpResponse response = httpClient.execute(postRequest)) {
+            HttpEntity entity = response.getEntity();
+            String responseString = EntityUtils.toString(entity);
+            System.out.println("Réponse de l'API: " + responseString);
+
+            // Parse the response
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonResponse = objectMapper.readTree(responseString);
+            return jsonResponse.get("id").asText(); // Return applicant ID
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
 
     // Méthode pour créer un applicant
-    public static String createApplicant() throws UnsupportedEncodingException {
+   /* public static String createApplicant() throws UnsupportedEncodingException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost postRequest = new HttpPost(API_URL + "applicants");
 
@@ -51,7 +88,11 @@ public class KYC {
             e.printStackTrace();
         }
         return null;  // Return null if something goes wrong
-    }
+    }*/
+
+
+
+/*
     public static void uploadDocumentAndCreateCheck(String applicantId, String filePath) {
         try {
             // Step 1: Upload a document for verification
@@ -76,14 +117,14 @@ public class KYC {
             e.printStackTrace();
         }
     }
-
-    public static String uploadDocument(String applicantId, String filePath) {
+*/
+   /* public static String uploadDocument(String applicantId, String filePath) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpPost postRequest = new HttpPost(API_URL_DOCUMENT);
             postRequest.setHeader("Authorization", "Token token=" + API_KEY);
             postRequest.setHeader("Content-Type", "multipart/form-data");
 
-            // Add the file to the request
+            // Ajout du fichier à la requête
             File file = new File(filePath);
             FileBody fileBody = new FileBody(file);
             HttpEntity entity = MultipartEntityBuilder.create()
@@ -91,6 +132,64 @@ public class KYC {
                     .addTextBody("applicant_id", applicantId)
                     .build();
             postRequest.setEntity(entity);
+
+            // 🔥 DEBUG : Afficher les détails de la requête avant de l'envoyer
+            System.out.println("✅ Envoi du document...");
+            System.out.println("URL : " + postRequest.getURI());
+
+            for (org.apache.http.Header header : postRequest.getAllHeaders()) {
+                System.out.println("Header : " + header.getName() + " = " + header.getValue());
+            }
+
+
+            System.out.println("Fichier : " + file.getName() + " - Taille : " + file.length() + " bytes");
+
+
+            try (CloseableHttpResponse response = httpClient.execute(postRequest)) {
+                HttpEntity responseEntity = response.getEntity();
+                String responseString = EntityUtils.toString(responseEntity);
+                System.out.println("Réponse de l'API (document upload) : " + responseString);
+
+                // Extraire document ID de la réponse
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode jsonResponse = objectMapper.readTree(responseString);
+                if (jsonResponse.has("id") && !jsonResponse.get("id").isNull()) {
+                    String documentId = jsonResponse.get("id").asText();
+                    System.out.println("✅ Document uploaded successfully. ID: " + documentId);
+                    return documentId;
+                } else {
+                    System.err.println("❌ Erreur : L'API n'a pas renvoyé d'ID pour le document.");
+                    System.err.println("Réponse complète : " + jsonResponse.toString());
+                }
+
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+*/
+
+    /*
+    public static String uploadDocument(String applicantId, String filePath) {
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            HttpPost postRequest = new HttpPost(API_URL_DOCUMENT);
+            postRequest.setHeader("Authorization", "Token token=" + API_KEY);
+            postRequest.setHeader("Content-Type", "multipart/form-data");
+
+            File file = new File(filePath);
+
+            // Add the file to the request
+            HttpEntity entity = MultipartEntityBuilder.create()
+                    .addBinaryBody("file", file) // Ajout du fichier
+                    .addTextBody("applicant_id", applicantId) // Ajout de l'ID de l'utilisateur
+                    .setContentType(org.apache.http.entity.ContentType.MULTIPART_FORM_DATA) // Assurer multipart
+                    .build();
+            postRequest.setEntity(entity);
+            System.out.println("Envoi du fichier : " + file.getAbsolutePath() + " - Taille : " + file.length() + " bytes");
+
 
             try (CloseableHttpResponse response = httpClient.execute(postRequest)) {
                 HttpEntity responseEntity = response.getEntity();
@@ -101,6 +200,7 @@ public class KYC {
                 ObjectMapper objectMapper = new ObjectMapper();
                 JsonNode jsonResponse = objectMapper.readTree(responseString);
                 String documentId = jsonResponse.get("id").asText();
+                System.out.println("Document ID: " + documentId);
                 return documentId;
 
             }
@@ -109,7 +209,7 @@ public class KYC {
         }
         return null;
     }
-
+*/
     public static String createCheck(String applicantId, String documentId) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpPost postRequest = new HttpPost(API_URL_CHECKS);

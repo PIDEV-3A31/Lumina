@@ -83,4 +83,31 @@ public class ServiceDemande implements CrudMunicipalites<Demandes> {
         }
         return demandes;
     }
+
+    public List<Demandes> getDemandesByUserId(int idUtilisateur) {
+        List<Demandes> demandes = new ArrayList<>();
+        String query = "SELECT * FROM Demandes WHERE id_utilisateur = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, idUtilisateur);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Demandes d = new Demandes();
+                    d.setId_demande(rs.getInt("id_demande"));
+                    d.setId_utilisateur(rs.getInt("id_utilisateur"));
+                    d.setId_document(rs.getInt("id_document"));
+                    d.setType_document(rs.getString("type_document"));
+                    d.setDate_demande(rs.getDate("date_demande"));
+                    d.setStatut_demande(rs.getString("status_demande"));
+                    d.setDescription(rs.getString("description"));
+                    demandes.add(d);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération des demandes de l'utilisateur : " + e.getMessage());
+        }
+
+        return demandes;
+    }
+
 }

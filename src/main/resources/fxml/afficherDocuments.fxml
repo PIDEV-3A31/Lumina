@@ -194,9 +194,8 @@
                               <Pane prefHeight="570.0" prefWidth="989.0">
                                  <children>
                                     <Label layoutX="41.0" layoutY="14.0" prefHeight="30.0" prefWidth="187.0" styleClass="AddDocument" stylesheets="@../css/style.css" text="liste des documents" />
-                                    <TableView fx:id="table_documents" layoutX="41.0" layoutY="54.0" prefHeight="215.0" prefWidth="839.0" stylesheets="@../css/style.css">
+                                    <TableView fx:id="table_documents" layoutX="41.0" layoutY="54.0" prefHeight="215.0" prefWidth="793.0" stylesheets="@../css/style.css">
                                        <columns>
-                                          <TableColumn fx:id="id_document_column" prefWidth="40.800048828125" text="ID" />
                                           <TableColumn fx:id="type_document_column" prefWidth="104.79999160766602" text="Type" />
                                           <TableColumn fx:id="titre_column" prefWidth="70.39999389648438" text="Titre" />
                                           <TableColumn fx:id="description_column" prefWidth="143.99993896484375" text="Description" />
@@ -208,16 +207,13 @@
                                        </columns>
                                     </TableView>
                                     <Label layoutX="41.0" layoutY="281.0" prefHeight="30.0" prefWidth="187.0" styleClass="AddDocument" stylesheets="@../css/style.css" text="liste des demandes" />
-                                    <TableView fx:id="table_demande" layoutX="41.0" layoutY="321.0" prefHeight="215.0" prefWidth="843.0" stylesheets="@../css/style.css">
+                                    <TableView fx:id="table_demande" layoutX="41.0" layoutY="321.0" prefHeight="215.0" prefWidth="798.0" stylesheets="@../css/style.css">
                                        <columns>
-                                          <TableColumn fx:id="id_demande" prefWidth="40.800048828125" text="ID" />
-                                          <TableColumn fx:id="id_utilisateur" prefWidth="88.0" text="id_utilisateur" />
-                                          <TableColumn fx:id="id_document" prefWidth="111.20002746582031" text="id_document" />
                                           <TableColumn fx:id="date_demande" prefWidth="120.79998779296875" text="date_demande" />
                                           <TableColumn fx:id="status_demande" prefWidth="102.4000244140625" text="status_demande" />
-                                          <TableColumn fx:id="description" prefWidth="195.20001220703125" text="description" />
-                                          <TableColumn fx:id="type_document" prefWidth="104.7999267578125" text="type_document" />
-                                          <TableColumn fx:id="supprimerDemande" prefWidth="77.60009765625" text="supprimer" />
+                                          <TableColumn fx:id="description" prefWidth="256.79998779296875" text="description" />
+                                          <TableColumn fx:id="type_document" prefWidth="200.79998779296875" text="type_document" />
+                                          <TableColumn fx:id="supprimerDemande" prefWidth="116.0001220703125" text="supprimer" />
                                        </columns>
                                     </TableView>
                                     <ImageView fx:id="ajouter_documents" fitHeight="40.0" fitWidth="30.0" layoutX="913.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" x="-7.0">
