@@ -166,16 +166,41 @@ public class ListeParking implements Initializable {
     }
 
     private void handleDeleteParking(Parking parking) {
-        System.out.println("Suppression du parking : " + parking.getName_parck());
-        serviceParking.supprimer(parking.getId_parck());
-        loadDataparking();
-        loadDataReservation();
-    }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText(null);
+        alert.setContentText("Voulez-vous vraiment supprimer ce parking ?");
 
+        ButtonType buttonYes = new ButtonType("Oui", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonNo = new ButtonType("Non", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+        alert.showAndWait().ifPresent(buttonType -> {
+            if (buttonType == buttonYes) {
+                serviceParking.supprimer(parking.getId_parck());
+                loadDataparking();
+                loadDataReservation();
+            }
+        });
+    }
     private void handleDeleteReservation(Reservation reservation) {
-        System.out.println("Suppression de la réservation ID : " + reservation.getId_reservation());
-        serviceReservation.supprimer(reservation.getId_reservation());
-        loadDataReservation();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText(null);
+        alert.setContentText("Voulez-vous vraiment supprimer cette réservation ?");
+
+        ButtonType buttonYes = new ButtonType("Oui", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonNo = new ButtonType("Non", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+        alert.showAndWait().ifPresent(buttonType -> {
+            if (buttonType == buttonYes) {
+                serviceReservation.supprimer(reservation.getId_reservation());
+                loadDataReservation();
+            }
+        });
     }
 
     private void handleAjouterParking() {

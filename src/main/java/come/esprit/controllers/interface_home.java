@@ -15,9 +15,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 
 public class interface_home implements Initializable {
 
@@ -44,6 +46,8 @@ public class interface_home implements Initializable {
 
     @FXML
     private TextField matricule1;
+    @FXML
+    private TextField search_0;
 
     @FXML
     private Button add1;
@@ -67,6 +71,14 @@ public class interface_home implements Initializable {
 
         // Ajouter un écouteur pour le bouton "Add"
         add1.setOnAction(event -> ajouterReservation());
+
+        // Ajouter un écouteur de sélection pour détecter le parking sélectionné
+        tableparkings1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                // Remplir le champ idpark1 avec l'ID du parking sélectionné
+                idpark1.setText(String.valueOf(newValue.getId_parck()));
+            }
+        });
     }
 
     private void ajouterReservation() {
@@ -134,5 +146,5 @@ public class interface_home implements Initializable {
         ObservableList<Parking> parkings = FXCollections.observableArrayList(serviceParking.afficher());
         tableparkings1.setItems(parkings);
     }
-
 }
+

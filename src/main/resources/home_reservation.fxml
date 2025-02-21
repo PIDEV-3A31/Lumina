@@ -127,16 +127,20 @@
             <center>
                 <Pane prefHeight="620.0" prefWidth="1198.0" styleClass="element-home" BorderPane.alignment="CENTER">
                     <children>
-                        <Label layoutX="97.0" layoutY="46.0" prefHeight="30.0" prefWidth="221.0" styleClass="AddDocument" stylesheets="@../../../../../Music/Lumina-gestion_documents_municipaux/src/main/resources/css/style.css" text="Liste Des Reservations" />
                   <TableView fx:id="table_reservation1" layoutX="130.0" layoutY="127.0" prefHeight="366.0" prefWidth="835.0" stylesheets="@style/style.css">
                      <columns>
-                        <TableColumn fx:id="col_idres" prefWidth="62.39999771118164" text="id_res1" />
-                        <TableColumn fx:id="col_iduser" prefWidth="91.20001220703125" text="id_user1" />
-                        <TableColumn fx:id="col_icparking" prefWidth="113.5999755859375" text="id_parking1" />
+                        <TableColumn fx:id="col_idres" prefWidth="107.99995422363281" text="N° reservation" />
+                        <TableColumn fx:id="col_iduser" prefWidth="55.20001220703125" text="id_user1" />
+                        <TableColumn fx:id="col_icparking" prefWidth="105.5999755859375" text="N° parking" />
                         <TableColumn fx:id="col_datereservation" prefWidth="316.00006103515625" text="date_reservation1" />
                         <TableColumn fx:id="col_matriculevoiture" prefWidth="251.199951171875" text="matricule_voiture1" />
                      </columns>
                   </TableView>
+                  <Label layoutX="156.0" layoutY="82.0" prefHeight="25.0" prefWidth="285.0" text="Liste Des Parkings" textFill="#0cbeb8">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
 
                     </children>
                     <stylesheets>
