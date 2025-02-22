@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -196,7 +197,7 @@
                                     <TextField fx:id="modifphone" layoutX="40.0" layoutY="237.0" prefHeight="27.0" prefWidth="313.0" />
                                     <Label layoutX="40.0" layoutY="220.0" text="Phone" />
                                     <Label fx:id="passwordLabel" layoutX="40.0" layoutY="272.0" text="Password" />
-                                    <ComboBox fx:id="modifrole" layoutX="40.0" layoutY="332.0" prefHeight="42.0" prefWidth="313.0" promptText="Role">
+                                    <ComboBox fx:id="modifrole" layoutX="40.0" layoutY="342.0" prefHeight="42.0" prefWidth="313.0" promptText="Role">
                                        <items>
                                           <FXCollections fx:factory="observableArrayList">
                                              <String fx:value="Admin" />
@@ -204,34 +205,68 @@
                                           </FXCollections>
                                        </items>
                                     </ComboBox>
+                                    <PasswordField fx:id="modifpassword" layoutX="40.0" layoutY="290.0" prefHeight="33.0" prefWidth="318.0" styleClass="field-login" stylesheets="style.css" />
+                                    <Button fx:id="affich_mdp" layoutX="320.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                                       <graphic>
+                                          <ImageView fx:id="eye_icon" fitHeight="24.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/eye-slash.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                     <Button fx:id="Save" layoutX="239.0" layoutY="412.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="114.0" styleClass="add-button" stylesheets="@style/style.css" text="Add" textFill="#fffefe">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Button>
-                                    <HBox layoutX="40.0" layoutY="291.0" prefHeight="31.0" prefWidth="310.0">
-                                       <children>
-                                          <PasswordField fx:id="modifpassword" prefHeight="33.0" prefWidth="346.0" styleClass="field-login" stylesheets="style.css" />
-                                          <Button fx:id="affich_mdp" mnemonicParsing="false" style="-fx-background-color: transparent;">
-                                             <graphic>
-                                                <ImageView fx:id="eye_icon" fitHeight="24.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@assets/eye-slash.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </Button>
-                                       </children>
-                                    </HBox>
                                     <Pane layoutX="388.0" layoutY="110.0" style="-fx-border-color: #0CBEB8;">
                                        <children>
-                                          <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/user.png" />
+                                             </image></ImageView>
                                        </children>
                                     </Pane>
                                     <Button fx:id="uploadImg" layoutX="458.0" layoutY="273.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="61.0" styleClass="add-button" stylesheets="@style/style.css" text="Image" textFill="#fffefe">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
+                                    </Button>
+                                    <Label fx:id="Alert_username" layoutX="42.0" layoutY="108.0" prefHeight="12.0" prefWidth="220.0" textFill="RED">
+                                       <font>
+                                          <Font size="8.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="Alert_email" layoutX="42.0" layoutY="162.0" prefHeight="12.0" prefWidth="237.0" textFill="RED">
+                                       <font>
+                                          <Font size="8.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="Alert_name" layoutX="42.0" layoutY="214.0" prefHeight="12.0" prefWidth="248.0" textFill="RED">
+                                       <font>
+                                          <Font size="8.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="Alert_phone" layoutX="42.0" layoutY="266.0" prefHeight="12.0" prefWidth="255.0" textFill="RED">
+                                       <font>
+                                          <Font size="8.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="Alert_password" layoutX="42.0" layoutY="322.0" prefHeight="12.0" prefWidth="278.0" textFill="RED">
+                                       <font>
+                                          <Font size="8.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="Alert_role" layoutX="42.0" layoutY="384.0" prefHeight="12.0" prefWidth="333.0" textFill="RED">
+                                       <font>
+                                          <Font size="8.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="tt" layoutX="361.0" layoutY="293.0" mnemonicParsing="false" text="?">
+                                       <tooltip>
+                                          <Tooltip fx:id="ttt" text="The password must be between 3 and 20 characters long and contain at least one uppercase letter!" />
+                                       </tooltip>
                                     </Button>
                                  </children>
                               </Pane>

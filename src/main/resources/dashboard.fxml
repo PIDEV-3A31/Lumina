@@ -190,8 +190,7 @@
                         </HBox>
                         <TableView fx:id="tableView" prefHeight="634.0" prefWidth="531.0" stylesheets="@style.css">
                           <columns>
-                              <TableColumn fx:id="columnID_user" prefWidth="55.19998091459274" text="ID" />
-                            <TableColumn fx:id="columnImage" prefWidth="125.59997940063477" text="Image" />
+                            <TableColumn fx:id="columnImage" prefWidth="133.60004043579102" text="Image" />
                             <TableColumn fx:id="columnUsername" prefWidth="239.1999969482422" text="Username" />
                               <TableColumn fx:id="columnRole" prefWidth="104.7999267578125" text="Role" />
                           </columns>
@@ -236,7 +235,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Label fx:id="usernameLabel" layoutX="221.0" layoutY="120.0" styleClass="profile-label" text="Username :">
+                              <Label fx:id="usernameLabel" layoutX="217.0" layoutY="90.0" styleClass="profile-label" text="Username :">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -301,29 +300,9 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="username_userselectionne" layoutX="335.0" layoutY="120.0" styleClass="profile-label" text="********">
+                              <Label fx:id="username_userselectionne" layoutX="335.0" layoutY="90.0" styleClass="profile-label" text="********">
                                  <font>
                                     <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="usernameLabel3" layoutX="221.0" layoutY="48.0" prefHeight="18.0" prefWidth="66.0" styleClass="profile-label" text="ID User:">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="usernameLabel4" layoutX="221.0" layoutY="84.0" styleClass="profile-label" text="ID Profile:">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="idprofil_userselectionne" layoutX="335.0" layoutY="84.0" styleClass="profile-label" text="**">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="iduser_selectionne" layoutX="335.0" layoutY="48.0" styleClass="profile-label" text="**">
-                                 <font>
-                                    <Font size="15.0" />
                                  </font>
                               </Label>
                            </children>

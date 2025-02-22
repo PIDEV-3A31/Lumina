@@ -71,8 +71,6 @@ public class frontAffichProf {
         username.setText(connectedUser.getUsername());
         email.setText(userProfile.getEmail_u());
         phone.setText(String.valueOf(userProfile.getPhone_u()));
-        role.setText(userProfile.getRole());
-        
         if (userProfile.getCreated_at() != null) {
             created_at.setText(userProfile.getCreated_at().toString());
         }

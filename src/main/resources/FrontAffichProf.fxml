@@ -79,7 +79,7 @@
                             <children>
                                 <ImageView fx:id="img_current_user" fitHeight="50.0" fitWidth="50.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@uploads/nourr.jpg" />
+                                        <Image url="@assets/user.png" />
                                     </image>
                                 </ImageView>
                                 <Label fx:id="name_current_user" layoutX="48.0" layoutY="14.0" prefHeight="41.0" prefWidth="127.0" styleClass="username-box" stylesheets="@style/style.css" text="Nour Allegui" />
@@ -127,7 +127,10 @@
                         <Pane layoutX="14.0" layoutY="14.0" prefHeight="538.0" prefWidth="1053.0" styleClass="element-ajout" stylesheets="@style/style.css" />
                   <Pane fx:id="profilePane" layoutX="10.0" layoutY="10.0" prefHeight="546.0" prefWidth="873.0" styleClass="profile-pane">
                      <children>
-                        <ImageView fx:id="profileImage" fitHeight="160.0" fitWidth="170.0" layoutX="51.0" layoutY="80.0" styleClass="profile-image" />
+                        <ImageView fx:id="profileImage" fitHeight="160.0" fitWidth="170.0" layoutX="51.0" layoutY="80.0" styleClass="profile-image">
+                           <image>
+                              <Image url="@assets/user.png" />
+                           </image></ImageView>
                         <Label fx:id="usernameLabel" layoutX="311.0" layoutY="83.0" styleClass="profile-label" text="Username :">
                            <font>
                               <Font size="18.0" />
@@ -175,11 +178,6 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="usernameLabel2111" layoutX="311.0" layoutY="339.0" styleClass="profile-label" text="Role :">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
                         <Label fx:id="created_at" layoutX="498.0" layoutY="116.0" styleClass="profile-label" text="********">
                            <font>
                               <Font size="18.0" />
@@ -201,11 +199,6 @@
                            </font>
                         </Label>
                         <Label fx:id="phone" layoutX="390.0" layoutY="306.0" styleClass="profile-label" text="********">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="role" layoutX="390.0" layoutY="339.0" styleClass="profile-label" text="********">
                            <font>
                               <Font size="18.0" />
                            </font>

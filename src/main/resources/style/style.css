@@ -144,3 +144,9 @@
     -fx-background-color: blue;
 }
 
+.error-label {
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+    -fx-padding: 2 0 0 0;
+}
+

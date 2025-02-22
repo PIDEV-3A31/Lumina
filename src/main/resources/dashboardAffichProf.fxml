@@ -275,26 +275,6 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label fx:id="usernameLabel3" layoutX="51.0" layoutY="273.0" prefHeight="18.0" prefWidth="66.0" styleClass="profile-label" text="ID User:">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="usernameLabel4" layoutX="51.0" layoutY="306.0" styleClass="profile-label" text="ID Profile:">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="id_user" layoutX="136.0" layoutY="273.0" styleClass="profile-label" text="**">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="id_profile" layoutX="136.0" layoutY="306.0" styleClass="profile-label" text="**">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
 
                        </Pane>
                    </VBox>

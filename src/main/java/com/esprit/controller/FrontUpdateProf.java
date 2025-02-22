@@ -49,6 +49,14 @@ public class frontUpdateProf {
     private ImageView deconnexion;
     @FXML
     private ImageView to_home;
+    @FXML
+    private Label Alert_username;
+    @FXML
+    private Label Alert_email;
+    @FXML
+    private Label Alert_phone;
+    @FXML
+    private Label Alert_name;
 
     @FXML
     public void initialize() {
@@ -63,6 +71,7 @@ public class frontUpdateProf {
         to_home.setStyle("-fx-cursor: hand;");
         deconnexion.setStyle("-fx-cursor: hand;");
         name_current_user.setStyle("-fx-cursor: hand;");
+
     }
 
     public void initData(user connectedUser, profile userProfile) {
@@ -93,15 +102,65 @@ public class frontUpdateProf {
         }
     }
 
+    private boolean validateInputs() {
+        ServiceUser serviceUser = new ServiceUser();
+        ServiceProfile serviceProfile = new ServiceProfile();
+        Alert_username.setText("");
+        Alert_email.setText("");
+        Alert_phone.setText("");
+        Alert_name.setText("");
+        boolean isValid = true;
+
+
+        // Vérification de l'unicité du username
+        if (!serviceUser.isUsernameUnique(modifusername.getText(), connectedUser.getId()) || modifusername.getText().isEmpty()) {
+            if(modifusername.getText().isEmpty())
+                Alert_username.setText("Username is required!");
+            else
+                Alert_username.setText("Username already exists!");
+            isValid =  false;
+        }
+
+        // Vérification de l'unicité de l'email
+        if (!serviceProfile.isEmailUnique(modifemail.getText(), userProfile.getId_profile()) || modifemail.getText().isEmpty()) {
+            if(modifemail.getText().isEmpty())
+                Alert_email.setText("Email is required!");
+            else if(!modifemail.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$"))
+                Alert_email.setText("Email is not valid!");
+            else
+                Alert_email.setText("Email already exists!");
+            isValid = false;
+        }
+
+        if (modifusername.getText().length() > 20 || modifusername.getText().length() < 2) {
+            Alert_username.setText("Username must be between 2 and 20 characters!");
+            isValid = false;
+        }
+
+        if (!modifphone.getText().matches("^[5294]\\d{7}$") || modifphone.getText().isEmpty()) {
+            if(modifphone.getText().isEmpty())
+                Alert_phone.setText("Telephone is required!");
+            else
+                Alert_phone.setText("Phone number must start with 5, 2, 9, or 4 and have exactly 8 digits!");
+            isValid = false;
+        }
+
+        if (modifname.getText().length() > 25 || modifname.getText().length() < 2 || modifname.getText().isEmpty()) {
+            if(modifname.getText().isEmpty())
+                Alert_name.setText("Name is required!");
+            else
+                Alert_name.setText("Name must be between 2 and 25 characters!");
+            isValid = false;
+        }
+        // Autres validations existantes...
+        return isValid;
+    }
+
     private void Update() {
         try {
-            // Validation des champs
-            if (modifusername.getText().isEmpty() || modifemail.getText().isEmpty() || 
-                modifname.getText().isEmpty() || modifphone.getText().isEmpty()) {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires!");
+            if (!validateInputs()) {
                 return;
             }
-
             // Mise à jour du user
             connectedUser.setUsername(modifusername.getText());
             ServiceUser serviceUser = new ServiceUser();

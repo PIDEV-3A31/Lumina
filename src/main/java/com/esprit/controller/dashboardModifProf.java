@@ -21,10 +21,12 @@ import java.util.Objects;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import static java.sql.Types.NULL;
+
 public class dashboardModifProf {
     private user connectedUser;
     private profile userProfile;
-    private profile selectedProfile;
+    private profile selectedProfile = userProfile;
     private boolean isAddMode = false;
     private boolean isCurrentUser = false;
 
@@ -62,6 +64,22 @@ public class dashboardModifProf {
     private ImageView eye_icon;
     @FXML
     private ImageView img_current_user;
+    @FXML
+    private Label Alert_username;
+    @FXML
+    private Label Alert_email;
+    @FXML
+    private Label Alert_password;
+    @FXML
+    private Label Alert_name;
+    @FXML
+    private Label Alert_phone;
+    @FXML
+    private Label Alert_role;
+    @FXML
+    private Tooltip ttt;
+    @FXML
+    private Button tt;
 
     private String selectedImagePath = null;
     private boolean isPasswordVisible = false;
@@ -78,6 +96,11 @@ public class dashboardModifProf {
         name_current_user.setOnMouseClicked(event -> editCurrentUserProfile());
 
         name_current_user.setStyle("-fx-cursor: hand;");
+        tt.setStyle("-fx-font: normal bold 12px Langdon; "
+                + "-fx-base: #9E9B9A; "
+                + "-fx-text-fill: gris;");
+        ttt.setText("The password must be between 3 and 20 characters long and contain at least one uppercase letter.");
+        tt.setTooltip(ttt);
     }
 
     public void initData(user connectedUser, profile userProfile, profile selectedProfile) {
@@ -230,29 +253,33 @@ public class dashboardModifProf {
             }
 
             if (isAddMode) {
+                // Création d'un nouvel utilisateur
                 user newUser = new user(modifusername.getText(), modifpassword.getText());
                 ServiceUser serviceUser = new ServiceUser();
                 int userId = serviceUser.ajouterAvecId(newUser);
-
+                
                 if (userId == -1) {
                     showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la création de l'utilisateur!");
                     return;
                 }
 
+                // Création du profil associé
                 profile newProfile = new profile(
-                        userId,
-                        modifname.getText(),
-                        modifemail.getText(),
-                        Integer.parseInt(modifphone.getText()),
-                        modifrole.getValue(),
-                        selectedImagePath
+                    userId,
+                    modifname.getText(),
+                    modifemail.getText(),
+                    Integer.parseInt(modifphone.getText()),
+                    modifrole.getValue(),
+                    selectedImagePath
                 );
+                
                 ServiceProfile serviceProfile = new ServiceProfile();
                 serviceProfile.ajouter(newProfile);
 
-                showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur ajouté avec succès!");
+                showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur créé avec succès!");
+                
             } else {
-                // Mise à jour du user
+                // Mise à jour d'un utilisateur existant
                 ServiceUser serviceUser = new ServiceUser();
                 if (isCurrentUser) {
                     connectedUser.setUsername(modifusername.getText());
@@ -260,35 +287,33 @@ public class dashboardModifProf {
                 } else {
                     user selectedUser = serviceUser.getUserById(selectedProfile.getId_user());
                     selectedUser.setUsername(modifusername.getText());
+                    selectedUser.setPassword(modifpassword.getText());
                     serviceUser.modifer(selectedUser, selectedUser.getId());
                 }
 
-                // Mise à jour du profile
+                // Mise à jour du profil
                 profile profileToUpdate = isCurrentUser ? userProfile : selectedProfile;
                 profileToUpdate.setName_u(modifname.getText());
                 profileToUpdate.setEmail_u(modifemail.getText());
                 profileToUpdate.setPhone_u(Integer.parseInt(modifphone.getText()));
-
-                // Conserver l'image existante si aucune nouvelle image n'est sélectionnée
+                
                 if (selectedImagePath != null) {
                     profileToUpdate.setImage_u(selectedImagePath);
                 }
 
-                ServiceProfile serviceProfile = new ServiceProfile();
-                serviceProfile.modifer(profileToUpdate, profileToUpdate.getId_profile());
-
-                // Mettre à jour le profil dans la mémoire
                 if (!isCurrentUser) {
-                    selectedProfile = serviceProfile.getOneById(profileToUpdate.getId_profile());
+                    profileToUpdate.setRole(modifrole.getValue());
                 }
 
-                showAlert(Alert.AlertType.INFORMATION, "Succès",
-                        isCurrentUser ? "Votre profil a été mis à jour avec succès!" : "Modifications enregistrées avec succès!");
-
-                navigateAfterAction();
+                ServiceProfile serviceProfile = new ServiceProfile();
+                serviceProfile.modifer(profileToUpdate, profileToUpdate.getId_profile());
             }
+
+            navigateAfterAction();
+            
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la mise à jour: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -304,39 +329,102 @@ public class dashboardModifProf {
     }
 
     private boolean validateInputs() {
+        ServiceUser serviceUser = new ServiceUser();
+        ServiceProfile serviceProfile = new ServiceProfile();
+        boolean isValid = true;
+        
+        // Réinitialiser tous les messages d'erreur
+        Alert_username.setText("");
+        Alert_email.setText("");
+        Alert_password.setText("");
+        Alert_name.setText("");
+        Alert_phone.setText("");
+        Alert_role.setText("");
+
         // Vérification des champs vides
-        if (modifusername.getText().isEmpty() || modifemail.getText().isEmpty() ||
-                modifpassword.getText().isEmpty() || modifname.getText().isEmpty() ||
-                modifphone.getText().isEmpty() || modifrole.getValue() == null) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs!");
-            return false;
+        /*if (modifusername.getText().isEmpty()) {
+            Alert_username.setText("Username is required!");
+            isValid = false;
+        }*/
+
+        /*if (modifemail.getText().isEmpty()) {
+            Alert_email.setText("Email is required!");
+            isValid = false;
+        }*/
+
+        /*if ((!isCurrentUser || isAddMode) && modifpassword.getText().isEmpty()) {
+            Alert_password.setText("Password is required!");
+            isValid = false;
+        }*/
+
+        if (modifname.getText().isEmpty() || modifname.getText().length() < 2 || modifname.getText().length() > 25) {
+            if(modifname.getText().isEmpty())
+                Alert_name.setText("Name is required!");
+            else
+                Alert_name.setText("Name must be between 2 and 25 characters!");
+            isValid = false;
         }
 
-        // Vérification de la longueur du username
-        if (modifusername.getText().length() > 20) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Username must not exceed 20 characters!");
-            return false;
+        /*if (modifphone.getText().isEmpty()) {
+            Alert_phone.setText("Phone is required!");
+            isValid = false;
+        }*/
+
+        if (modifrole.getValue() == null) {
+            Alert_role.setText("Role is required!");
+            isValid = false;
         }
 
-        // Vérification de la longueur du nom
-        if (modifname.getText().length() > 25) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Name must not exceed 25 characters!");
-            return false;
+        // Vérification de l'unicité du username
+        Integer excludeUserId = null;
+        Integer excludeProfileId = null;
+        if (!isAddMode) {
+            excludeUserId = isCurrentUser ? connectedUser.getId() : selectedProfile.getId_user();
+            excludeProfileId = isCurrentUser ? userProfile.getId_profile() : selectedProfile.getId_profile();
+        }
+        
+        if (!serviceUser.isUsernameUnique(modifusername.getText(), excludeUserId) || modifusername.getText().isEmpty()) {
+            if(modifusername.getText().isEmpty())
+                Alert_username.setText("Username is required!");
+            else
+                Alert_username.setText("Username already exists!");
+            isValid = false;
         }
 
-        // Vérification du numéro de téléphone (8 chiffres)
-        if (!modifphone.getText().matches("\\d{8}")) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Phone number must be exactly 8 digits!");
-            return false;
+        // Vérification de l'unicité de l'email
+        if (!serviceProfile.isEmailUnique(modifemail.getText(), excludeProfileId)) {
+            Alert_email.setText("Email already exists!");
+            isValid = false;
+        }
+
+        // Validation du mot de passe
+        if ((!isCurrentUser || isAddMode) && !serviceUser.isValidPassword(modifpassword.getText()) || (!isCurrentUser || isAddMode) && modifpassword.getText().isEmpty()) {
+            if((!isCurrentUser || isAddMode) && modifpassword.getText().isEmpty())
+                Alert_password.setText("Password is required!");
+            else
+                Alert_password.setText("Password must be between 3-20 characters with at least one uppercase!");
+            isValid = false;
+        }
+
+        // Validation du numéro de téléphone
+        if (!modifphone.getText().matches("^[5294]\\d{7}$") || modifphone.getText().isEmpty()) {
+            if(modifphone.getText().isEmpty())
+                Alert_phone.setText("Phone is required!");
+            else
+                Alert_phone.setText("Phone must start with 5, 2, 9, or 4 and have 8 digits!");
+            isValid = false;
         }
 
         // Validation de l'email
-        if (!modifemail.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Please enter a valid email address!");
-            return false;
+        if (!modifemail.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$") || modifemail.getText().isEmpty()) {
+            if(modifemail.getText().isEmpty())
+                Alert_email.setText("Email is required!");
+            else
+                Alert_email.setText("Please enter a valid email address!");
+            isValid = false;
         }
 
-        return true;
+        return isValid;
     }
 
     private void navigateAfterAction() {

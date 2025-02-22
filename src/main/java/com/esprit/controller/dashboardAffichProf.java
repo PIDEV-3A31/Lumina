@@ -39,10 +39,6 @@ public class dashboardAffichProf {
     @FXML
     private Label updated_at;
     @FXML
-    private Label id_user;
-    @FXML
-    private Label id_profile;
-    @FXML
     private Button editProfileButton;
     @FXML
     private Button editPasswordButton;
@@ -73,9 +69,6 @@ public class dashboardAffichProf {
         email.setText(userProfile.getEmail_u());
         phone.setText(String.valueOf(userProfile.getPhone_u()));
         role.setText(userProfile.getRole());
-        id_user.setText(String.valueOf(userProfile.getId_user()));
-        id_profile.setText(String.valueOf(userProfile.getId_profile()));
-
         if (userProfile.getCreated_at() != null) {
             created_at.setText(userProfile.getCreated_at().toString());
         }

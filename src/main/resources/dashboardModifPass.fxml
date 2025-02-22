@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -219,7 +220,7 @@
                                     </Button>
                                     <Button fx:id="affich_mdp2" layoutX="428.0" layoutY="212.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
                                        <graphic>
-                                          <ImageView fx:id="eye_icon2" fitHeight="21.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="eye_icon3" fitHeight="21.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@assets/eye-slash.png" />
                                              </image>
@@ -228,12 +229,32 @@
                                     </Button>
                                     <Button fx:id="affich_mdp3" layoutX="428.0" layoutY="158.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
                                        <graphic>
-                                          <ImageView fx:id="eye_icon3" fitHeight="21.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="eye_icon2" fitHeight="21.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@assets/eye-slash.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
+                                    </Button>
+                                    <Label fx:id="Alert_oldpassword" layoutX="277.0" layoutY="132.0" textFill="RED">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="Alert_newpassword" layoutX="277.0" layoutY="187.0" textFill="RED">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="Alert_confirmnewpassword" layoutX="277.0" layoutY="241.0" textFill="RED">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="tt" layoutX="38.0" layoutY="160.0" mnemonicParsing="false" text="?">
+                                       <tooltip>
+                                          <Tooltip fx:id="ttt" text="The password must be between 3 and 20 characters long and contain at least one uppercase letter!" />
+                                       </tooltip>
                                     </Button>
                                             </children>
                                         </Pane>

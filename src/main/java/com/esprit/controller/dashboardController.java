@@ -36,8 +36,6 @@ public class dashboardController {
     @FXML
     private TableView<profile> tableView;
     @FXML
-    private TableColumn<profile, Integer> columnID_user;
-    @FXML
     private TableColumn<profile, String> columnUsername;
     @FXML
     private TableColumn<profile, String> columnRole;
@@ -58,10 +56,6 @@ public class dashboardController {
     @FXML
     private Label updatedat_userselectionne;
     @FXML
-    private Label iduser_selectionne;
-    @FXML
-    private Label idprofil_userselectionne;
-    @FXML
     private TableColumn<profile, ImageView> columnImage;
 
     @FXML
@@ -81,7 +75,6 @@ public class dashboardController {
 
     @FXML
     public void initialize() {
-        columnID_user.setCellValueFactory(new PropertyValueFactory<>("id_profile"));
         columnUsername.setCellValueFactory(new PropertyValueFactory<>("name_u"));
         columnRole.setCellValueFactory(new PropertyValueFactory<>("role"));
 
@@ -186,9 +179,6 @@ public class dashboardController {
             email_userselectionne.setText(selectedProfile.getEmail_u());
             phone_userselectionne.setText(String.valueOf(selectedProfile.getPhone_u()));
             role_userselectionne.setText(selectedProfile.getRole());
-            
-            iduser_selectionne.setText(String.valueOf(selectedProfile.getId_user()));
-            idprofil_userselectionne.setText(String.valueOf(selectedProfile.getId_profile()));
 
             if (selectedProfile.getCreated_at() != null) {
                 createdat_userselectionne.setText(selectedProfile.getCreated_at().toString());
@@ -257,8 +247,6 @@ public class dashboardController {
         role_userselectionne.setText("");
         createdat_userselectionne.setText("");
         updatedat_userselectionne.setText("");
-        iduser_selectionne.setText("");
-        idprofil_userselectionne.setText("");
     }
 
     private void Edit() {

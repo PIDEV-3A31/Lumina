@@ -165,4 +165,44 @@ public class ServiceUser implements CrudService<user> {
         }
         return null;
     }
+
+    public boolean isUsernameUnique(String username, Integer excludeUserId) {
+        String sql = "SELECT COUNT(*) FROM user WHERE username = ?";
+        if (excludeUserId != null) {
+            sql += " AND id_user != ?";
+        }
+        
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            if (excludeUserId != null) {
+                stmt.setInt(2, excludeUserId);
+            }
+            
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) == 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la vérification du username : " + e.getMessage());
+        }
+        return false;
+    }
+
+    public boolean isValidPassword(String password) {
+        // Vérifier la longueur
+        if (password.length() < 3 || password.length() > 20) {
+            return false;
+        }
+        
+        // Vérifier la présence d'au moins une majuscule
+        boolean hasUpperCase = false;
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                hasUpperCase = true;
+                break;
+            }
+        }
+        
+        return hasUpperCase;
+    }
 }

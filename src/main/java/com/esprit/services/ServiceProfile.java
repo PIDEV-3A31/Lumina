@@ -182,4 +182,26 @@ public class ServiceProfile implements CrudService<profile>{
         return imagePath; // Retourne `null` si l'utilisateur n'a pas d'image
     }
 
+    public boolean isEmailUnique(String email, Integer excludeProfileId) {
+        String sql = "SELECT COUNT(*) FROM profile WHERE email_u = ?";
+        if (excludeProfileId != null) {
+            sql += " AND id_profile != ?";
+        }
+        
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            if (excludeProfileId != null) {
+                stmt.setInt(2, excludeProfileId);
+            }
+            
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) == 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la vérification de l'email : " + e.getMessage());
+        }
+        return false;
     }
+
+}

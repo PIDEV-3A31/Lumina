@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -28,56 +25,69 @@ public class loginn {
     private Button affich_mdp;
     @FXML
     private ImageView eye_icon;
+    @FXML
+    private Label toSignUp;
+    @FXML private Label Alert_username;
+    @FXML private Label Alert_password;
 
     private boolean isPasswordVisible = false;
     @FXML
     public void initialize() {
         affich_mdp.setOnAction(event -> togglePasswordVisibility(txtPassword, affich_mdp, eye_icon, isPasswordVisible));
+        toSignUp.setOnMouseClicked(event -> toSignUp());
+        toSignUp.setStyle("-fx-cursor: hand;");
     }
 
     @FXML
     public void Login() {
+        // Réinitialiser les messages d'erreur
+        Alert_username.setText("");
+        Alert_password.setText("");
+        boolean isvalid = true;
+        
         String username = txtUsername.getText();
         String password = txtPassword.getText();
 
-        // Pour déboguer
-        System.out.println("Tentative de connexion avec : " + username);
-
-        if (username.isEmpty() || password.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs!");
-            return;
-        }
 
         ServiceUser serviceUser = new ServiceUser();
         
-        if (!serviceUser.verifierUsername(username)) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Username n'existe pas!");
-            return;
+        if (!serviceUser.verifierUsername(username) || username.isEmpty()) {
+            if(username.isEmpty())
+                Alert_username.setText("Please enter your username!");
+            else
+                Alert_username.setText("Username does not exist!");
+            isvalid = false;
         }
 
         user connectedUser = serviceUser.verifierLogin(username, password);
-        if (connectedUser == null) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Mot de passe incorrect!");
-            return;
+        if (connectedUser == null || password.isEmpty()) {
+            if(password.isEmpty())
+                Alert_password.setText("Please enter your password!");
+            else
+                Alert_password.setText("Incorrect password!");
+            isvalid = false;
         }
 
-        // Pour déboguer
-        System.out.println("Utilisateur authentifié...");
+        if (isvalid) {
 
-        ServiceProfile serviceProfile = new ServiceProfile();
-        profile userProfile = serviceProfile.getProfileByUserId(connectedUser.getId());
-        System.out.println("tesst");
-        System.out.println(userProfile);
+            // Pour déboguer
+            System.out.println("Utilisateur authentifié...");
 
-        if (userProfile != null) {
-            String role = userProfile.getRole();
-            if (role.equals("Admin")) {
-                navigateToDashboard(connectedUser, userProfile);
+            ServiceProfile serviceProfile = new ServiceProfile();
+            profile userProfile = serviceProfile.getProfileByUserId(connectedUser.getId());
+            System.out.println("tesst");
+            System.out.println(userProfile);
+
+            if (userProfile != null) {
+                String role = userProfile.getRole();
+                if (role.equals("Admin")) {
+                    navigateToDashboard(connectedUser, userProfile);
+                } else {
+                    navigateToUserHome(connectedUser, userProfile);
+                }
             } else {
-                navigateToUserHome(connectedUser, userProfile);
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Profil non trouvé!");
             }
-        } else {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Profil non trouvé!");
         }
     }
 
@@ -164,5 +174,16 @@ public class loginn {
         // Inverser l'état
         if (passwordField == txtPassword) {
             isPasswordVisible = !isPasswordVisible;}
+    }
+    public void toSignUp() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/SignUp.fxml"));
+            Stage stage = (Stage) toSignUp.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la navigation!");
+        }
     }
 }

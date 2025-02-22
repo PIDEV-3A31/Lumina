@@ -49,6 +49,14 @@ public class dashboardModifPass {
     @FXML
     private Button deconnexion;
 
+    @FXML private Label Alert_oldpassword;
+    @FXML private Label Alert_newpassword;
+    @FXML private Label Alert_confirmnewpassword;
+    @FXML
+    private Tooltip ttt;
+    @FXML
+    private Button tt;
+
     private boolean isOldPasswordVisible = false;
     private boolean isNewPasswordVisible = false;
     private boolean isConfirmPasswordVisible = false;
@@ -63,6 +71,11 @@ public class dashboardModifPass {
         affich_mdp1.setOnAction(event -> togglePasswordVisibility(old_password, affich_mdp1, eye_icon1, isOldPasswordVisible));
         affich_mdp2.setOnAction(event -> togglePasswordVisibility(new_password, affich_mdp2, eye_icon2, isNewPasswordVisible));
         affich_mdp3.setOnAction(event -> togglePasswordVisibility(confirm_new_password, affich_mdp3, eye_icon3, isConfirmPasswordVisible));
+        tt.setStyle("-fx-font: normal bold 12px Langdon; "
+                + "-fx-base: #9E9B9A; "
+                + "-fx-text-fill: gris;");
+        ttt.setText("The password must be between 3 and 20 characters long and contain at least one uppercase letter.");
+        tt.setTooltip(ttt);
     }
 
     public void initData(user connectedUser, profile userProfile) {
@@ -103,24 +116,39 @@ public class dashboardModifPass {
     }
 
     private boolean validateInputs() {
-        if (old_password.getText().isEmpty() || new_password.getText().isEmpty() 
-            || confirm_new_password.getText().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs!");
-            return false;
+        ServiceUser serviceUser = new ServiceUser();
+        boolean isValid = true;
+
+        // Réinitialiser les messages d'erreur
+        Alert_oldpassword.setText("");
+        Alert_newpassword.setText("");
+        Alert_confirmnewpassword.setText("");
+
+        if (!old_password.getText().equals(connectedUser.getPassword()) || old_password.getText().isEmpty()) {
+            if(old_password.getText().isEmpty())
+                Alert_oldpassword.setText("Please enter your current password!");
+            else
+                Alert_oldpassword.setText("Current password is incorrect!");
+            isValid = false;
         }
 
-        if (!old_password.getText().equals(connectedUser.getPassword())) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Ancien mot de passe incorrect!");
-            return false;
+
+        if (!serviceUser.isValidPassword(new_password.getText())  || new_password.getText().isEmpty()) {
+            if (new_password.getText().isEmpty())
+                Alert_newpassword.setText("Please Enter your new password !");
+            else
+                Alert_newpassword.setText("Password must be between 3-20 characters with at least one uppercase!");
+            isValid = false;
+        }
+        if (!new_password.getText().equals(confirm_new_password.getText()) || confirm_new_password.getText().isEmpty()) {
+            if (confirm_new_password.getText().isEmpty())
+                Alert_confirmnewpassword.setText("Please confirm your new password!");
+            else
+                Alert_confirmnewpassword.setText("Passwords do not match!");
+            isValid = false;
         }
 
-        if (!new_password.getText().equals(confirm_new_password.getText())) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", 
-                "Le nouveau mot de passe et sa confirmation ne correspondent pas!");
-            return false;
-        }
-
-        return true;
+        return isValid;
     }
 
     private void navigateBack() {
