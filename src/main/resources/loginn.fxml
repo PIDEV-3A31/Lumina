@@ -27,7 +27,7 @@
       <TextField fx:id="txtUsername" layoutX="408.0" layoutY="228.0" promptText="Username" style="-fx-background-color: FAFAFA;" styleClass="field-login" stylesheets="@style.css" />
       <PasswordField fx:id="txtPassword" layoutX="408.0" layoutY="292.0" promptText="Password" style="-fx-background-color: FAFAFA;" styleClass="field-login" stylesheets="@style.css" />
       <CheckBox layoutX="408.0" layoutY="360.0" mnemonicParsing="false" styleClass="options" stylesheets="@style.css" text="Remember me" />
-      <Label layoutX="686.0" layoutY="360.0" styleClass="forgot-password" stylesheets="@style.css" text="Forget Password ?" textFill="#a9aac9">
+      <Label fx:id="ResetPassword" layoutX="686.0" layoutY="360.0" styleClass="forgot-password" stylesheets="@style.css" text="Forget Password ?" textFill="#a9aac9">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>

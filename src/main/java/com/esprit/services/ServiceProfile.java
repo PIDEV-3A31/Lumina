@@ -203,5 +203,20 @@ public class ServiceProfile implements CrudService<profile>{
         }
         return false;
     }
+    public String getEmailByUserId(int userId) {
+        String sql = "SELECT email_u FROM profile WHERE id_user = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("email_u");
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération de l'email : " + e.getMessage());
+        }
+        return null;
+    }
+
 
 }

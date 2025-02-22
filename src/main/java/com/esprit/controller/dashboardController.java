@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.Objects;
@@ -25,6 +26,19 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.beans.property.SimpleObjectProperty;
 import com.esprit.utils.NavigationHistory;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import javafx.scene.control.TextField;
+import javafx.beans.property.SimpleStringProperty;
+/*import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;*/
+import java.io.FileOutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javafx.stage.FileChooser;
+
+import javax.swing.text.Document;
+import java.io.File;
 
 public class dashboardController {
     private user connectedUser;
@@ -74,8 +88,19 @@ public class dashboardController {
     private Button deconnexion;
 
     @FXML
+    private TextField search_field;
+
+    @FXML
+    private Button ExportPdf;
+
+    @FXML
     public void initialize() {
-        columnUsername.setCellValueFactory(new PropertyValueFactory<>("name_u"));
+        columnUsername.setCellValueFactory(cellData -> {
+            ServiceUser serviceUser = new ServiceUser();
+            user u = serviceUser.getUserById(cellData.getValue().getId_user());
+            return new SimpleStringProperty(u.getUsername());
+        });
+
         columnRole.setCellValueFactory(new PropertyValueFactory<>("role"));
 
         // Configurer la colonne d'image une seule fois
@@ -84,7 +109,7 @@ public class dashboardController {
             ImageView imageView = new ImageView();
             imageView.setFitHeight(40);
             imageView.setFitWidth(40);
-            
+
             if (p.getImage_u() != null) {
                 try {
                     Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + p.getImage_u())).toExternalForm());
@@ -93,7 +118,7 @@ public class dashboardController {
                     System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
                 }
             }
-            
+
             return new SimpleObjectProperty<>(imageView);
         });
         loadTableData();
@@ -104,8 +129,6 @@ public class dashboardController {
             }
         });
 
-
-
         suppBtn.setOnAction(event -> Delete());
 
         editBtn.setOnAction(event -> Edit());
@@ -113,10 +136,14 @@ public class dashboardController {
         ajouter_user.setOnAction(event -> Add());
 
         name_current_user.setOnMouseClicked(event -> editCurrentUserProfile());
-        
+
         name_current_user.setStyle("-fx-cursor: hand;");
 
         deconnexion.setOnAction(event -> logout());
+
+        initializeSearch();
+
+        //ExportPdf.setOnAction(event -> exportToPDF());
     }
 
     public void initData(user user, profile profile) {
@@ -129,7 +156,7 @@ public class dashboardController {
     private void updateUI() {
         if (userProfile != null) {
             name_current_user.setText(userProfile.getName_u());
-            
+
             if (userProfile.getImage_u() != null) {
                 try {
                     Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + userProfile.getImage_u())).toExternalForm());
@@ -144,29 +171,37 @@ public class dashboardController {
     private void loadTableData() {
         ServiceProfile serviceProfile = new ServiceProfile();
         ObservableList<profile> profiles = FXCollections.observableArrayList(serviceProfile.afficher());
-        
-        // Reconfigurer la colonne d'image
+
+        // Configuration des colonnes
+        columnUsername.setCellValueFactory(cellData -> {
+            ServiceUser serviceUser = new ServiceUser();
+            user u = serviceUser.getUserById(cellData.getValue().getId_user());
+            return new SimpleStringProperty(u.getUsername());
+        });
+
+        columnRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+
+        // Configuration de la colonne d'image
         columnImage.setCellValueFactory(param -> {
             profile p = param.getValue();
             ImageView imageView = new ImageView();
             imageView.setFitHeight(40);
             imageView.setFitWidth(40);
-            
+
             if (p.getImage_u() != null) {
                 try {
                     Image img = new Image(Objects.requireNonNull(getClass().getResource("/" + p.getImage_u())).toExternalForm());
                     imageView.setImage(img);
-                    System.out.println("Loading image for profile " + p.getId_profile() + ": " + p.getImage_u());
                 } catch (Exception e) {
                     System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
                 }
             }
-            
+
             return new SimpleObjectProperty<>(imageView);
         });
 
         tableView.setItems(profiles);
-        tableView.refresh();
+        initializeSearch(); // Réinitialiser la recherche après le chargement des données
     }
 
     private void showUserDetails(profile selectedProfile) {
@@ -202,7 +237,7 @@ public class dashboardController {
         }
 
         // Demander confirmation avant la suppression
-        Optional<ButtonType> result = showConfirmation("Confirmation", 
+        Optional<ButtonType> result = showConfirmation("Confirmation",
             "Êtes-vous sûr de vouloir supprimer cet utilisateur ?",
             "Cette action ne peut pas être annulée.");
 
@@ -212,12 +247,12 @@ public class dashboardController {
                 serviceUser.supprimer(selectedProfile.getId_user());
 
                 loadTableData();
-                
+
                 clearUserDetails();
-                
+
                 showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur supprimé avec succès!");
             } catch (Exception e) {
-                showAlert(Alert.AlertType.ERROR, "Erreur", 
+                showAlert(Alert.AlertType.ERROR, "Erreur",
                     "Erreur lors de la suppression : " + e.getMessage());
                 e.printStackTrace();
             }
@@ -313,7 +348,7 @@ public class dashboardController {
             String previousPage = NavigationHistory.popPage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource(previousPage));
             Parent root = loader.load();
-            
+
             // Initialiser le contrôleur selon la page
             Object controller = loader.getController();
             if (controller instanceof dashboardController) {
@@ -341,7 +376,7 @@ public class dashboardController {
         ObservableList<profile> profiles = FXCollections.observableArrayList(serviceProfile.afficher());
         tableView.setItems(profiles);
         tableView.refresh();
-        
+
         // Forcer le rafraîchissement de chaque cellule
         for (profile p : profiles) {
             if (p.getImage_u() != null) {
@@ -368,4 +403,152 @@ public class dashboardController {
             loadImage(selectedProfile.getImage_u(), image_userselectionne);
         }
     }
+
+    private void initializeSearch() {
+        // Obtenir la liste complète des profils
+        ServiceProfile serviceProfile = new ServiceProfile();
+        ObservableList<profile> profileList = FXCollections.observableArrayList(serviceProfile.afficher());
+
+        // Créer une FilteredList wrappant la ObservableList
+        FilteredList<profile> filteredData = new FilteredList<>(profileList, p -> true);
+
+        // Ajouter un listener au champ de recherche
+        search_field.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(profile -> {
+                // Si le champ de recherche est vide, afficher tous les profils
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                // Comparer avec le username
+                ServiceUser serviceUser = new ServiceUser();
+                user u = serviceUser.getUserById(profile.getId_user());
+                if (u.getUsername().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+
+        // Wrap la FilteredList dans une SortedList
+        SortedList<profile> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+
+        // Ajouter les données filtrées et triées à la TableView
+        tableView.setItems(sortedData);
+    }
+
+    /*private void exportToPDF() {
+        try {
+            // Créer le FileChooser
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Enregistrer le PDF");
+            fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
+            );
+            
+            // Générer un nom de fichier par défaut avec la date
+            String defaultFileName = "Users_List_" + 
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm")) + ".pdf";
+            fileChooser.setInitialFileName(defaultFileName);
+
+            // Afficher la boîte de dialogue de sauvegarde
+            File file = fileChooser.showSaveDialog(ExportPdf.getScene().getWindow());
+            
+            if (file != null) {
+                // Créer le document PDF
+                Document document = new Document(PageSize.A4, 50, 50, 50, 50);
+                PdfWriter.getInstance(document, new FileOutputStream(file));
+                document.open();
+
+                // Ajouter le titre
+                Font titleFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD, BaseColor.DARK_GRAY);
+                Paragraph title = new Paragraph("Liste des Utilisateurs", titleFont);
+                title.setAlignment(Element.ALIGN_CENTER);
+                title.setSpacingAfter(20);
+                document.add(title);
+
+                // Créer le tableau
+                PdfPTable table = new PdfPTable(6); // 6 colonnes
+                table.setWidthPercentage(100);
+                table.setSpacingBefore(10f);
+                table.setSpacingAfter(10f);
+
+                // Définir les largeurs relatives des colonnes
+                float[] columnWidths = {2f, 2.5f, 3f, 2f, 2f, 2.5f};
+                table.setWidths(columnWidths);
+
+                // Style pour les en-têtes
+                Font headerFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE);
+                BaseColor headerBackground = new BaseColor(12, 190, 184); // #0CBEB8
+
+                // Ajouter les en-têtes
+                String[] headers = {"Username", "Nom", "Email", "Téléphone", "Rôle", "Date création"};
+                for (String header : headers) {
+                    PdfPCell cell = new PdfPCell(new Phrase(header, headerFont));
+                    cell.setBackgroundColor(headerBackground);
+                    cell.setPadding(8);
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    table.addCell(cell);
+                }
+
+                // Style pour le contenu
+                Font contentFont = new Font(Font.FontFamily.HELVETICA, 11, Font.NORMAL);
+                BaseColor alternateColor = new BaseColor(240, 240, 240);
+
+                // Récupérer les données
+                ServiceProfile serviceProfile = new ServiceProfile();
+                ServiceUser serviceUser = new ServiceUser();
+                List<profile> profiles = serviceProfile.afficher();
+
+                // Ajouter les données
+                boolean alternate = false;
+                for (profile p : profiles) {
+                    user u = serviceUser.getUserById(p.getId_user());
+                    
+                    // Ajouter chaque cellule avec le style approprié
+                    addCell(table, u.getUsername(), contentFont, alternate);
+                    addCell(table, p.getName_u(), contentFont, alternate);
+                    addCell(table, p.getEmail_u(), contentFont, alternate);
+                    addCell(table, String.valueOf(p.getPhone_u()), contentFont, alternate);
+                    addCell(table, p.getRole(), contentFont, alternate);
+                    addCell(table, p.getCreated_at() != null ? p.getCreated_at().toString() : "", contentFont, alternate);
+                    
+                    alternate = !alternate;
+                }
+
+                document.add(table);
+
+                // Ajouter la date d'export
+                Font footerFont = new Font(Font.FontFamily.HELVETICA, 10, Font.ITALIC, BaseColor.GRAY);
+                Paragraph footer = new Paragraph("Document exporté le : " + 
+                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), footerFont);
+                footer.setAlignment(Element.ALIGN_RIGHT);
+                footer.setSpacingBefore(20);
+                document.add(footer);
+
+                document.close();
+
+                showAlert(Alert.AlertType.INFORMATION, "Succès", 
+                    "Le fichier PDF a été généré avec succès !\nEmplacement : " + file.getAbsolutePath());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Une erreur est survenue lors de la génération du PDF : " + e.getMessage());
+        }
+    }
+
+    private void addCell(PdfPTable table, String content, Font font, boolean alternate) {
+        PdfPCell cell = new PdfPCell(new Phrase(content, font));
+        if (alternate) {
+            cell.setBackgroundColor(new BaseColor(240, 240, 240));
+        }
+        cell.setPadding(6);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        table.addCell(cell);
+    }*/
 }
