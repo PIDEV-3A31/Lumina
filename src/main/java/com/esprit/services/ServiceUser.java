@@ -127,7 +127,7 @@ public class ServiceUser implements CrudService<user> {
         }
     }
 
-    public user verifierLogin(String username, String password) {
+    /*public user verifierLogin(String username, String password) {
         String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, username);
@@ -139,6 +139,27 @@ public class ServiceUser implements CrudService<user> {
                     rs.getInt("id_user"),
                     rs.getString("username"),
                     rs.getString("password")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la vérification du login : " + e.getMessage());
+        }
+        return null;
+    }*/
+    public user verifierLogin(String username, String password) {
+        String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new user(
+                        rs.getInt("id_user"),          // id_user
+                        rs.getString("username"),      // username
+                        rs.getString("password"),      // password
+                        rs.getBoolean("is_2fa_enabled"), // is_2fa_enabled
+                        rs.getString("secret_key")     // secret_key
                 );
             }
         } catch (SQLException e) {
@@ -222,6 +243,27 @@ public class ServiceUser implements CrudService<user> {
             System.out.println("Erreur lors de la récupération de l'utilisateur : " + e.getMessage());
         }
         return null;
+    }
+
+    public void enable2FA(int userId, String secretKey) {
+        String sql = "UPDATE user SET secret_key = ?, is_2fa_enabled = TRUE WHERE id_user = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, secretKey);
+            stmt.setInt(2, userId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de l'activation de la 2FA : " + e.getMessage());
+        }
+    }
+
+    public void disable2FA(int userId) {
+        String sql = "UPDATE user SET secret_key = NULL, is_2fa_enabled = FALSE WHERE id_user = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la désactivation de la 2FA : " + e.getMessage());
+        }
     }
 
 }

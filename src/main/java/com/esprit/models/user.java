@@ -4,6 +4,8 @@ public class user {
     private int id_user;
     private String username;
     private String password;
+    private String secret_Key;
+    private boolean is_2fa_enabled;
 
     public user(String username, String password) {
         this.username = username;
@@ -16,6 +18,14 @@ public class user {
     }
 
     public user(){};
+
+    public user(int idUser, String username, String password, boolean is2faEnabled, String secretKey) {
+        this.id_user = idUser;
+        this.username = username;
+        this.password = password;
+        this.is_2fa_enabled = is2faEnabled;
+        this.secret_Key = secretKey;
+    }
 
     public int getId() {
         return id_user;
@@ -39,6 +49,22 @@ public class user {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getSecret_Key() {
+        return secret_Key;
+    }
+
+    public void setSecret_Key(String secret_Key) {
+        this.secret_Key = secret_Key;
+    }
+
+    public boolean isIs_2fa_enabled() {
+        return is_2fa_enabled;
+    }
+
+    public void setIs_2fa_enabled(boolean is_2fa_enabled) {
+        this.is_2fa_enabled = is_2fa_enabled;
     }
 
     @Override

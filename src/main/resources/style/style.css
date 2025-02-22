@@ -186,3 +186,28 @@
     -fx-background-radius: 5;
 }
 
+.settings-container {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-spacing: 15;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+.section-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.toggle-2fa {
+    -fx-background-color: #E0E0E0;
+    -fx-text-fill: #333333;
+    -fx-padding: 8 15;
+    -fx-background-radius: 20;
+}
+
+.toggle-2fa:selected {
+    -fx-background-color: #0CBEB8;
+    -fx-text-fill: white;
+}
+

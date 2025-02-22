@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -49,6 +50,8 @@ public class frontHome {
     private ImageView profilePic;
     @FXML
     private Label username;
+    @FXML
+    private ImageView parametres;
 
     @FXML
     public void initialize() {
@@ -63,6 +66,7 @@ public class frontHome {
         deconnexion.setStyle("-fx-cursor: hand;");
         to_home.setStyle("-fx-cursor: hand;");
         name_current_user.setStyle("-fx-cursor: hand;");
+        parametres.setOnMouseClicked(event -> navigateToParametres());
 
 
     }
@@ -132,6 +136,22 @@ public class frontHome {
     private void logout() {
         Stage currentStage = (Stage) deconnexion.getScene().getWindow();
         loginn.logout(currentStage);
+    }
+
+    private void navigateToParametres() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Parametres.fxml"));
+            Parent root = loader.load();
+
+            Parametres controller = loader.getController();
+            controller.initData(connectedUser, userProfile);
+
+            Stage stage = (Stage) parametres.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*private void initializeSearch() {
