@@ -43,24 +43,13 @@ class News {
 
 public class HttpClientExample {
 
-    // Function to send a GET request and retrieve JSON data as a String
-
-
-
     public static String getJsonData(String url) {
         try {
-            // Create an HttpClient instance
             HttpClient client = HttpClient.newHttpClient();
-
-            // Create a HttpRequest instance with the target URL
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .build();
-
-            // Send the request and get the response as a String
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            // Return the body (JSON data) of the response
             return response.body();
 
         } catch (Exception e) {
@@ -68,17 +57,9 @@ public class HttpClientExample {
             return null;
         }
     }
-
-    // Main method for testing
     public static void main(String[] args) {
         String url = "http://localhost:8000/";  // Sample API for JSON response
-        //List<News> News = new List<News>();
         String jsonResponse = getJsonData(url);
-
-        // all the json data needs to be in the list
-
-
-
 
         if (jsonResponse != null) {
             System.out.println(jsonResponse);

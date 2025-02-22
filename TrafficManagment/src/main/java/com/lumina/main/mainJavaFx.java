@@ -6,6 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
+
 public class mainJavaFx extends Application {
 
     public static void main(String[] args) {
@@ -16,7 +19,7 @@ public class mainJavaFx extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load the FXML file and set it as the root of the scene
-        AnchorPane root = FXMLLoader.load(getClass().getResource("/UserAdminCheck.fxml"));
+        AnchorPane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UserAdminCheck.fxml")));
 
         // Set up the scene and stage
         Scene scene = new Scene(root);

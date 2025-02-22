@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 
 public class TrafficLightManagment implements Initializable {
 
-    // Correctly define TableColumns with proper types
+    // Define TableColumns with the correct types and bind them to the respective fields
     @FXML
     private TableColumn<TrafficLight, Integer> inter_id;
     @FXML
@@ -45,11 +45,7 @@ public class TrafficLightManagment implements Initializable {
     @FXML
     public TextField traffics_waittime;
 
-
-
-
-
-
+    // Initialize the table with data from the service
     void showdata() {
         ServiceTrafficLight STL = new ServiceTrafficLight();
         ObservableList<TrafficLight> data = FXCollections.observableList(STL.getAllTrafficLight());
@@ -75,16 +71,17 @@ public class TrafficLightManagment implements Initializable {
                 return;
             }
 
+            // Parse input values
             String name = traffic_name.getText();
             int intersectionId = Integer.parseInt(traffic_intersection_id.getText());
             int state = Integer.parseInt(traffics_state.getText());
             int waitTime = Integer.parseInt(traffics_waittime.getText());
 
-            // Create a new traffic light and add it
+            // Create a new traffic light object and add it
             TrafficLight newTrafficLight = new TrafficLight(name, state, waitTime, intersectionId);
             ServiceTrafficLight service = new ServiceTrafficLight();
             service.addTrafficLight(newTrafficLight);
-            showdata();
+            showdata(); // Refresh the data
             clearTextFields();
 
             showAlert("Success", "Traffic Light added successfully!", AlertType.INFORMATION);
@@ -138,7 +135,6 @@ public class TrafficLightManagment implements Initializable {
         }
     }
 
-
     @FXML
     public void deleteTrafficLight() {
         try {
@@ -177,6 +173,6 @@ public class TrafficLightManagment implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        showdata();
+        showdata(); // Load the data when the view is initialized
     }
 }

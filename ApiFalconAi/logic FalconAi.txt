@@ -1,0 +1,9 @@
+// #JAVA code
+// AI Activation button [this instance is set for every interseciton ID]
+// all stated are in red initally [Get list of the traffic light in that intersection] 
+// assign for each lane the number of cars from TrafficPicGenrator.py  
+// start loop {Create seesionManager and new instance for every intersection SessionManger[trafficIntersection intersection , List<TrafficLight> trafficLightListq]}
+	// Genrate a image and pass it to the YOLO model 
+	// pass this data in the Q-learning function model -> new trafficlight state
+	// assign the data in the DB + track the wait time for each intersection for the next switch
+// loop back
