@@ -2,6 +2,7 @@ package come.esprit.controllers;
 
 import come.esprit.models.Parking;
 import come.esprit.models.Reservation;
+import come.esprit.services.MailService;
 import come.esprit.services.ServiceParking;
 import come.esprit.services.ServiceReservation;
 import javafx.collections.FXCollections;
@@ -48,6 +49,8 @@ public class interface_home implements Initializable {
     private TextField matricule1;
     @FXML
     private TextField search_0;
+    @FXML
+    private TextField mail;
 
     @FXML
     private Button add1;
@@ -82,30 +85,45 @@ public class interface_home implements Initializable {
     }
 
     private void ajouterReservation() {
-        // Récupérer l'ID du parking sous forme de String puis le convertir en Integer
         String idParkStr = idpark1.getText();
         String matricule = matricule1.getText();
+        String email = mail.getText();  // Récupérer l'email du TextField
 
         // Vérifier si les champs sont remplis
-        if (idParkStr.isEmpty() || matricule.isEmpty()) {
+        if (idParkStr.isEmpty() || matricule.isEmpty() || email.isEmpty()) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs !");
             return;
         }
 
-        // Vérifier que l'ID du parking est valide (convertir en Integer)
+        // Vérifier que l'ID du parking est valide
         int idPark;
         try {
-            idPark = Integer.parseInt(idParkStr);  // Convertir la chaîne en entier
+            idPark = Integer.parseInt(idParkStr);
         } catch (NumberFormatException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "L'ID du parking doit être un nombre valide !");
             return;
         }
 
-        // Créer la réservation (id_reservation est auto-incrémenté, donc non inclus)
+        // Vérifier que l'email est valide
+        if (!email.contains("@") || !email.contains(".")) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "L'email n'est pas valide !");
+            return;
+        }
+
+        // Créer la réservation sans ajouter l'email à la classe Reservation
         Reservation reservation = new Reservation(idPark, matricule);
 
         // Ajouter la réservation
         serviceReservation.ajouter(reservation);
+
+        // Envoyer un e-mail de confirmation
+        try {
+            MailService.sendEmail(email, "Confirmation de votre réservation", "Bonjour, \n\nNous vous confirmons que votre réservation a été enregistrée avec succès. Nous vous remercions de votre confiance et restons à votre disposition pour toute question.\n\nCordialement,\nL'équipe de réservation'LUMINA'");
+        } catch (Exception e) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "L'envoi de l'email a échoué.");
+            e.printStackTrace();
+            return;
+        }
 
         // Afficher un message de succès
         afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Réservation ajoutée avec succès !");
@@ -127,6 +145,8 @@ public class interface_home implements Initializable {
             e.printStackTrace();
         }
     }
+
+
 
     private void afficherAlerte(Alert.AlertType type, String titre, String message) {
         Alert alert = new Alert(type);
