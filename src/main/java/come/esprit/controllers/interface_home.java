@@ -14,9 +14,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import come.esprit.services.ServiceReservation.QRCodeGenerator; // Assurez-vous que cette classe est correctement importée
+
 import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,6 +58,13 @@ public class interface_home implements Initializable {
     private TextField search_0;
     @FXML
     private TextField mail;
+
+    @FXML
+    private VBox vboxQrCode;
+
+    @FXML
+    private ImageView qrImageView;
+
 
     @FXML
     private Button add1;
@@ -133,9 +147,42 @@ public class interface_home implements Initializable {
 
         // Recharger la liste des parkings ou des réservations si nécessaire
         loadDataparking();
+        // Générer les données du QR Code
+        String qrData = "Réservation ID: " + reservation.getId_reservation();
+
+        // Créer le répertoire si nécessaire
+        File dir = new File("qr_codes");
+        if (!dir.exists()) {
+            dir.mkdirs();  // Créer le répertoire si nécessaire
+        }
+
+        // Chemin pour enregistrer le QR Code
+        String qrFilePath = "qr_codes/reservation_" + reservation.getId_reservation() + ".png";
+
+        try {
+            QRCodeGenerator.generateQRCode(qrData, qrFilePath);  // Générer le QR Code
+        } catch (Exception e) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "La génération du QR Code a échoué.");
+            e.printStackTrace();
+            return;
+        }
+
+        // Afficher le QR Code dans l'application
+        Image qrImage = new Image("file:" + qrFilePath); // Charger l'image du QR Code
+        ImageView qrImageView = new ImageView(qrImage);   // Créer un ImageView pour afficher l'image
+        qrImageView.setFitWidth(150);  // Ajuster la taille de l'image (si nécessaire)
+        qrImageView.setFitHeight(150);
+        qrImageView.setPreserveRatio(true);  // Pour conserver les proportions du QR Code
+
+        // Ajouter l'ImageView au layout de l'interface (par exemple un VBox)
+        VBox vbox = new VBox(qrImageView);  // Assurez-vous que vous avez un VBox ou un autre conteneur
+        vboxQrCode.getChildren().add(vbox); // Ajoute le VBox dans le conteneur principal de la fenêtre
+
+        // Autres actions de la méthode (par exemple, envoyer un email, etc.)
+        afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Réservation ajoutée avec succès !");
 
         // Rediriger vers une autre vue (Liste des réservations)
-        try {
+       /* try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/home_reservation.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) add1.getScene().getWindow();
@@ -143,7 +190,7 @@ public class interface_home implements Initializable {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
 
