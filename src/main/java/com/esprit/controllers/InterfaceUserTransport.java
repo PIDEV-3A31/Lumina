@@ -13,6 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.esprit.models.ligneTransport;
@@ -62,12 +64,30 @@ public class InterfaceUserTransport implements Initializable {
     @FXML
     private GridPane grid;
 
+    @FXML
+    private WebView transport_map;
+
+
+
     private serviceLigneTransport ligneTransportService = new serviceLigneTransport();
 
     private ligneTransport ligneSelectionnee;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
+        // Récupérer l'engine du WebView
+        WebEngine webEngine = transport_map.getEngine();
+
+        // Lien vers Google Maps
+        String googleMapsURL = "https://www.google.com/maps/@36.8486419,10.1721106,13z"; // Remplacez cette URL par celle que vous souhaitez
+
+        //Charger la carte Google Maps dans la WebView
+        webEngine.load(googleMapsURL);
+
+
+
         List<ligneTransport> lignes = ligneTransportService.consulter();
         int column = 0;
         int row = 1;
@@ -114,6 +134,10 @@ public class InterfaceUserTransport implements Initializable {
         horaire_arrivee_label.setText(ligneTransport.getHoraireArrivee().toString());
         tarif_label.setText(String.valueOf(ligneTransport.getTarif()));
         zone_couverture_label.setText(ligneTransport.getZoneCouverture());
+        // Construire l'URL de Google Maps avec les lieux de départ et d'arrivée
+        WebEngine webEngine = transport_map.getEngine();
+        String googleMapsURL = "https://www.google.com/maps/dir/" + ligneTransport.getLieuxDepart() + "/" + ligneTransport.getLieuxArrive();
+        webEngine.load(googleMapsURL);
     }
 
 
