@@ -218,11 +218,12 @@
                                     </TableView>
                                     <ImageView fx:id="ajouter_documents" fitHeight="40.0" fitWidth="30.0" layoutX="913.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" x="-7.0">
                                        <image>
-                                          <Image url="@../assets/ajouter-des-documents%20(1).png" />
+                                          <Image url="@../assets/ajouter-des-documents (1).png" />
                                        </image>
                                     </ImageView>
                                     <Button fx:id="gererButton" layoutX="891.0" layoutY="333.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="61.0" styleClass="button-del" stylesheets="@../css/style.css" text="gérer" />
                                     <Button fx:id="valider_button" layoutX="891.0" layoutY="385.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="61.0" styleClass="button-del" stylesheets="@../css/style.css" text="Valider" />
+                                    <Button fx:id="signer" layoutX="551.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#signer" prefHeight="33.0" prefWidth="281.0" styleClass="button-del" stylesheets="@../css/style.css" text="signer élèctroniquement un document" />
                                  </children>
                               </Pane>
                            </children>

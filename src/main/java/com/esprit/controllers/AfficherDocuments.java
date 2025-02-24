@@ -83,6 +83,9 @@ public class AfficherDocuments {
     private Demandes demandeSelectionnee;
 
 
+    @FXML
+    private Button signer;
+
 
 
 
@@ -154,6 +157,14 @@ public class AfficherDocuments {
                 loadDataDemandes();
             }
         });
+
+        signer.setOnAction(event -> {
+            if (selectedDemande != null) {
+                handleValiderDemande(selectedDemande);
+                loadDataDemandes();
+            }
+        });
+
         loadDataDemandes();
     }
 
@@ -316,18 +327,15 @@ public class AfficherDocuments {
         }
     }
 
-
-    private void handleAjouterDocumentForDemande(Demandes demande) {
+    @FXML
+    private void signer() {
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ajouterIdDocumentDemande.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/signature.fxml"));
             Parent root = loader.load();
 
-            ajouterIdDocument controller = loader.getController();
-            controller.setDemande(demande, serviceDemande);
-
             Stage stage = new Stage();
-            stage.setTitle("Ajouter ID Document à la Demande");
+            stage.setTitle("signature électronique");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
 
