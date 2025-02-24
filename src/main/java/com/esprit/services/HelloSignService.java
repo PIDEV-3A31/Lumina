@@ -62,33 +62,49 @@ public class HelloSignService {
 
     public void downloadSignedDocument(String requestId, String outputPath) {
         try {
-            // Utiliser client.getFiles(requestId) pour obtenir un fichier
-            File signedFile = client.getFiles(requestId);
+            // Create the URL for downloading the signed document
+            URL fileUrl = new URL("https://api.hellosign.com/v3/signature_request/" + requestId + "/files");
 
-            // Ouvrir un flux d'entrée pour le fichier téléchargé
-            try (InputStream fileStream = new FileInputStream(signedFile)) {
-                // Créer un fichier de sortie pour enregistrer le fichier signé
-                File outputFile = new File(outputPath);
+            // Open a connection to HelloSign's API for the signed document
+            HttpURLConnection connection = (HttpURLConnection) fileUrl.openConnection();
+            connection.setRequestMethod("GET");
 
-                try (FileOutputStream outputStream = new FileOutputStream(outputFile)) {
-                    byte[] buffer = new byte[1024];
-                    int bytesRead;
+            // Add Authorization header with your API Key (replace "your-api-key" with the actual API key)
+            String auth = "Bearer " + "628df1382f45dacaf2ef81e74551e23127362d54b1a0de5f0037bb1aea63c322"; // Replace with your actual API key
+            connection.setRequestProperty("Authorization", auth);
 
-                    // Lire le contenu du fichier et écrire dans le fichier de sortie
-                    while ((bytesRead = fileStream.read(buffer)) != -1) {
-                        outputStream.write(buffer, 0, bytesRead);
-                    }
-                }
+            // Connect and get the input stream to read the file content
+            connection.connect();
+            InputStream inputStream = connection.getInputStream();
 
-                System.out.println("Document signé téléchargé avec succès : " + outputPath);
+            // Ensure the output directory exists before proceeding
+            File outputDirectory = new File(outputPath);
+            if (!outputDirectory.exists()) {
+                outputDirectory.mkdirs();
             }
+
+            // Define the output file path (you can adjust the filename here)
+            File outputFile = new File(outputPath + "/signed_document.pdf");
+
+            // Open an output stream to write the file
+            try (FileOutputStream outputStream = new FileOutputStream(outputFile)) {
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+
+                // Write the data from the input stream to the output file
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+            }
+
+            System.out.println("Document signé téléchargé avec succès : " + outputFile.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Erreur lors du téléchargement du document signé.");
-        } catch (HelloSignException e) {
-            throw new RuntimeException(e);
         }
     }
+
+
 
 
 }

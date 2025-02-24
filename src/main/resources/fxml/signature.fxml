@@ -4,14 +4,18 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
 
 <VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.SignatureController">
-   <Pane prefHeight="258.0" prefWidth="363.0">
+   <Pane prefHeight="680.0" prefWidth="1280.0">
       <children>
-          <Button layoutX="97.0" layoutY="51.0" onAction="#chooseFile" text="Télécharger un document" />
-          <Button layoutX="113.0" layoutY="101.0" onAction="#signDocument" text="Signer le document" />
-          <Label fx:id="fileLabel" layoutX="106.0" layoutY="153.0" text="Aucun fichier sélectionné" />
-         <Label fx:id="statusLabel" layoutX="154.0" layoutY="189.0" text="Label" />
+          <Button layoutX="22.0" layoutY="62.0" onAction="#chooseFile" styleClass="button-del" stylesheets="@../css/style.css" text="Télécharger un document" />
+          <Button layoutX="40.0" layoutY="114.0" onAction="#signDocument" styleClass="button-del" stylesheets="@../css/style.css" text="Signer le document" />
+          <Label fx:id="fileLabel" layoutX="31.0" layoutY="164.0" text="Aucun fichier sélectionné" />
+         <Label fx:id="statusLabel" layoutX="79.0" layoutY="200.0" text="etat" />
+         <WebView fx:id="webView" layoutX="201.0" layoutY="27.0" prefHeight="626.0" prefWidth="1043.0" />
+   
+
       </children>
    </Pane>
 </VBox>

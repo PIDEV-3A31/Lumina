@@ -28,6 +28,10 @@
             <url>https://ec.europa.eu/digital-buildingblocks/artifact/content/repositories/esignaturedss/</url>
         </repository>
 
+            <repository>
+                <id>hellosign</id>
+                <url>https://maven.hellosign.com</url>
+            </repository>
 
 
 
@@ -126,11 +130,6 @@
             <scope>import</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.hellosign</groupId>
-            <artifactId>hellosign-java-sdk</artifactId>
-            <version>RELEASE</version>
-        </dependency>
 
 
         <!-- https://mvnrepository.com/artifact/com.hellosign/hellosign-java-sdk -->
@@ -141,7 +140,23 @@
         </dependency>
 
 
-        <!-- https://mvnrepository.com/artifact/com.hellosign/hellosign-java-sdk -->
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>21.0.2</version> <!-- Utilisez la version de JavaFX appropriée -->
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>21.0.2</version> <!-- Utilisez la version de JavaFX appropriée -->
+        </dependency>
 
 
 
