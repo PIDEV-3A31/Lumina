@@ -317,6 +317,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
+                              <ImageView fx:id="QrCode" fitHeight="150.0" fitWidth="178.0" layoutX="283.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </Pane>
                      </children>

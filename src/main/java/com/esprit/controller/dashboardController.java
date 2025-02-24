@@ -39,6 +39,10 @@ import javafx.stage.FileChooser;
 
 import javax.swing.text.Document;
 import java.io.File;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 
 public class dashboardController {
     private user connectedUser;
@@ -92,6 +96,9 @@ public class dashboardController {
 
     @FXML
     private Button ExportPdf;
+
+    @FXML
+    private ImageView QrCode;
 
     @FXML
     public void initialize() {
@@ -205,16 +212,16 @@ public class dashboardController {
     }
 
     private void showUserDetails(profile selectedProfile) {
-        if (selectedProfile != null) {
+        try {
             ServiceUser serviceUser = new ServiceUser();
             user selectedUser = serviceUser.getUserById(selectedProfile.getId_user());
-
+            
+            // Afficher les détails existants
             username_userselectionne.setText(selectedUser.getUsername());
             name_userselectionne.setText(selectedProfile.getName_u());
             email_userselectionne.setText(selectedProfile.getEmail_u());
             phone_userselectionne.setText(String.valueOf(selectedProfile.getPhone_u()));
             role_userselectionne.setText(selectedProfile.getRole());
-
             if (selectedProfile.getCreated_at() != null) {
                 createdat_userselectionne.setText(selectedProfile.getCreated_at().toString());
             }
@@ -222,10 +229,59 @@ public class dashboardController {
                 updatedat_userselectionne.setText(selectedProfile.getUpdated_at().toString());
             }
 
-            if (selectedProfile.getImage_u() != null) {
-                loadImage(selectedProfile.getImage_u(), image_userselectionne);
+            // Générer et afficher le QR Code
+            generateQRCode(selectedProfile.getEmail_u());
+
+            // Charger l'image du profil
+            loadImage(selectedProfile.getImage_u(), image_userselectionne);
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Error loading user details: " + e.getMessage());
+        }
+    }
+
+    private void generateQRCode(String email) {
+        try {
+            // Créer l'URL mailto
+            String mailtoUrl = "mailto:" + email;
+
+            // Encoder l'URL pour l'API GoQR
+            String encodedUrl = URLEncoder.encode(mailtoUrl, "UTF-8");
+
+            // Construire l'URL de l'API GoQR
+            String qrCodeApiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodedUrl;
+
+            // Créer la connexion
+            URL url = new URL(qrCodeApiUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            // Récupérer l'image du QR code
+            try (InputStream inputStream = connection.getInputStream()) {
+                Image qrCodeImage = new Image(inputStream);
+                QrCode.setImage(qrCodeImage);
+                
+                // Ajouter un effet de survol pour indiquer qu'il est cliquable
+                QrCode.setStyle("-fx-cursor: hand;");
+                
+                // Ajouter un gestionnaire de clic pour ouvrir le client de messagerie
+                QrCode.setOnMouseClicked(event -> {
+                    try {
+                        java.awt.Desktop.getDesktop().mail(new java.net.URI("mailto:" + email));
+                    } catch (Exception e) {
+                        showAlert(Alert.AlertType.ERROR, "Error", 
+                            "Could not open email client: " + e.getMessage());
+                    }
+                });
             }
-            System.out.println(selectedProfile.getImage_u());
+
+            // Fermer la connexion
+            connection.disconnect();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", 
+                "Error generating QR code: " + e.getMessage());
         }
     }
 

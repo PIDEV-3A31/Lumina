@@ -211,3 +211,12 @@
     -fx-text-fill: white;
 }
 
+.qr-code-image {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+.qr-code-image:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(12,190,184,0.4), 15, 0, 0, 0);
+    -fx-cursor: hand;
+}
+
