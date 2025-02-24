@@ -4,12 +4,13 @@ import com.esprit.models.profile;
 import com.esprit.models.user;
 import com.esprit.services.ServiceProfile;
 import com.esprit.services.ServiceUser;
+import com.esprit.utils.PasswordEncryption;
 
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        ServiceUser su = new ServiceUser();
+        /*ServiceUser su = new ServiceUser();
         user u1 = new user("nour.allegui","1234");
         user u2 = new user("test12","2587");
        su.ajouter(u2);
@@ -32,7 +33,18 @@ public class Main {
 
 
 
-        //sp.ajouter(p);
+        //sp.ajouter(p);*/
+        try {
+
+                    String password = PasswordEncryption.encryptPass("N12");
+            System.out.println(password);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
 
     }
 }

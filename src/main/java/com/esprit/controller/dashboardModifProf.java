@@ -4,6 +4,7 @@ import com.esprit.models.profile;
 import com.esprit.models.user;
 import com.esprit.services.ServiceProfile;
 import com.esprit.services.ServiceUser;
+import com.esprit.utils.PasswordEncryption;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -103,7 +104,7 @@ public class dashboardModifProf {
         tt.setTooltip(ttt);
     }
 
-    public void initData(user connectedUser, profile userProfile, profile selectedProfile) {
+    public void initData(user connectedUser, profile userProfile, profile selectedProfile) throws Exception {
         this.connectedUser = connectedUser;
         this.userProfile = userProfile;
         this.selectedProfile = selectedProfile;
