@@ -13,12 +13,7 @@ import org.apache.http.entity.mime.content.FileBody;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
-import com.onfido.ApiClient;
-import com.onfido.ApiException;
-import com.onfido.Configuration;
-import com.onfido.auth.ApiKeyAuth;
-import com.onfido.api.DefaultApi;
-import com.onfido.model.Document;
+
 
 
 import java.io.UnsupportedEncodingException;

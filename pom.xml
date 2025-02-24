@@ -15,14 +15,25 @@
     </properties>
     <repositories>
         <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
         <repository>
-            <id>apache</id>
-            <url>https://repo.maven.apache.org/maven2</url>
+            <id>cefdigital</id>
+            <name>cefdigital</name>
+            <url>https://ec.europa.eu/digital-buildingblocks/artifact/content/repositories/esignaturedss/</url>
         </repository>
+
+
+
+
     </repositories>
+
+
 
     <dependencies>
         <dependency>
@@ -32,19 +43,16 @@
         </dependency>
 
 
-        <!-- Dépendance pour l'API Onfido -->
-        <dependency>
-            <groupId>com.github.onfido</groupId>
-            <artifactId>onfido-java</artifactId>
-            <version>4.3.0</version>
-        </dependency>
+
 
         <dependency>
-            <groupId>com.onfido</groupId>
-            <artifactId>onfido-api-java</artifactId>
-            <version>6.0.0</version>
-            <scope>compile</scope>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.12.0</version>
         </dependency>
+
+
+
 
         <!-- Apache HttpClient -->
         <dependency>
@@ -97,6 +105,51 @@
             <version>21.0.2</version>
         </dependency>
 
+
+
+        <dependency>
+            <groupId>eu.europa.ec.joinup.sd-dss</groupId>
+            <artifactId>dss-xades</artifactId>
+            <version>6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.europa.ec.joinup.sd-dss</groupId>
+            <artifactId>dss-validation</artifactId>
+            <version>6.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.europa.ec.joinup.sd-dss</groupId>
+            <artifactId>dss-bom</artifactId>
+            <version>6.2</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hellosign</groupId>
+            <artifactId>hellosign-java-sdk</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/com.hellosign/hellosign-java-sdk -->
+        <dependency>
+            <groupId>com.hellosign</groupId>
+            <artifactId>hellosign-java-sdk</artifactId>
+            <version>5.2.3</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/com.hellosign/hellosign-java-sdk -->
+
+
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.32</version>
+        </dependency>
 
 
     </dependencies>
