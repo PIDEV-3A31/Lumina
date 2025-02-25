@@ -182,7 +182,7 @@ public class interface_home implements Initializable {
         afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Réservation ajoutée avec succès !");
 
         // Rediriger vers une autre vue (Liste des réservations)
-       /* try {
+       try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/home_reservation.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) add1.getScene().getWindow();
@@ -190,7 +190,7 @@ public class interface_home implements Initializable {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
 

@@ -128,7 +128,7 @@
             <center>
                 <Pane prefHeight="620.0" prefWidth="1198.0" styleClass="element-home" BorderPane.alignment="CENTER">
                     <children>
-                  <TableView fx:id="tableparkings1" layoutX="98.0" layoutY="45.0" prefHeight="216.0" prefWidth="698.0" stylesheets="@style/style.css">
+                  <TableView fx:id="tableparkings1" layoutX="98.0" layoutY="45.0" prefHeight="234.0" prefWidth="702.0" stylesheets="@style/style.css">
                      <columns>
                         <TableColumn fx:id="col_id1" prefWidth="76.80004119873047" text="N°parcking" />
                         <TableColumn fx:id="col_name1" prefWidth="95.199951171875" text="name_parck" />
@@ -181,6 +181,11 @@
                         <ImageView fx:id="qrImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </VBox>
+                  <ImageView fitHeight="272.0" fitWidth="237.0" layoutX="822.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Assets/par.png" />
+                     </image>
+                  </ImageView>
                     </children>
                <stylesheets>
                   <URL value="@style/style.css" />
