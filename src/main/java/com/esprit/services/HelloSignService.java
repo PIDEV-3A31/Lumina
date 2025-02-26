@@ -30,7 +30,7 @@ public class HelloSignService {
             request.setSubject("Veuillez signer ce document"); // Sujet du document à signer
 
             // Ajoute un signataire
-            request.addSigner("signer@example.com", "Nom du signataire");
+            request.addSigner("syrine.ounais@esprit.tn", "Nom du signataire");
 
             // Si le mode test est activé, ajoute le paramètre test_mode=1
             if (testMode) {

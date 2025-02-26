@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/onfido_view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/uploadDocumentKyc.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 400, 300);
         primaryStage.setTitle("Onfido KYC Integration");
         primaryStage.setScene(scene);

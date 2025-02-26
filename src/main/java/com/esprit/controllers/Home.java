@@ -15,7 +15,7 @@ public class Home extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AdminUser.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Chatbot.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 

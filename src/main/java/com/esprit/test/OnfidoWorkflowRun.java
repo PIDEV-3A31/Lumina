@@ -1,81 +1,80 @@
 package com.esprit.test;
 
-import okhttp3.*;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
+import java.util.*;
 
 public class OnfidoWorkflowRun {
 
-    private static final String API_URL = "https://api.onfido.com/v3.6/";
-    private static final String API_KEY = "api_sandbox.XYgAch5UAbc.zmjrSDL4rUcWmpHN8cR4tQT0vs2f7dCB";
-    private static final OkHttpClient client = new OkHttpClient();
+    private static final String API_URL = "https://api.eu.onfido.com/v3.6/";
+    private static final String API_KEY = "Token token=api_sandbox.XYgAch5UAbc.zmjrSDL4rUcWmpHN8cR4tQT0vs2f7dCB"; // Remplace par ton API Key
+    private static final HttpClient client = HttpClient.newHttpClient();
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public static String createWorkflowRun(String applicantId, String workflowId, String documentId) throws IOException {
-        // Créer le body JSON avec custom_data comme objet
-        String jsonBody = "{\n" +
-                "  \"workflow_id\": \"" + workflowId + "\",\n" +
-                "  \"applicant_id\": \"" + applicantId + "\",\n" +
-                "  \"custom_data\": {\n" +
-                "    \"document_id\": \"" + documentId + "\"\n" +
-                "  }\n" +
-                "}";
+    public static void createWorkflowRun(String applicantId, String workflowId) throws IOException, InterruptedException {
+        // Construire le JSON avec les champs requis
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("workflow_id", workflowId);
+        jsonMap.put("applicant_id", applicantId);
 
-        // Créer le corps de la requête en JSON
-        RequestBody body = RequestBody.create(jsonBody, MediaType.get("application/json"));
+        // Ajouter document_id comme un tableau (array)
+        Map<String, Object> customData = new HashMap<>();
 
-        // Créer la requête avec l'en-tête d'autorisation approprié
-        Request request = new Request.Builder()
-                .url(API_URL + "workflow_runs")
-                .header("Authorization", "Token token=" + API_KEY)
+
+        jsonMap.put("custom_data", customData);
+
+        // Convertir en JSON string
+        String jsonBody = objectMapper.writeValueAsString(jsonMap);
+
+        // Construire la requête HTTP
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(API_URL + "workflow_runs"))
+                .header("Authorization", API_KEY)
                 .header("Content-Type", "application/json")
-                .post(body)
+                .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .build();
 
-        // Envoyer la requête
-        try (Response response = client.newCall(request).execute()) {
-            String responseString = response.body() != null ? response.body().string() : null;
+        // Envoyer la requête et obtenir la réponse
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        String responseBody = response.body();
 
-            // Afficher la réponse complète pour le débogage
-            System.out.println("Réponse API: " + responseString);
+        // Afficher la réponse complète pour le débogage
+        System.out.println("Réponse API: " + responseBody);
 
-            if (!response.isSuccessful()) {
-                // Si l'API retourne une erreur, afficher le message détaillé
-                System.err.println("Erreur API: " + response.code() + " - " + response.message());
-                // Analyser et afficher les détails de l'erreur
-                JsonNode jsonResponse = new ObjectMapper().readTree(responseString);
-                if (jsonResponse.has("error")) {
-                    JsonNode error = jsonResponse.get("error");
-                    System.err.println("Détails de l'erreur : " + error.toString());
-                } else {
-                    System.err.println("Réponse complète d'erreur : " + responseString);
-                }
-                return null;
-            }
-
-            // Analyser la réponse
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonResponse = objectMapper.readTree(responseString);
-
-            // Retourner l'ID du Workflow Run créé
-            return jsonResponse.has("id") ? jsonResponse.get("id").asText() : null;
+        if (response.statusCode() != 201) { // 201 Created est attendu
+            System.err.println("Erreur API: " + response.statusCode() + " - " + responseBody);
+            return;
         }
+
+        // Analyser la réponse JSON
+        JsonNode jsonResponse = objectMapper.readTree(responseBody);
+
+        // Extraire les informations utiles
+        String workflowRunId = jsonResponse.has("id") ? jsonResponse.get("id").asText() : "N/A";
+        String status = jsonResponse.has("status") ? jsonResponse.get("status").asText() : "N/A";
+        String dashboardUrl = jsonResponse.has("dashboard_url") ? jsonResponse.get("dashboard_url").asText() : "N/A";
+        String errorMessage = jsonResponse.has("error") && jsonResponse.get("error").has("message")
+                ? jsonResponse.get("error").get("message").asText()
+                : "Aucune erreur";
+
+        // Affichage des informations
+        System.out.println("✅ Workflow Run ID : " + workflowRunId);
+        System.out.println("📌 Statut : " + status);
+        System.out.println("🌍 Dashboard URL : " + dashboardUrl);
+        System.out.println("⚠️ Erreur : " + errorMessage);
     }
 
     public static void main(String[] args) {
         try {
-            String applicantId = "3ddf5d5e-50a9-4c2a-8828-721d59eae0ed";  // ID de l'applicant
-            String workflowId = "7be52188-3b94-494c-b989-0c57b9460a99";  // ID du workflow
-            String documentId = "32a1b919-f4a4-466f-b216-9c9cb76fbae4";  // ID du document
-            String workflowRunId = createWorkflowRun(applicantId, workflowId, documentId);
-
-            if (workflowRunId != null) {
-                System.out.println("Workflow Run créé avec succès ! ID: " + workflowRunId);
-            } else {
-                System.out.println("Erreur lors de la création du Workflow Run.");
-            }
-        } catch (IOException e) {
+            String applicantId = "6678bbc4-9f2f-4c9b-a0d8-da463aa7a17f";
+            String workflowId = "7be52188-3b94-494c-b989-0c57b9460a99";
+            createWorkflowRun(applicantId, workflowId);
+        } catch (IOException | InterruptedException e) {
             System.err.println("Erreur: " + e.getMessage());
         }
     }
