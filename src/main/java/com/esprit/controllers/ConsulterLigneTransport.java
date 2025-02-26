@@ -123,6 +123,9 @@ public class ConsulterLigneTransport {
         conculter_reservation.setOnMouseClicked(event -> handleReservation());
 
 
+
+
+
         modifier_ligneColumn.setCellFactory(param -> new TableCell<ligneTransport, Void>() {
             @Override
             protected void updateItem(Void item, boolean empty) {

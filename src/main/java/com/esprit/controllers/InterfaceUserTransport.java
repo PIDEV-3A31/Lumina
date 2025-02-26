@@ -81,7 +81,9 @@ public class InterfaceUserTransport implements Initializable {
         WebEngine webEngine = transport_map.getEngine();
 
         // Lien vers Google Maps
+
         String googleMapsURL = "https://www.google.com/maps/@36.8486419,10.1721106,13z"; // Remplacez cette URL par celle que vous souhaitez
+
 
         //Charger la carte Google Maps dans la WebView
         webEngine.load(googleMapsURL);
@@ -120,6 +122,10 @@ public class InterfaceUserTransport implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+
+
 
     }
 
