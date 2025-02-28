@@ -17,20 +17,24 @@
     <children>
         <Pane>
             <children>
-                <VBox fx:id="container" alignment="CENTER" prefHeight="372.0" prefWidth="400.0" spacing="10">
+                <!-- VBox container for chatbot messages -->
+                <VBox alignment="CENTER" prefHeight="372.0" prefWidth="400.0" spacing="10">
                     <children>
-                        <Pane minHeight="550.0" minWidth="600.0" prefHeight="410.0" prefWidth="463.0">
+                        <Pane minHeight="550.0" minWidth="558.0" prefHeight="550.0" prefWidth="558.0">
                             <children>
-                        <ScrollPane layoutX="18.0" layoutY="21.0">
-                           <content>
-                              <Pane>
-                                 <children>
-                                    <TextArea fx:id="chatAreaUser" editable="false" layoutX="2.0" prefHeight="100.0" prefWidth="560.0" visible="false" wrapText="true" />
-                                            <TextArea fx:id="chatArea" editable="false" layoutY="210.0" prefHeight="198.0" prefWidth="560.0" visible="false" wrapText="true" />
-                                 </children>
-                              </Pane>
-                           </content>
-                        </ScrollPane>
+                                <!-- ScrollPane for messages -->
+                                <ScrollPane layoutX="18.0" layoutY="21.0" prefHeight="439.0" prefWidth="568.0">
+                                    <content>
+                                        <VBox fx:id="container"> <!-- VBox to hold message elements -->
+                                            <children >
+                                                <!-- Text areas for displaying user and chatbot messages -->
+                                                <TextArea fx:id="chatAreaUser" editable="false" prefHeight="100.0" prefWidth="560.0" wrapText="true" />
+                                                <TextArea fx:id="chatArea" editable="false" prefHeight="100.0" prefWidth="560.0" wrapText="true" />
+                                            </children>
+                                        </VBox>
+                                    </content>
+                                </ScrollPane>
+                                <!-- Input Section -->
                                 <HBox layoutX="83.0" layoutY="486.0" prefHeight="37.0" prefWidth="400.0">
                                     <children>
                                         <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
@@ -41,41 +45,39 @@
                                                 <Image url="@../assets/chatbot (2).png" />
                                             </image>
                                         </ImageView>
-                                        <TextField fx:id="userInput" onMouseClicked="#handleUserInput" prefHeight="34.0" prefWidth="337.0" promptText="type your prompt here...">
-                                            <opaqueInsets>
-                                                <Insets left="5.0" />
-                                            </opaqueInsets>
-                              </TextField>
+                                        <TextField fx:id="userInput" onMouseClicked="#handleUserInput" prefHeight="34.0" prefWidth="337.0" promptText="type your prompt here..." />
                                     </children>
                                 </HBox>
+                                <!-- Buttons Section -->
                                 <Pane layoutX="20.0" layoutY="26.0" prefHeight="415.0" prefWidth="560.0">
                                     <children>
                                         <Button fx:id="button1" layoutX="26.0" layoutY="130.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="155.0" styleClass="button-chat" stylesheets="@../css/style.css">
-                                 <graphic>
-                                    <Label fx:id="label1" prefHeight="68.0" prefWidth="116.0" text="Label" />
-                                 </graphic>
-                              </Button>
+                                            <graphic>
+                                                <Label fx:id="label1" prefHeight="68.0" prefWidth="116.0" text="Label" />
+                                            </graphic>
+                                        </Button>
                                         <Button fx:id="button2" layoutX="203.0" layoutY="130.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="155.0" styleClass="button-chat" stylesheets="@../css/style.css">
-                                 <graphic>
-                                    <Label fx:id="label2" prefHeight="68.0" prefWidth="116.0" text="Label" />
-                                 </graphic>
-                              </Button>
+                                            <graphic>
+                                                <Label fx:id="label2" prefHeight="68.0" prefWidth="116.0" text="Label" />
+                                            </graphic>
+                                        </Button>
                                         <Button fx:id="button3" layoutX="381.0" layoutY="130.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="155.0" styleClass="button-chat" stylesheets="@../css/style.css">
-                                 <graphic>
-                                    <Label fx:id="label3" prefHeight="68.0" prefWidth="116.0" text="Label" />
-                                 </graphic>
-                              </Button>
+                                            <graphic>
+                                                <Label fx:id="label3" prefHeight="68.0" prefWidth="116.0" text="Label" />
+                                            </graphic>
+                                        </Button>
                                     </children>
                                 </Pane>
-                                  <Button fx:id="sendButton" layoutX="483.0" layoutY="492.0" prefHeight="12.0" prefWidth="42.0" styleClass="transparent" stylesheets="@../css/style.css">
-                           <graphic>
-                                          <ImageView fitHeight="25.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                              <image>
-                                                  <Image url="@../assets/envoyer.png" />
-                                              </image>
-                                          </ImageView>
-                           </graphic>
-                        </Button>
+                                <!-- Send Button -->
+                                <Button fx:id="sendButton" layoutX="483.0" layoutY="492.0" prefHeight="12.0" prefWidth="42.0" styleClass="transparent" stylesheets="@../css/style.css">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../assets/envoyer.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
                             </children>
                         </Pane>
                     </children>
