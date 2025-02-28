@@ -393,18 +393,59 @@
 
 
 /* Style du chat bouton */
-.button-chat {
-    -fx-background-color: #555555; /* Couleur de fond initiale */
-    -fx-text-fill: white; /* Couleur du texte */
-    -fx-font-size: 14px; /* Taille de la police */
-    -fx-padding: 10px 20px; /* Espacement interne du bouton */
-    -fx-border-radius: 5px; /* Coins arrondis */
-    -fx-background-radius: 5px; /* Coins arrondis */
-    -fx-border: none; /* Pas de bordure */
+/* Style général */
+AnchorPane {
+    -fx-background-color: #f4f4f4;
 }
 
-/* Effet hover */
-.button:hover {
-    -fx-background-color: #777777; /* Couleur de fond au survol */
-    -fx-text-fill: white; /* Couleur du texte reste blanc */
+
+
+/* Champ de saisie utilisateur (TextField) */
+#userInput {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-padding: 8px 15px;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #aaaaaa;
+}
+
+/* Boutons de chat */
+.button-chat {
+    -fx-background-color: #0CBEB8; /* Bleu Microsoft */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 12px 20px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 0, 2);
+}
+
+/* Effet hover sur les boutons */
+.button-chat:hover {
+    -fx-background-color: #047e79; /* Bleu foncé */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 8, 0, 0, 3);
+}
+
+/* Bouton envoyer */
+#sendButton {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+#sendButton:hover {
+    -fx-opacity: 0.7;
+}
+
+/* Image du bouton envoyer */
+ImageView {
+    -fx-opacity: 1;
+    -fx-transition: opacity 0.3s ease-in-out;
+}
+
+ImageView:hover {
+    -fx-opacity: 0.7;
 }

@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -11,16 +13,25 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.ChatbotController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.ChatbotController">
     <children>
         <Pane>
             <children>
                 <VBox fx:id="container" alignment="CENTER" prefHeight="372.0" prefWidth="400.0" spacing="10">
                     <children>
-                        <Pane prefHeight="381.0" prefWidth="400.0">
+                        <Pane minHeight="550.0" minWidth="600.0" prefHeight="410.0" prefWidth="463.0">
                             <children>
-                                <TextArea fx:id="chatArea" editable="false" layoutX="18.0" layoutY="43.0" prefHeight="221.0" prefWidth="365.0" wrapText="true" />
-                                <HBox layoutX="14.0" layoutY="292.0" prefHeight="37.0" prefWidth="400.0">
+                        <ScrollPane layoutX="18.0" layoutY="21.0">
+                           <content>
+                              <Pane>
+                                 <children>
+                                    <TextArea fx:id="chatAreaUser" editable="false" layoutX="2.0" prefHeight="100.0" prefWidth="560.0" visible="false" wrapText="true" />
+                                            <TextArea fx:id="chatArea" editable="false" layoutY="210.0" prefHeight="198.0" prefWidth="560.0" visible="false" wrapText="true" />
+                                 </children>
+                              </Pane>
+                           </content>
+                        </ScrollPane>
+                                <HBox layoutX="83.0" layoutY="486.0" prefHeight="37.0" prefWidth="400.0">
                                     <children>
                                         <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                                             <HBox.margin>
@@ -30,31 +41,41 @@
                                                 <Image url="@../assets/chatbot (2).png" />
                                             </image>
                                         </ImageView>
-                                        <TextField fx:id="userInput" onMouseClicked="#handleUserInput" prefHeight="34.0" prefWidth="274.0" promptText="type your prompt here...">
+                                        <TextField fx:id="userInput" onMouseClicked="#handleUserInput" prefHeight="34.0" prefWidth="337.0" promptText="type your prompt here...">
                                             <opaqueInsets>
                                                 <Insets left="5.0" />
-                                            </opaqueInsets></TextField>
-                                        <Button fx:id="sendButton" prefHeight="12.0" prefWidth="42.0" styleClass="transparent" stylesheets="@../css/style.css">
-                                            <graphic>
-                                                <ImageView fitHeight="25.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../assets/envoyer.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                            <HBox.margin>
-                                                <Insets right="30.0" />
-                                            </HBox.margin>
-                                        </Button>
+                                            </opaqueInsets>
+                              </TextField>
                                     </children>
                                 </HBox>
-                                <Pane layoutX="18.0" layoutY="43.0" prefHeight="221.0" prefWidth="365.0">
+                                <Pane layoutX="20.0" layoutY="26.0" prefHeight="415.0" prefWidth="560.0">
                                     <children>
-                                        <Button fx:id="button1" layoutX="30.0" layoutY="60.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="77.0" styleClass="button-chat" stylesheets="@../css/style.css" text="Bonjour" />
-                                        <Button fx:id="button2" layoutX="145.0" layoutY="60.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="77.0" styleClass="button-chat" stylesheets="@../css/style.css" text="Quel temps fait-il ?" />
-                                        <Button fx:id="button3" layoutX="262.0" layoutY="60.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="77.0" styleClass="button-chat" stylesheets="@../css/style.css" text="Raconte-moi une blague." />
+                                        <Button fx:id="button1" layoutX="26.0" layoutY="130.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="155.0" styleClass="button-chat" stylesheets="@../css/style.css">
+                                 <graphic>
+                                    <Label fx:id="label1" prefHeight="68.0" prefWidth="116.0" text="Label" />
+                                 </graphic>
+                              </Button>
+                                        <Button fx:id="button2" layoutX="203.0" layoutY="130.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="155.0" styleClass="button-chat" stylesheets="@../css/style.css">
+                                 <graphic>
+                                    <Label fx:id="label2" prefHeight="68.0" prefWidth="116.0" text="Label" />
+                                 </graphic>
+                              </Button>
+                                        <Button fx:id="button3" layoutX="381.0" layoutY="130.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="155.0" styleClass="button-chat" stylesheets="@../css/style.css">
+                                 <graphic>
+                                    <Label fx:id="label3" prefHeight="68.0" prefWidth="116.0" text="Label" />
+                                 </graphic>
+                              </Button>
                                     </children>
                                 </Pane>
+                                  <Button fx:id="sendButton" layoutX="483.0" layoutY="492.0" prefHeight="12.0" prefWidth="42.0" styleClass="transparent" stylesheets="@../css/style.css">
+                           <graphic>
+                                          <ImageView fitHeight="25.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                              <image>
+                                                  <Image url="@../assets/envoyer.png" />
+                                              </image>
+                                          </ImageView>
+                           </graphic>
+                        </Button>
                             </children>
                         </Pane>
                     </children>
