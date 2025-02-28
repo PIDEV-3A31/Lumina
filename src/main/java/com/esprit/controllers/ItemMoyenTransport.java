@@ -50,30 +50,37 @@ public class ItemMoyenTransport {
     @FXML
     public void reserver() throws IOException {
         if (moyen != null) {
+            double prix = 50;
+            StripePayement.setMontant(prix);
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/StripePayement.fxml"));
             Parent root = loader.load();
+
+            StripePayement controller = loader.getController();
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
-            stage.showAndWait();
+            stage.showAndWait();  // Attend la fermeture de la fenêtre
 
-            reservation reservation = new reservation(1, 1, moyen.getIdMoyenTransport(), new Date(), 1, 5, "Confirmée");
-            serviceReservation reservationService = new serviceReservation();
-            reservationService.ajouter(reservation);
+            if (controller.isPaymentSuccessful()) {
+                reservation reservation = new reservation(1, 1, moyen.getIdMoyenTransport(), new Date(), 1, 5, "Confirmée");
+                serviceReservation reservationService = new serviceReservation();
+                reservationService.ajouter(reservation);
 
+                moyen.setPlace_reservees(moyen.getPlace_reservees() + 1);
 
-            moyen.setPlace_reservees(moyen.getPlace_reservees() + 1);
-
-
-            System.out.println("Moyen de transport réservé : " + moyen.getIdTransport());
-
-            updateLabels();  
-
+                System.out.println("Réservation confirmée !");
+                updateLabels();
+            } else {
+                System.out.println("Le paiement a échoué, la réservation n'a pas été effectuée.");
+            }
         } else {
             System.out.println("Aucun moyen de transport sélectionné !");
         }
     }
+
+
 
 
 }

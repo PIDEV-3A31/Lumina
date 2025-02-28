@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stripe Payment</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <h2>Enter your payment details</h2>
+    <form id="payment-form">
+        <div id="card-element">
+            <!-- Stripe Elements will be inserted here -->
+        </div>
+        <button type="submit">Pay</button>
+    </form>
+    <div id="payment-result"></div>
+
+    <script>
+        let montant = new URLSearchParams(window.location.search).get("montant") || 10;
+        montant = parseFloat(montant) * 100; // Convertir en cents
+    
+        let stripe = Stripe("pk_test_51QuJxcFAOZbhHu8XFQU9wUD4M6Mzst9xBy9Rc0wB3bOxwoE5nhWv67m2s1V56zgKVN9A6y4luwZGvlk9ewkoyG0200XiTej2rt");
+        let elements = stripe.elements();
+        let card = elements.create("card");
+        card.mount("#card-element");
+    
+        document.getElementById("payment-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+    
+            const response = await fetch("/create-payment-intent", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ amount: montant })
+            });
+    
+            const { clientSecret } = await response.json();
+    
+            const result = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: { card: card }
+            });
+    
+            if (result.error) {
+                document.getElementById("payment-result").innerText = result.error.message;
+            } else {
+                document.getElementById("payment-result").innerText = "Payment successful!";
+            }
+        });
+    </script>    
+</body>
+</html>
