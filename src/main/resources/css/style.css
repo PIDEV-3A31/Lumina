@@ -390,3 +390,21 @@
     -fx-spacing: 10px; /* Espacement entre l'icône et le texte */
 
 }
+
+
+/* Style du chat bouton */
+.button-chat {
+    -fx-background-color: #555555; /* Couleur de fond initiale */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-padding: 10px 20px; /* Espacement interne du bouton */
+    -fx-border-radius: 5px; /* Coins arrondis */
+    -fx-background-radius: 5px; /* Coins arrondis */
+    -fx-border: none; /* Pas de bordure */
+}
+
+/* Effet hover */
+.button:hover {
+    -fx-background-color: #777777; /* Couleur de fond au survol */
+    -fx-text-fill: white; /* Couleur du texte reste blanc */
+}
