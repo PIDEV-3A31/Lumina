@@ -183,29 +183,28 @@
                                        </ImageView>
                                    </children>
                                </Pane>
-                               <ImageView fx:id="ajouter_moyen" fitHeight="37.0" fitWidth="31.0" layoutX="917.0" layoutY="343.0" pickOnBounds="true" preserveRatio="true">
-                                   <image>
-                                       <Image url="@assets/add.png" />
-                                   </image>
-                               </ImageView>
+                        <ImageView fx:id="return_consulterMoyen" fitHeight="30.0" fitWidth="30.0" layoutX="20.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/return.png" />
+                           </image>
+                        </ImageView>
+                             <TableView fx:id="table_lignes_transport" layoutX="36.0" layoutY="117.0" prefHeight="200.0" prefWidth="880.0">
+                                 <columns>
+                                     <TableColumn fx:id="d_utilisateur_colomn" prefWidth="136.00000381469727" text="Ligne Transport " />
+                                     <TableColumn fx:id="moyenTransport" prefWidth="166.3999481201172" text="Moyen de Transport" />
+                                     <TableColumn fx:id="date_reservation_Column" minWidth="0.0" prefWidth="158.39996337890625" text="date_reservation" />
+                                     <TableColumn fx:id="nb_places_Column" minWidth="0.0" prefWidth="144.0" text="nb_places" />
+                                     <TableColumn fx:id="tarif_total_column" prefWidth="100.0" text="tarif_total" />
+                                     <TableColumn fx:id="statut_column" minWidth="8.0" prefWidth="175.99993896484375" text="statut" />
+                                 </columns>
+                             </TableView>
+                             <Label layoutX="76.0" layoutY="63.0" text="Liste des reservation " textFill="#0cbeb8">
+                                 <font>
+                                     <Font size="24.0" />
+                                 </font>
+                             </Label>
                            </children>
                        </Pane>
-                       <TableView fx:id="table_lignes_transport" layoutX="55.0" layoutY="85.0" prefHeight="200.0" prefWidth="880.0">
-                           <columns>
-                               <TableColumn fx:id="id_reservation_colomn" prefWidth="112.79999160766602" text="id_reservation " />
-                               <TableColumn fx:id="d_utilisateur_colomn" prefWidth="104.79997253417969" text="d_utilisateur" />
-                               <TableColumn fx:id="id_moyenTransport" prefWidth="164.800048828125" text="id_moyenTransport" />
-                               <TableColumn fx:id="date_reservation_Column" minWidth="0.0" prefWidth="145.60003662109375" text="date_reservation" />
-                               <TableColumn fx:id="nb_places_Column" minWidth="0.0" prefWidth="166.39996337890625" text="nb_places" />
-                               <TableColumn fx:id="tarif_total_column" prefWidth="63.20013427734375" text="tarif_total" />
-                               <TableColumn fx:id="statut_column" minWidth="8.0" prefWidth="123.199951171875" text="statut" />
-                           </columns>
-                       </TableView>
-                       <Label layoutX="95.0" layoutY="31.0" text="Liste des reservation " textFill="#0cbeb8">
-                           <font>
-                               <Font size="24.0" />
-                           </font>
-                       </Label>
                    </children>
                </Pane>
            </center>

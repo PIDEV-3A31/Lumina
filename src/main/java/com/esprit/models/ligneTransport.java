@@ -2,7 +2,6 @@ package com.esprit.models;
 
 import java.sql.Time;
 
-
 public class ligneTransport {
     private int idLigne;
     private String nomLigne;
@@ -11,18 +10,23 @@ public class ligneTransport {
     private Time horaireDepart;
     private Time horaireArrivee;
     private String etat;
+    private String lieuxDepart;
+    private String lieuxArrive;
 
-    // Constructeur
-    public ligneTransport( String nomLigne, String zoneCouverture, double tarif, Time horaireDepart, Time horaireArrivee, String etat) {
+    // Constructeur sans ID
+    public ligneTransport(String nomLigne, String zoneCouverture, double tarif, Time horaireDepart, Time horaireArrivee, String etat, String lieuxDepart, String lieuxArrive) {
         this.nomLigne = nomLigne;
         this.zoneCouverture = zoneCouverture;
         this.tarif = tarif;
         this.horaireDepart = horaireDepart;
         this.horaireArrivee = horaireArrivee;
         this.etat = etat;
+        this.lieuxDepart = lieuxDepart;
+        this.lieuxArrive = lieuxArrive;
     }
 
-    public ligneTransport(int idLigne, String nomLigne, String zoneCouverture, double tarif, Time horaireDepart, Time horaireArrivee, String etat) {
+    // Constructeur avec ID
+    public ligneTransport(int idLigne, String nomLigne, String zoneCouverture, double tarif, Time horaireDepart, Time horaireArrivee, String etat, String lieuxDepart, String lieuxArrive) {
         this.idLigne = idLigne;
         this.nomLigne = nomLigne;
         this.zoneCouverture = zoneCouverture;
@@ -30,29 +34,82 @@ public class ligneTransport {
         this.horaireDepart = horaireDepart;
         this.horaireArrivee = horaireArrivee;
         this.etat = etat;
+        this.lieuxDepart = lieuxDepart;
+        this.lieuxArrive = lieuxArrive;
     }
 
     // Getters et Setters
-    public int getIdLigne() { return idLigne; }
-    public void setIdLigne(int idLigne) { this.idLigne = idLigne; }
+    public int getIdLigne() {
+        return idLigne;
+    }
 
-    public String getNomLigne() { return nomLigne; }
-    public void setNomLigne(String nomLigne) { this.nomLigne = nomLigne; }
+    public void setIdLigne(int idLigne) {
+        this.idLigne = idLigne;
+    }
 
-    public String getZoneCouverture() { return zoneCouverture; }
-    public void setZoneCouverture(String zoneCouverture) { this.zoneCouverture = zoneCouverture; }
+    public String getNomLigne() {
+        return nomLigne;
+    }
 
-    public double getTarif() { return tarif; }
-    public void setTarif(double tarif) { this.tarif = tarif; }
+    public void setNomLigne(String nomLigne) {
+        this.nomLigne = nomLigne;
+    }
 
-    public Time getHoraireDepart() { return horaireDepart; }
-    public void setHoraireDepart(Time horaireDepart) { this.horaireDepart = horaireDepart; }
+    public String getZoneCouverture() {
+        return zoneCouverture;
+    }
 
-    public Time getHoraireArrivee() { return horaireArrivee; }
-    public void setHoraireArrivee(Time horaireArrivee) { this.horaireArrivee = horaireArrivee; }
+    public void setZoneCouverture(String zoneCouverture) {
+        this.zoneCouverture = zoneCouverture;
+    }
 
-    public String getEtat() { return etat; }
-    public void setEtat(String etat) { this.etat = etat; }
+    public double getTarif() {
+        return tarif;
+    }
+
+    public void setTarif(double tarif) {
+        this.tarif = tarif;
+    }
+
+    public Time getHoraireDepart() {
+        return horaireDepart;
+    }
+
+    public void setHoraireDepart(Time horaireDepart) {
+        this.horaireDepart = horaireDepart;
+    }
+
+    public Time getHoraireArrivee() {
+        return horaireArrivee;
+    }
+
+    public void setHoraireArrivee(Time horaireArrivee) {
+        this.horaireArrivee = horaireArrivee;
+    }
+
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
+
+    public String getLieuxDepart() {
+        return lieuxDepart;
+    }
+
+    public void setLieuxDepart(String lieuxDepart) {
+        this.lieuxDepart = lieuxDepart;
+    }
+
+    public String getLieuxArrive() {
+        return lieuxArrive;
+    }
+
+    public void setLieuxArrive(String lieuxArrive) {
+        this.lieuxArrive = lieuxArrive;
+    }
 
     @Override
     public String toString() {
@@ -64,6 +121,8 @@ public class ligneTransport {
                 ", horaireDepart=" + horaireDepart +
                 ", horaireArrivee=" + horaireArrivee +
                 ", etat='" + etat + '\'' +
+                ", lieuxDepart='" + lieuxDepart + '\'' +
+                ", lieuxArrive='" + lieuxArrive + '\'' +
                 '}';
     }
 }

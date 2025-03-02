@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Card">
+   <children>
+      <ScrollPane hbarPolicy="NEVER" layoutX="82.0" layoutY="52.0" prefHeight="313.0" prefWidth="218.0" vbarPolicy="ALWAYS">
+         <content>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Group fx:id="Intersection_card">
+                     <children>
+                        <Pane prefHeight="51.0" prefWidth="218.0">
+                           <children>
+                              <VBox layoutX="4.0" layoutY="6.0" prefHeight="40.0" prefWidth="39.0">
+                                 <children>
+                                    <ImageView fitHeight="38.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../Downloads/8548337.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="48.0" layoutY="2.0" prefHeight="45.0" prefWidth="172.0">
+                                 <children>
+                                    <HBox prefHeight="17.0" prefWidth="152.0">
+                                       <children>
+                                          <Text fx:id="intersection_card_title" strokeType="OUTSIDE" strokeWidth="0.0" text="Intersection Name" wrappingWidth="136.119140625" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" wrappingWidth="14.869140625" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="10.0" prefWidth="67.0">
+                                       <children>
+                                          <Text fx:id="intersection_card_y" strokeType="OUTSIDE" strokeWidth="0.0" text="Y:" wrappingWidth="13.369140625">
+                                             <font>
+                                                <Font size="9.0" />
+                                             </font>
+                                          </Text>
+                                          <Text fx:id="intersection_card_x" strokeType="OUTSIDE" strokeWidth="0.0" text="X:" wrappingWidth="13.369140625">
+                                             <font>
+                                                <Font size="9.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                     </children>
+                  </Group>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <VBox layoutX="62.0" layoutY="48.0" prefHeight="545.0" prefWidth="329.0">
+         <children>
+            <HBox prefHeight="43.0" prefWidth="332.0" stylesheets="@style/stylehaithem.css">
+               <children>
+                  <TextField prefHeight="29.0" prefWidth="219.0" promptText="Search by ID...." styleClass="transparent" stylesheets="@style/stylehaithem.css">
+                     <HBox.margin>
+                        <Insets left="20.0" right="5.0" top="8.0" />
+                     </HBox.margin>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TextField>
+                  <Button mnemonicParsing="false" styleClass="search-button" stylesheets="@style/stylehaithem.css" text="Search" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets top="6.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <styleClass>
+                  <String fx:value="search-box" />
+                  <String fx:value="shadow" />
+               </styleClass>
+            </HBox>
+            <ScrollPane hbarPolicy="NEVER" opacity="0.86" prefHeight="500.0" prefWidth="312.0" vbarPolicy="ALWAYS">
+               <content>
+                  <VBox prefHeight="497.0" prefWidth="311.0">
+                     <children>
+                        <Group fx:id="intersection_card">
+                           <children>
+                              <Pane prefHeight="65.0" prefWidth="308.0">
+                                 <children>
+                                    <VBox layoutX="4.0" layoutY="6.0" prefHeight="40.0" prefWidth="39.0">
+                                       <children>
+                                          <ImageView fitHeight="38.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../../../Downloads/8548337.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="48.0" layoutY="2.0" prefHeight="45.0" prefWidth="172.0">
+                                       <children>
+                                          <HBox prefHeight="17.0" prefWidth="152.0">
+                                             <children>
+                                                <Text fx:id="intersection_card_title1" strokeType="OUTSIDE" strokeWidth="0.0" text="Intersection Name" wrappingWidth="136.119140625" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" wrappingWidth="14.869140625" />
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="10.0" prefWidth="67.0">
+                                             <children>
+                                                <Text fx:id="intersection_card_y1" strokeType="OUTSIDE" strokeWidth="0.0" text="Y:" wrappingWidth="13.369140625">
+                                                   <font>
+                                                      <Font size="9.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fx:id="intersection_card_x1" strokeType="OUTSIDE" strokeWidth="0.0" text="X:" wrappingWidth="13.369140625">
+                                                   <font>
+                                                      <Font size="9.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </Group>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</VBox>
