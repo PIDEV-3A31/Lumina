@@ -1,9 +1,11 @@
 package com.esprit.controller;
 
+import com.esprit.models.Point;
 import com.esprit.models.profile;
 import com.esprit.models.user;
 import com.esprit.services.ServiceProfile;
 import com.esprit.services.ServiceUser;
+import com.esprit.utils.PointHistory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -73,7 +75,8 @@ public class SignUp {
     private Tooltip ttt;
     @FXML
     private Button tt;
-
+    @FXML
+    private TextField txtCodeParrainage;
 
     private boolean isPasswordVisible = false;
     private boolean isConfirmPasswordVisible = false;
@@ -92,7 +95,6 @@ public class SignUp {
                 + "-fx-text-fill: gris;");
         ttt.setText("The password must be between 3 and 20 characters long and contain at least one uppercase letter.");
         tt.setTooltip(ttt);
-
     }
 
     private void ImageUpload() {
@@ -128,13 +130,47 @@ public class SignUp {
         try {
             user newUser = new user(txtUsername.getText(), txtPassword.getText());
             ServiceUser su = new ServiceUser();
-            int userId = su.ajouterAvecId(newUser);
             
+            // Créer d'abord l'utilisateur pour avoir son ID
+            int userId = su.ajouterAvecId(newUser);
             if (userId == -1) {
                 showAlert(Alert.AlertType.ERROR, "Error", "Failed to create user!");
                 return;
             }
+            
+            // Mettre à jour l'ID de l'utilisateur
+            newUser.setId(userId);
+            
+            // Gérer le code de parrainage
+            String referralCode = txtCodeParrainage.getText();
+            if (!referralCode.isEmpty()) {
+                user referrer = su.getUserByReferralCode(referralCode);
+                if (referrer != null) {
+                    // Ajouter les points au parrain
+                    su.addPoints(referrer.getId(), 50, "Parrainage d'un nouveau membre");
+                    
+                    // Ajouter les points au filleul
+                    su.addPoints(userId, 20, "Inscription avec code de parrainage");
+                    
+                    // Créer les objets Point avec pointId initialisé à 0 (sera auto-incrémenté lors de la sauvegarde)
+                    Point referrerPoints = new Point(
+                        referrer.getId(),
+                        50,
+                        "Parrainage de " + newUser.getUsername()
+                    );
+                    Point newUserPoints = new Point(
+                        userId,
+                        20,
+                        "Inscription avec le code de " + referrer.getUsername()
+                    );
+                    
+                    // Sauvegarder les points dans l'historique
+                    PointHistory.savePoint(referrerPoints);
+                    PointHistory.savePoint(newUserPoints);
+                }
+            }
 
+            // Créer le profil
             profile newProfile = new profile(
                 userId,
                 txtNom.getText(),
@@ -151,13 +187,8 @@ public class SignUp {
             profile userProfile = sp.getProfileByUserId(userId);
             user connectedUser = su.getUserById(userId);
 
-           /* if (cbRole.getValue().equals("Admin")) {
-                navigateToDashboard(connectedUser, userProfile);
-            } else {
-                navigateToUserHome(connectedUser, userProfile);
-            }*/
-            navigateToUserHome(connectedUser,userProfile);
-
+            // Navigation
+            navigateToUserHome(connectedUser, userProfile);
             showAlert(Alert.AlertType.INFORMATION, "Success", "Account created successfully!");
             
         } catch (Exception e) {
@@ -328,3 +359,4 @@ public class SignUp {
         }
     }
 }
+

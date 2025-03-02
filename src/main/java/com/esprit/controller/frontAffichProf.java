@@ -2,6 +2,7 @@ package com.esprit.controller;
 
 import com.esprit.models.profile;
 import com.esprit.models.user;
+import com.esprit.services.ServiceUser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -45,6 +46,12 @@ public class frontAffichProf {
     private ImageView to_home;
     @FXML
     private ImageView deconnexion;
+    @FXML
+    private Button Generate_code;
+    @FXML
+    private Label code_genere;
+    @FXML
+    private Label points;
 
     @FXML
     public void initialize() {
@@ -53,6 +60,7 @@ public class frontAffichProf {
         to_home.setOnMouseClicked(event -> navigateToHome());
         deconnexion.setOnMouseClicked(event -> logout());
         profileImage.setOnMouseClicked(event -> navigateToProfile());
+        Generate_code.setOnAction(event -> generateReferralCode());
 
         // Style du curseur
         to_home.setStyle("-fx-cursor: hand;");
@@ -63,6 +71,7 @@ public class frontAffichProf {
         this.connectedUser = connectedUser;
         this.userProfile = userProfile;
         updateUI();
+        updatePointsDisplay();
     }
 
     private void updateUI() {
@@ -164,4 +173,51 @@ public class frontAffichProf {
         Stage currentStage = (Stage) deconnexion.getScene().getWindow();
         loginn.logout(currentStage);
     }
+
+    /*private void generateReferralCode() {
+        ServiceUser serviceUser = new ServiceUser();
+        serviceUser.generateReferralCode(connectedUser.getId());
+        // Rafraîchir l'affichage du code
+        user updatedUser = serviceUser.getUserById(connectedUser.getId());
+        code_genere.setText(updatedUser.getCode_parrainage());
+    }*/
+    private void generateReferralCode() {
+        System.out.println(connectedUser.getUsername());
+        if (connectedUser == null) {
+            System.out.println("Erreur : aucun utilisateur connecte.");
+            return;
+        }
+
+        ServiceUser serviceUser = new ServiceUser();
+        serviceUser.generateReferralCode(connectedUser.getId());
+
+        // Récupérer l'utilisateur mis à jour
+        user updatedUser = serviceUser.getUserById(connectedUser.getId());
+        if (updatedUser != null && updatedUser.getCode_parrainage() != null) {
+            code_genere.setText(updatedUser.getCode_parrainage());
+        } else {
+            System.out.println("Erreur : impossible de récupérer le code de parrainage.");
+            code_genere.setText("Aucun code disponible");
+        }
+    }
+
+
+    private void updatePointsDisplay() {
+        //System.out.println(connectedUser.getUsername());
+        if (connectedUser == null) {
+            System.out.println("Erreur : aucun utilisateur connecté.");
+            return;
+        }
+
+        ServiceUser serviceUser = new ServiceUser();
+        user updatedUser = serviceUser.getUserById(connectedUser.getId());
+
+        if (updatedUser != null) {
+            points.setText(String.valueOf(updatedUser.getPoints()));
+        } else {
+            System.out.println("Erreur : impossible de récupérer les points.");
+            points.setText("0"); // ou une valeur par défaut
+        }
+    }
+
 }

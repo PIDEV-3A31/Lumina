@@ -1,8 +1,10 @@
 package com.esprit.controller;
 
+import com.esprit.models.Point;
 import com.esprit.models.profile;
 import com.esprit.models.user;
 import com.esprit.services.ServiceUser;
+import com.esprit.utils.PointHistory;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import java.util.List;
 import java.util.Objects;
 
 public class Parametres {
@@ -27,6 +30,14 @@ public class Parametres {
     private ImageView to_home;
     @FXML
     private ImageView deconnexion;
+    @FXML
+    private Button Generate_code;
+    @FXML
+    private Label code_genere;
+    @FXML
+    private Label points;
+    @FXML
+    private Button viewPointHistory;
 
     @FXML
     public void initialize() {
@@ -39,12 +50,15 @@ public class Parametres {
         // Style du curseur
         to_home.setStyle("-fx-cursor: hand;");
         deconnexion.setStyle("-fx-cursor: hand;");
+        Generate_code.setOnAction(event -> generateReferralCode());
+        viewPointHistory.setOnAction(event -> showPointHistory());
     }
 
     public void initData(user connectedUser, profile userProfile) {
         this.connectedUser = connectedUser;
         this.userProfile = userProfile;
         updateUI();
+        updatePointsDisplay();
     }
 
     private void updateUI() {
@@ -107,4 +121,69 @@ public class Parametres {
         alert.setContentText(content);
         alert.showAndWait();
     }
+    private void generateReferralCode() {
+        System.out.println(connectedUser.getUsername());
+        if (connectedUser == null) {
+            System.out.println("Erreur : aucun utilisateur connecte.");
+            return;
+        }
+
+        ServiceUser serviceUser = new ServiceUser();
+        serviceUser.generateReferralCode(connectedUser.getId());
+
+        // Récupérer l'utilisateur mis à jour
+        user updatedUser = serviceUser.getUserById(connectedUser.getId());
+        if (updatedUser != null && updatedUser.getCode_parrainage() != null) {
+            code_genere.setText(updatedUser.getCode_parrainage());
+        } else {
+            System.out.println("Erreur : impossible de récupérer le code de parrainage.");
+            code_genere.setText("Aucun code disponible");
+        }
+    }
+
+
+    private void updatePointsDisplay() {
+        //System.out.println(connectedUser.getUsername());
+        if (connectedUser == null) {
+            System.out.println("Erreur : aucun utilisateur connecté.");
+            return;
+        }
+
+        ServiceUser serviceUser = new ServiceUser();
+        user updatedUser = serviceUser.getUserById(connectedUser.getId());
+
+        if (updatedUser != null) {
+            points.setText(String.valueOf(updatedUser.getPoints()));
+        } else {
+            System.out.println("Erreur : impossible de récupérer les points.");
+            points.setText("0"); // ou une valeur par défaut
+        }
+    }
+
+    private void showPointHistory() {
+        List<Point> history = PointHistory.loadPointHistory();
+        StringBuilder content = new StringBuilder();
+        content.append("Historique des points :\n\n");
+        
+        for (Point point : history) {
+            content.append(String.format("Date: %s\n", point.getDate()));
+            content.append(String.format("Action: %s\n", point.getAction()));
+            content.append(String.format("Points: %d\n", point.getPoints()));
+            content.append("------------------------\n");
+        }
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Historique des Points");
+        alert.setHeaderText(null);
+        alert.setContentText(content.toString());
+        
+        // Pour permettre de copier le texte
+        TextArea textArea = new TextArea(content.toString());
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+        
+        alert.getDialogPane().setContent(textArea);
+        alert.showAndWait();
+    }
+
 }

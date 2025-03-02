@@ -6,10 +6,13 @@ public class user {
     private String password;
     private String secret_Key;
     private boolean is_2fa_enabled;
+    private String code_parrainage;
+    private int points;
 
     public user(String username, String password) {
         this.username = username;
         this.password = password;
+        this.points = 0; // Points initiaux
     }
     public user(int id, String username, String password) {
         this.id_user = id;
@@ -25,6 +28,14 @@ public class user {
         this.password = password;
         this.is_2fa_enabled = is2faEnabled;
         this.secret_Key = secretKey;
+    }
+
+    public user(int idUser, String username, String password, String codeParrainage, int points) {
+        this.id_user = idUser;
+        this.username = username;
+        this.password = password;
+        this.code_parrainage = codeParrainage;
+        this.points = points;
     }
 
     public int getId() {
@@ -65,6 +76,22 @@ public class user {
 
     public void setIs_2fa_enabled(boolean is_2fa_enabled) {
         this.is_2fa_enabled = is_2fa_enabled;
+    }
+
+    public String getCode_parrainage() {
+        return code_parrainage;
+    }
+
+    public void setCode_parrainage(String code_parrainage) {
+        this.code_parrainage = code_parrainage;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     @Override

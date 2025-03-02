@@ -208,6 +208,9 @@
                               <Insets left="20.0" />
                            </padding>
                         </Button>
+                        <Button fx:id="Generate_code" layoutX="748.0" layoutY="164.0" mnemonicParsing="false" text="Button" />
+                        <Label fx:id="points" layoutX="721.0" layoutY="342.0" text="Label" />
+                        <Label fx:id="code_genere" layoutX="760.0" layoutY="201.0" text="Label" />
                      </children>
                   </Pane>
                     </children>

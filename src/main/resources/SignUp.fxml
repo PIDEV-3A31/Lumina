@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" styleClass="border-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.SignUp">
     <children>
@@ -94,6 +95,8 @@
                         <Tooltip fx:id="ttt" text="The password must be between 3 and 20 characters long and contain at least one uppercase letter!" />
                      </tooltip>
                   </Button>
+                  <TextField fx:id="txtCodeParrainage" layoutX="515.0" layoutY="341.0" />
+                  <Text layoutX="515.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Code de parinage ?" />
                </children>
             </Pane>
          </children></VBox>

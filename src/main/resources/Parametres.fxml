@@ -133,8 +133,25 @@
                                         <Insets left="20.0" />
                                     </padding>
                                 </Button>
-                                <ToggleButton fx:id="double_authentificator" layoutX="384.0" layoutY="139.0" mnemonicParsing="false" text="2FA" />
-                                <Label layoutX="200.0" layoutY="143.0" text="2FA is enabled" />
+                                <ToggleButton fx:id="double_authentificator" layoutX="505.0" layoutY="150.0" mnemonicParsing="false" text="Enable" />
+                                <Label layoutX="115.0" layoutY="144.0" text=" Two-Factor Authentication :">
+                           <font>
+                              <Font size="25.0" />
+                           </font></Label>
+                        <Label layoutX="115.0" layoutY="206.0" text="Referral Code:">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="code_genere" layoutX="317.0" layoutY="215.0" text="t" />
+                        <Button fx:id="Generate_code" layoutX="395.0" layoutY="212.0" mnemonicParsing="false" text="Get code" />
+                        <Label layoutX="125.0" layoutY="294.0" text="Points: ">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="points" layoutX="282.0" layoutY="306.0" text="Label" />
+                        <Button fx:id="viewPointHistory" layoutX="524.0" layoutY="365.0" mnemonicParsing="false" text="Get code" />
                             </children>
                         </Pane>
                     </children>

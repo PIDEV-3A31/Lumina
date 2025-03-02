@@ -166,12 +166,14 @@ public class ServiceUser implements CrudService<user> {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
-            
+
             if (rs.next()) {
                 return new user(
-                    rs.getInt("id_user"),
-                    rs.getString("username"),
-                    rs.getString("password")
+                        rs.getInt("id_user"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("code_parrainage"),
+                        rs.getInt("points")
                 );
             }
         } catch (SQLException e) {
@@ -179,6 +181,7 @@ public class ServiceUser implements CrudService<user> {
         }
         return null;
     }
+
 
     public boolean isUsernameUnique(String username, Integer excludeUserId) {
         String sql = "SELECT COUNT(*) FROM user WHERE username = ?";
@@ -264,4 +267,94 @@ public class ServiceUser implements CrudService<user> {
             System.out.println("Erreur lors de la mise à jour du mot de passe : " + e.getMessage());
         }
     }
+
+    public void generateReferralCode(int userId) {
+        String code = generateUniqueCode();
+        String sql = "UPDATE user SET code_parrainage = ? WHERE id_user = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, code);
+            stmt.setInt(2, userId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la génération du code : " + e.getMessage());
+        }
+    }
+
+    private String generateUniqueCode() {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder code;
+        do {
+            code = new StringBuilder();
+            for (int i = 0; i < 8; i++) {
+                code.append(chars.charAt((int) (Math.random() * chars.length())));
+            }
+        } while (!isCodeUnique(code.toString()));
+
+        System.out.println("Code généré : " + code); // Log pour vérifier le code
+        return code.toString();
+    }
+
+
+    private boolean isCodeUnique(String code) {
+        String sql = "SELECT COUNT(*) FROM user WHERE code_parrainage = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, code);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) == 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la vérification du code : " + e.getMessage());
+        }
+        return false;
+    }
+
+    public void addPoints(int userId, int points, String action) {
+        // Ajouter les points à l'utilisateur
+        String sqlUpdatePoints = "UPDATE user SET points = points + ? WHERE id_user = ?";
+        // Enregistrer l'action dans la table point
+        String sqlInsertAction = "INSERT INTO points (id_user, action, points, date) VALUES (?, ?, ?, NOW())";
+        
+        try (PreparedStatement stmtPoints = connection.prepareStatement(sqlUpdatePoints);
+             PreparedStatement stmtAction = connection.prepareStatement(sqlInsertAction)) {
+            
+            // Mise à jour des points de l'utilisateur
+            stmtPoints.setInt(1, points);
+            stmtPoints.setInt(2, userId);
+            stmtPoints.executeUpdate();
+            
+            // Enregistrement de l'action
+            stmtAction.setInt(1, userId);
+            stmtAction.setString(2, action);
+            stmtAction.setInt(3, points);
+            stmtAction.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de l'ajout des points : " + e.getMessage());
+        }
+    }
+
+    public user getUserByReferralCode(String code) {
+        System.out.println("Recherche du code de parrainage : " + code);
+        String sql = "SELECT * FROM user WHERE code_parrainage = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, code);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                user foundUser = new user(
+                        rs.getInt("id_user"),
+                        rs.getString("username"),
+                        rs.getString("password")
+                );
+                System.out.println("Utilisateur trouvé : " + foundUser.getUsername());
+                return foundUser;
+            } else {
+                System.out.println("Aucun utilisateur trouvé avec le code de parrainage : " + code);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la recherche du code : " + e.getMessage());
+        }
+        return null;
+    }
+
 }
