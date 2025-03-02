@@ -5,6 +5,7 @@ import come.esprit.models.Reservation;
 import come.esprit.services.MailService;
 import come.esprit.services.ServiceParking;
 import come.esprit.services.ServiceReservation;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import come.esprit.services.ServiceReservation.QRCodeGenerator; // Assurez-vous que cette classe est correctement importée
+import javafx.util.Duration;
 
 import javax.swing.*;
 import java.io.File;
@@ -68,6 +70,9 @@ public class interface_home implements Initializable {
 
     @FXML
     private Button add1;
+    @FXML
+    private Button add11;
+
 
     private ServiceParking serviceParking = new ServiceParking();
     private ServiceReservation serviceReservation = new ServiceReservation();
@@ -89,6 +94,9 @@ public class interface_home implements Initializable {
         // Ajouter un écouteur pour le bouton "Add"
         add1.setOnAction(event -> ajouterReservation());
 
+        add11.setOnMouseClicked(event -> retourReservation());
+
+
         // Ajouter un écouteur de sélection pour détecter le parking sélectionné
         tableparkings1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -96,20 +104,29 @@ public class interface_home implements Initializable {
                 idpark1.setText(String.valueOf(newValue.getId_parck()));
             }
         });
+
+
+
+
     }
 
-    private void ajouterReservation() {
-        String idParkStr = idpark1.getText();
-        String matricule = matricule1.getText();
-        String email = mail.getText();  // Récupérer l'email du TextField
 
-        // Vérifier si les champs sont remplis
+
+
+
+
+    private void ajouterReservation() {
+        String idParkStr = idpark1.getText().trim();
+        String matricule = matricule1.getText().trim();
+        String email = mail.getText().trim();
+
+        // Vérification rapide des champs vides
         if (idParkStr.isEmpty() || matricule.isEmpty() || email.isEmpty()) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs !");
             return;
         }
 
-        // Vérifier que l'ID du parking est valide
+        // Vérification de l'ID du parking
         int idPark;
         try {
             idPark = Integer.parseInt(idParkStr);
@@ -118,81 +135,60 @@ public class interface_home implements Initializable {
             return;
         }
 
-        // Vérifier que l'email est valide
+        // Vérification de l'email
         if (!email.contains("@") || !email.contains(".")) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "L'email n'est pas valide !");
             return;
         }
 
-        // Créer la réservation sans ajouter l'email à la classe Reservation
+        // Création et ajout de la réservation
         Reservation reservation = new Reservation(idPark, matricule);
-
-        // Ajouter la réservation
         serviceReservation.ajouter(reservation);
 
-        // Envoyer un e-mail de confirmation
+        // Envoi de l'e-mail
         try {
-            MailService.sendEmail(email, "Confirmation de votre réservation", "Bonjour, \n\nNous vous confirmons que votre réservation a été enregistrée avec succès. Nous vous remercions de votre confiance et restons à votre disposition pour toute question.\n\nCordialement,\nL'équipe de réservation'LUMINA'");
+            MailService.sendEmail(email, "Confirmation de votre réservation",
+                    "Bonjour,\n\nNous vous confirmons votre réservation.\n\nCordialement,\nL'équipe 'LUMINA'");
         } catch (Exception e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "L'envoi de l'email a échoué.");
-            e.printStackTrace();
             return;
         }
 
-        // Afficher un message de succès
-        afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Réservation ajoutée avec succès !");
-
-        // Vider les champs après ajout
-        viderChamps();
-
-        // Recharger la liste des parkings ou des réservations si nécessaire
-        loadDataparking();
-        // Générer les données du QR Code
+        // Génération du QR Code
         String qrData = "Réservation ID: " + reservation.getId_reservation();
-
-        // Créer le répertoire si nécessaire
-        File dir = new File("qr_codes");
-        if (!dir.exists()) {
-            dir.mkdirs();  // Créer le répertoire si nécessaire
-        }
-
-        // Chemin pour enregistrer le QR Code
         String qrFilePath = "qr_codes/reservation_" + reservation.getId_reservation() + ".png";
 
+        // Vérifier et créer le répertoire une seule fois
+        new File("qr_codes").mkdirs();
+
         try {
-            QRCodeGenerator.generateQRCode(qrData, qrFilePath);  // Générer le QR Code
+            QRCodeGenerator.generateQRCode(qrData, qrFilePath);
         } catch (Exception e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "La génération du QR Code a échoué.");
-            e.printStackTrace();
             return;
         }
 
-        // Afficher le QR Code dans l'application
-        Image qrImage = new Image("file:" + qrFilePath); // Charger l'image du QR Code
-        ImageView qrImageView = new ImageView(qrImage);   // Créer un ImageView pour afficher l'image
-        qrImageView.setFitWidth(150);  // Ajuster la taille de l'image (si nécessaire)
+        // Affichage du QR Code
+        vboxQrCode.getChildren().clear();  // Nettoyage avant ajout
+        ImageView qrImageView = new ImageView(new Image("file:" + qrFilePath));
+        qrImageView.setFitWidth(150);
         qrImageView.setFitHeight(150);
-        qrImageView.setPreserveRatio(true);  // Pour conserver les proportions du QR Code
+        qrImageView.setPreserveRatio(true);
+        vboxQrCode.getChildren().add(qrImageView);
 
-        // Ajouter l'ImageView au layout de l'interface (par exemple un VBox)
-        VBox vbox = new VBox(qrImageView);  // Assurez-vous que vous avez un VBox ou un autre conteneur
-        vboxQrCode.getChildren().add(vbox); // Ajoute le VBox dans le conteneur principal de la fenêtre
-
-        // Autres actions de la méthode (par exemple, envoyer un email, etc.)
+        // Message de succès
         afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Réservation ajoutée avec succès !");
 
-        // Rediriger vers une autre vue (Liste des réservations)
-       try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/home_reservation.fxml"));
-            Parent root = loader.load();
+        // Redirection vers la liste des réservations
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/home_reservation.fxml"));
             Stage stage = (Stage) add1.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page des réservations.");
         }
     }
-
 
 
     private void afficherAlerte(Alert.AlertType type, String titre, String message) {
@@ -213,5 +209,31 @@ public class interface_home implements Initializable {
         ObservableList<Parking> parkings = FXCollections.observableArrayList(serviceParking.afficher());
         tableparkings1.setItems(parkings);
     }
+
+
+
+    private void retourReservation() {
+        try {
+            Stage currentStage = (Stage) add11.getScene().getWindow();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/home_reservation.fxml"));
+            Parent root = loader.load();
+
+            Scene newScene = new Scene(root);
+
+            // Animation de fondu
+            root.setOpacity(0);
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
+
+            currentStage.setScene(newScene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
 

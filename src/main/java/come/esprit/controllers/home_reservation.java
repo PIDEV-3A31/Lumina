@@ -2,6 +2,7 @@ package come.esprit.controllers;
 
 import come.esprit.models.Reservation;
 import come.esprit.services.ServiceReservation;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +29,7 @@ public class home_reservation implements Initializable { // Ajout de Initializab
     private FlowPane vboxReservations;
     @FXML
     private ImageView return_ajouterparking;
+
 
     private final ServiceReservation serviceReservation = new ServiceReservation();
 
@@ -74,6 +77,15 @@ public class home_reservation implements Initializable { // Ajout de Initializab
             Parent root = loader.load();
 
             Scene newScene = new Scene(root);
+            // Animation de fondu
+            root.setOpacity(0);
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
+
+
+
             currentStage.setScene(newScene);
         } catch (IOException e) {
             e.printStackTrace();

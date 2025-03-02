@@ -50,6 +50,13 @@
             <version>3.5.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>17</version> <!-- Assure-toi que c'est la même version que javafx-controls -->
+        </dependency>
+
+
     </dependencies>
 
     <build>
