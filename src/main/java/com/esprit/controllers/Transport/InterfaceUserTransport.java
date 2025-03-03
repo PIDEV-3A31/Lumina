@@ -79,6 +79,8 @@ public class InterfaceUserTransport implements Initializable {
     private Label name_current_user;
     @FXML
     private ImageView img_current_user;
+    @FXML
+    private ImageView OpenChatBot;
 
 
     private serviceLigneTransport ligneTransportService = new serviceLigneTransport();
@@ -116,8 +118,24 @@ public class InterfaceUserTransport implements Initializable {
             }
         }
     }
+    @FXML
+    private void openChatBotWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatbotUi.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("ChatBot");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        OpenChatBot.setOnMouseClicked(event -> openChatBotWindow());
         return_home.setOnMouseClicked(event -> navigateToHome());
 
 

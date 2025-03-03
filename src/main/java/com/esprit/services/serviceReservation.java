@@ -1,13 +1,13 @@
 package com.esprit.services;
 
-import com.esprit.models.reservation;
+import com.esprit.models.reservation_transport;
 import com.esprit.utils.DataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class serviceReservation implements CrudTransport<reservation>{
+public class serviceReservation implements CrudTransport<reservation_transport>{
 
     private Connection connection;
 
@@ -16,13 +16,13 @@ public class serviceReservation implements CrudTransport<reservation>{
     }
 
     @Override
-    public void ajouter(reservation reservation) {
+    public void ajouter(reservation_transport reservation) {
         if (!verifierDisponibilite(reservation.getIdTransport(), reservation.getNbPlaces())) {
             System.out.println("Réservation impossible : Plus de places disponibles !");
             return;
         }
 
-        String req = "INSERT INTO reservation (id_utilisateur, id_moyenTransport, date_reservation, nb_places, tarif_total, statut) VALUES (?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO reservation_transport (id_utilisateur, id_moyenTransport, date_reservation, nb_places, tarif_total, statut) VALUES (?, ?, ?, ?, ?, ?)";
         String updatePlacesReservees = "UPDATE moyen_transport SET places_reservees = places_reservees + ? WHERE id_moyenTransport = ?";
 
         try {
@@ -65,8 +65,8 @@ public class serviceReservation implements CrudTransport<reservation>{
 
 
     @Override
-    public void modifier(reservation reservation) {
-        String req = "UPDATE reservation SET id_utilisateur=?, id_moyenTransport=?, date_reservation=?, nb_places=?, tarif_total=?, statut=? WHERE id_reservation=?";
+    public void modifier(reservation_transport reservation) {
+        String req = "UPDATE reservation_transport SET id_utilisateur=?, id_moyenTransport=?, date_reservation=?, nb_places=?, tarif_total=?, statut=? WHERE id_reservation=?";
         try {
             PreparedStatement ps = connection.prepareStatement(req);
             ps.setInt(1, reservation.getIdUtilisateur());
@@ -86,7 +86,7 @@ public class serviceReservation implements CrudTransport<reservation>{
 
     @Override
     public void supprimer(int id) {
-        String req = "DELETE FROM reservation WHERE id_reservation=?";
+        String req = "DELETE FROM reservation_transport WHERE id_reservation=?";
         try {
             PreparedStatement ps = connection.prepareStatement(req);
             ps.setInt(1, id);
@@ -99,14 +99,14 @@ public class serviceReservation implements CrudTransport<reservation>{
 
 
     @Override
-    public List<reservation> consulter() {
-        List<reservation> reservations = new ArrayList<>();
-        String req = "SELECT * FROM reservation";
+    public List<reservation_transport> consulter() {
+        List<reservation_transport> reservations = new ArrayList<>();
+        String req = "SELECT * FROM reservation_transport";
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                reservation reservation = new reservation(
+                reservation_transport reservation = new reservation_transport(
                         rs.getInt("id_reservation"),
                         rs.getInt("id_utilisateur"),
                         rs.getInt("id_moyenTransport"),

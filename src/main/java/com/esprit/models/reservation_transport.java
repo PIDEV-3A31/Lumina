@@ -2,7 +2,7 @@ package com.esprit.models;
 
 import java.util.Date;
 
-public class reservation {
+public class reservation_transport {
     private int idReservation;
     private int idUtilisateur;
     private int idMoyenTransport;
@@ -11,7 +11,7 @@ public class reservation {
     private double tarifTotal;
     private String statut;
 
-    public reservation(int idReservation, int idUtilisateur, int idMoyenTransport, Date dateReservation, int nbPlaces, double tarifTotal, String statut) {
+    public reservation_transport(int idReservation, int idUtilisateur, int idMoyenTransport, Date dateReservation, int nbPlaces, double tarifTotal, String statut) {
         this.idReservation = idReservation;
         this.idUtilisateur = idUtilisateur;
         this.idMoyenTransport = idMoyenTransport;
@@ -21,7 +21,7 @@ public class reservation {
         this.statut = statut;
     }
 
-    public reservation(int idUtilisateur, int idMoyenTransport, Date dateReservation, int nbPlaces, double tarifTotal, String statut) {
+    public reservation_transport(int idUtilisateur, int idMoyenTransport, Date dateReservation, int nbPlaces, double tarifTotal, String statut) {
         this.idUtilisateur = idUtilisateur;
         this.idMoyenTransport = idMoyenTransport;
         this.dateReservation = dateReservation;

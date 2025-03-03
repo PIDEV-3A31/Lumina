@@ -10,9 +10,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="190.0" prefWidth="416.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Transport.ItemMoyenTransport">
+<AnchorPane prefHeight="202.0" prefWidth="364.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Transport.ItemMoyenTransport">
     <children>
-        <Pane layoutX="34.0" layoutY="72.0" prefHeight="101.0" prefWidth="367.0" stylesheets="@style/style.css" AnchorPane.topAnchor="95.0">
+        <Pane prefHeight="101.0" prefWidth="367.0" stylesheets="@style/style.css">
          <children>
             <Label fx:id="type_transportLabel" layoutX="139.0" layoutY="4.0" text="Bus">
                <font>
@@ -32,16 +32,16 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <ComboBox fx:id="nb_places" layoutX="184.0" layoutY="63.0" prefHeight="25.0" prefWidth="40.0" styleClass="text-field" stylesheets="@style/style.css" />
+            <ComboBox fx:id="nb_places" layoutX="171.0" layoutY="63.0" prefHeight="27.0" prefWidth="63.0" styleClass="text-field" stylesheets="@style/style.css" />
             <Label layoutX="163.0" layoutY="35.0" prefHeight="17.0" prefWidth="92.0" text="place à reserver" />
-            <Line endX="3.29998779296875" endY="38.399993896484375" layoutX="57.0" layoutY="41.0" startX="3.29998779296875" startY="3.2000083923339844" />
-            <Line endX="3.29998779296875" endY="38.399993896484375" layoutX="147.0" layoutY="42.0" startX="3.29998779296875" startY="3.2000083923339844" />
+            <Line endX="3.29998779296875" endY="32.800018310546875" layoutX="57.0" layoutY="41.0" startX="3.29998779296875" startY="9.60000228881836" />
+            <Line endX="3.29998779296875" endY="32.800018310546875" layoutX="147.0" layoutY="41.0" startX="3.29998779296875" startY="9.60000228881836" />
          </children>
          <opaqueInsets>
             <Insets top="20.0" />
          </opaqueInsets>
          <padding>
-            <Insets left="20.0" top="20.0" />
+            <Insets bottom="20.0" left="20.0" top="20.0" />
          </padding>
          <styleClass>
             <String fx:value="element-stat" />
@@ -49,4 +49,7 @@
          </styleClass>
         </Pane>
     </children>
+   <padding>
+      <Insets top="100.0" />
+   </padding>
 </AnchorPane>

@@ -13,6 +13,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class dashboardAffichProf {
     private user connectedUser;
     private profile userProfile;
@@ -45,14 +47,32 @@ public class dashboardAffichProf {
     private Button retour;
     @FXML
     private Button deconnexion;
+    @FXML
+    private ImageView OpenChatBot;
 
     @FXML
     public void initialize() {
+        OpenChatBot.setOnMouseClicked(event -> openChatBotWindow());
         editProfileButton.setOnAction(event -> navigateToEditProfile());
         editPasswordButton.setOnAction(event -> navigateToEditPassword());
         retour.setOnAction(event -> navigateBack());
         deconnexion.setOnAction(event -> logout());
 
+    }
+
+    @FXML
+    private void openChatBotWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatbotUi.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("ChatBot");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void initData(user connectedUser, profile userProfile) {

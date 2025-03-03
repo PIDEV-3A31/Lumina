@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,12 +80,16 @@ public class dashboardModifProf {
     private Tooltip ttt;
     @FXML
     private Button tt;
+    @FXML
+    private ImageView OpenChatBot;
+
 
     private String selectedImagePath = null;
     private boolean isPasswordVisible = false;
 
     @FXML
     public void initialize() {
+        OpenChatBot.setOnMouseClicked(event -> openChatBotWindow());
         Save.setOnAction(event -> Update());
         uploadImg.setOnAction(event -> ImageUpload());
         retour.setOnAction(event -> navigateBack());
@@ -100,6 +105,21 @@ public class dashboardModifProf {
                 + "-fx-text-fill: gris;");
         ttt.setText("The password must be between 3 and 20 characters long and contain at least one uppercase letter.");
         tt.setTooltip(ttt);
+    }
+
+    @FXML
+    private void openChatBotWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatbotUi.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("ChatBot");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void initData(user connectedUser, profile userProfile, profile selectedProfile) throws Exception {

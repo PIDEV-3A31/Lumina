@@ -66,9 +66,13 @@ public class DisplayIntersections {
     @FXML
     private TableColumn<Intersection, Float> intersection_density;
 
+    @FXML
+    private ImageView OpenChatBot;
+
     // This method is automatically called when the FXML is loaded
     @FXML
     public void initialize() {
+        OpenChatBot.setOnMouseClicked(event -> openChatBotWindow());
         return_home.setOnMouseClicked(event -> navigateToHome());
 
 
@@ -83,7 +87,20 @@ public class DisplayIntersections {
     }
 
 
+    @FXML
+    private void openChatBotWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatbotUi.fxml"));
+            Parent root = loader.load();
 
+            Stage stage = new Stage();
+            stage.setTitle("ChatBot");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void ShowIntersectionONMaps() {
         // Get the selected intersection item

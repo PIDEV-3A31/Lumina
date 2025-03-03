@@ -61,6 +61,28 @@ public class ModifierLigneTransport {
     @FXML
     private ImageView return_consulterLigne;
 
+    @FXML
+    private Label errorEtat;
+
+    @FXML
+    private Label errorLieuxArrive;
+
+    @FXML
+    private Label errorLieuxDepart;
+
+    @FXML
+    private Label errorNomLigne;
+
+    @FXML
+    private Label errorTarif;
+
+    @FXML
+    private Label errorZoneCouverture;
+
+    @FXML
+    private ImageView OpenChatBot;
+
+
     private ligneTransport currentLigne;
     private final serviceLigneTransport serviceLigneTransport = new serviceLigneTransport();
 
@@ -87,7 +109,22 @@ public class ModifierLigneTransport {
     }
 
     @FXML
+    private void openChatBotWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatbotUi.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("ChatBot");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
     private void initialize() {
+        OpenChatBot.setOnMouseClicked(event -> openChatBotWindow());
         System.out.println("Initialisation du contrôleur ModifierLigneTransport");
 
         // Vérifier si les composants sont bien chargés
@@ -149,27 +186,63 @@ public class ModifierLigneTransport {
         String nomLigne = nomLigne_label.getText();
         String zoneCouverture = zoneCouverture_label.getText();
         String etat = etat_label.getText();
+        String lieuxDepart = lieuxDepart_label.getText();
+        String lieuxArrive = lieuxArrive_label.getText();
 
-        // Vérifier si le tarif est un nombre valide
-        double tarif;
+        errorNomLigne.setText("");
+        errorZoneCouverture.setText("");
+        errorEtat.setText("");
+        errorLieuxDepart.setText("");
+        errorLieuxArrive.setText("");
+        errorTarif.setText("");
+
+
+        boolean hasError = false;
+        double tarif=0 ;
+        if (nomLigne.isEmpty()) {
+            errorNomLigne.setText("Le nom de la ligne est obligatoire !");
+            hasError = true;
+        }
+
+        if (zoneCouverture.isEmpty()) {
+            errorZoneCouverture.setText("Veuillez renseigner la zone de couverture !");
+            hasError = true;
+        }
+
+        if (etat.isEmpty()) {
+            errorEtat.setText("Veuillez indiquer l'état de la ligne !");
+            hasError = true;
+        }
+
+        if (lieuxDepart.isEmpty()) {
+            errorLieuxDepart.setText("Le lieu de départ est requis !");
+            hasError = true;
+        }
+
+        if (lieuxArrive.isEmpty()) {
+            errorLieuxArrive.setText("Le lieu d'arrivée est requis !");
+            hasError = true;
+        }
+
         try {
-            tarif = Double.parseDouble(tarif_label.getText());
+            tarif = Double.parseDouble(tarif_label.getText().trim());
+            if (tarif < 0) {
+                errorTarif.setText("Le tarif doit être positif !");
+                hasError = true;
+            }
         } catch (NumberFormatException e) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le tarif doit être un nombre valide.");
+            errorTarif.setText("Le tarif doit être un nombre valide !");
+            hasError = true;
+        }
+
+        if (hasError) {
             return;
         }
 
-        // Vérifier si tous les champs sont remplis
-        if (nomLigne.isEmpty() || zoneCouverture.isEmpty() || etat.isEmpty()) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs !");
-            return;
-        }
 
-        if (hourDepartComboBox.getValue() == null || minuteDepartComboBox.getValue() == null ||
-                hourArriveeComboBox.getValue() == null || minuteArriveeComboBox.getValue() == null) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Veuillez sélectionner un horaire valide !");
-            return;
-        }
+
+
+
 
         // Récupérer les valeurs des ComboBox
         int hourDepart = hourDepartComboBox.getValue();

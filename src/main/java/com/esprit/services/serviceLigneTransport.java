@@ -5,7 +5,9 @@ import com.esprit.utils.DataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class serviceLigneTransport implements CrudTransport<ligneTransport> {
 
@@ -125,5 +127,31 @@ public class serviceLigneTransport implements CrudTransport<ligneTransport> {
         }
         return tarif;
     }
+
+    public Map<Integer, String> getLignesMap() {
+        Map<Integer, String> lignesMap = new HashMap<>();
+        String req = "SELECT id_ligne, nom_ligne FROM ligne_transport";
+
+        try (Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(req)) {
+
+            while (rs.next()) {
+                lignesMap.put(rs.getInt("id_ligne"), rs.getString("nom_ligne"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération des lignes : " + e.getMessage());
+        }
+        return lignesMap;
+    }
+
+    public String getNomLigneById(int idLigne) {
+        serviceLigneTransport slt = new serviceLigneTransport();
+        Map<Integer, String> lignesMap = slt.getLignesMap();  // Récupère la map contenant idLigne -> nomLigne
+        return lignesMap.getOrDefault(idLigne, "Inconnu");  // Retourne le nom de la ligne ou "Inconnu" si l'ID n'existe pas
+    }
+
+
+
+
 
 }

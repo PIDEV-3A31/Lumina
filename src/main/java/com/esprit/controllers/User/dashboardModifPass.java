@@ -12,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.util.Objects;
 
 public class dashboardModifPass {
@@ -50,6 +52,9 @@ public class dashboardModifPass {
     @FXML
     private Button deconnexion;
 
+    @FXML
+    private ImageView OpenChatBot;
+
     @FXML private Label Alert_oldpassword;
     @FXML private Label Alert_newpassword;
     @FXML private Label Alert_confirmnewpassword;
@@ -64,6 +69,7 @@ public class dashboardModifPass {
 
     @FXML
     public void initialize() {
+        OpenChatBot.setOnMouseClicked(event -> openChatBotWindow());
         update_password.setOnAction(event -> updatePassword());
         retour.setOnAction(event -> navigateBack());
         deconnexion.setOnAction(event -> logout());
@@ -77,6 +83,21 @@ public class dashboardModifPass {
                 + "-fx-text-fill: gris;");
         ttt.setText("The password must be between 3 and 20 characters long and contain at least one uppercase letter.");
         tt.setTooltip(ttt);
+    }
+
+    @FXML
+    private void openChatBotWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatbotUi.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("ChatBot");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void initData(user connectedUser, profile userProfile) {

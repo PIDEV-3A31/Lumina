@@ -28,6 +28,7 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -130,7 +131,11 @@ public class dashboardController {
     private ImageView QrCode;
 
     @FXML
+    private ImageView OpenChatBot;
+
+    @FXML
     public void initialize() {
+        OpenChatBot.setOnMouseClicked(event -> openChatBotWindow());
 
         // Action associée au pane "pane"
         GoToTransport.setOnMouseClicked(event -> {
@@ -192,6 +197,21 @@ public class dashboardController {
         initializeSearch();
 
         ExportPdf.setOnAction(event -> exportToPDF());
+    }
+
+    @FXML
+    private void openChatBotWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatbotUi.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("ChatBot");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void initData(user user, profile profile) {

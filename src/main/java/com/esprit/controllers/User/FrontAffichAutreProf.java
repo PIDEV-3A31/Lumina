@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.util.Objects;
 
 public class FrontAffichAutreProf {
@@ -40,9 +42,12 @@ public class FrontAffichAutreProf {
     private ImageView to_home;
     @FXML
     private ImageView deconnexion;
+    @FXML
+    private ImageView OpenChatBot;
 
     @FXML
     public void initialize() {
+        OpenChatBot.setOnMouseClicked(event -> openChatBotWindow());
         to_home.setOnMouseClicked(event -> navigateToHome());
         deconnexion.setOnMouseClicked(event -> logout());
         profileImage.setOnMouseClicked(event -> navigateToProfile());
@@ -50,6 +55,21 @@ public class FrontAffichAutreProf {
         // Style du curseur
         to_home.setStyle("-fx-cursor: hand;");
         deconnexion.setStyle("-fx-cursor: hand;");
+    }
+
+    @FXML
+    private void openChatBotWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatbotUi.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("ChatBot");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void initData(user connectedUser, profile userProfile, user selectedUser, profile selectedProfile) {

@@ -1,7 +1,7 @@
 package com.esprit.controllers.Transport;
 
 import com.esprit.models.moyenTransport;
-import com.esprit.models.reservation;
+import com.esprit.models.reservation_transport;
 import com.esprit.services.serviceLigneTransport;
 import com.esprit.services.serviceReservation;
 import javafx.fxml.FXML;
@@ -49,12 +49,12 @@ public class ItemMoyenTransport implements Initializable {
     private void updateLabels() {
         if (moyen != null) {
             type_transportLabel.setText(moyen.getTypeTransport());
-            place_disponibleLabel.setText("Places: " + (moyen.getCapaciteMax() - moyen.getPlace_reservees()));
+            place_disponibleLabel.setText("" + (moyen.getCapaciteMax() - moyen.getPlace_reservees()));
             serviceLigneTransport ligne =new serviceLigneTransport();
             double tarif = ligne.getTarifByLigneId(moyen.getIdLigne());
 
             // Mettre à jour le label avec le tarif récupéré
-            prixLabel.setText("Prix: " + tarif + " TND");
+            prixLabel.setText(tarif + " TND");
         }
     }
 
@@ -79,7 +79,7 @@ public class ItemMoyenTransport implements Initializable {
             stage.showAndWait();  // Attend la fermeture de la fenêtre
 
             if (controller.isPaymentSuccessful()) {
-                reservation reservation = new reservation(1, 1, moyen.getIdMoyenTransport(), new Date(), 1, 5, "Confirmée");
+                reservation_transport reservation = new reservation_transport(1, 1, moyen.getIdMoyenTransport(), new Date(), 1, 5, "Confirmée");
                 serviceReservation reservationService = new serviceReservation();
                 reservationService.ajouter(reservation);
 

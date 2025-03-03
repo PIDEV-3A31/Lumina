@@ -65,9 +65,9 @@
                         </HBox>
                         <Pane prefHeight="200.0" prefWidth="200.0">
                             <children>
-                                <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);;">
+                                <ImageView fx:id="OpenChatBot" fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);;">
                                     <image>
-                                        <Image url="@assets/Icon_notif.png" />
+                                        <Image url="@assets/Chatbot%20Chat-modified%20(2).png" />
                                     </image>
                                 </ImageView>
                         <Button fx:id="ExportPdf" layoutX="69.0" layoutY="18.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="add-button1" stylesheets="@style/stylenour.css" textFill="WHITE">

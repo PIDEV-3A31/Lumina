@@ -1,14 +1,11 @@
 package com.esprit;
 import com.esprit.models.ligneTransport;
 import com.esprit.models.moyenTransport;
-import com.esprit.models.reservation;
+import com.esprit.models.reservation_transport;
 import com.esprit.services.serviceLigneTransport;
 import com.esprit.services.serviceMoyenTransport;
 import com.esprit.services.serviceReservation;
-import com.esprit.utils.DataBase;
 
-import java.sql.Time;
-import java.util.Date;
 import java.util.List;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -63,8 +60,8 @@ public class Main {
         //sr.supprimer(2);
 
         System.out.println("\n=== LISTE DES RÉSERVATIONS ===");
-        List<reservation> reservations = sr.consulter();
-        for (reservation r : reservations) {
+        List<reservation_transport> reservations = sr.consulter();
+        for (reservation_transport r : reservations) {
             System.out.println(r);
         }
 

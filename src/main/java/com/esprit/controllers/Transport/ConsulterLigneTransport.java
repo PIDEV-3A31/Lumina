@@ -6,6 +6,7 @@ import com.esprit.models.profile;
 import com.esprit.models.user;
 import com.esprit.services.serviceLigneTransport;
 import com.esprit.services.serviceMoyenTransport;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -109,17 +110,38 @@ public class ConsulterLigneTransport {
     @FXML
     private TableColumn<moyenTransport, Void> modifier_moyenColumn;
 
+    @FXML
+    private TableColumn<moyenTransport, String> ligne_transport;
+
 
     @FXML
     private Label conculter_reservation;
+
+    @FXML
+    private ImageView OpenChatBot;
 
 
     private final serviceLigneTransport serviceLigneTransport = new serviceLigneTransport();
     private final serviceMoyenTransport serviceMoyenTransport = new serviceMoyenTransport();
 
     @FXML
-    public void initialize() {
+    private void openChatBotWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatbotUi.fxml"));
+            Parent root = loader.load();
 
+            Stage stage = new Stage();
+            stage.setTitle("ChatBot");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void initialize() {
+        OpenChatBot.setOnMouseClicked(event -> openChatBotWindow());
         GoToTraffic.setOnMouseClicked(event -> {
             try {
                 handleRedirection(event, "/gestion_traffic.fxml");
@@ -153,6 +175,13 @@ public class ConsulterLigneTransport {
         capacite_max_colomn.setCellValueFactory(new PropertyValueFactory<>("capaciteMax"));
         nb_places_Column.setCellValueFactory(new PropertyValueFactory<>("place_reservees"));
         etat_Column.setCellValueFactory(new PropertyValueFactory<>("etat"));
+        ligne_transport.setCellValueFactory(param -> {
+            moyenTransport moyen = param.getValue();
+            int idLigne = moyen.getIdLigne();  // Assurez-vous que vous avez une méthode `getIdLigne()` dans la classe `moyenTransport`
+           serviceLigneTransport slt =new serviceLigneTransport();
+            String nomLigne = slt.getNomLigneById(idLigne);  // Utilisez la méthode que vous avez définie pour obtenir le nom de la ligne
+            return new SimpleStringProperty(nomLigne);
+        });
 
         // Configuration des boutons de suppression
         setupDeleteButton(supprimer_ligneColumn, table_lignes_transport, serviceLigneTransport);

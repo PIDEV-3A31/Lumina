@@ -62,7 +62,11 @@ public class frontHome {
     private Pane button_traffic;
 
     @FXML
+    private ImageView OpenChatBot;
+
+    @FXML
     public void initialize() {
+        OpenChatBot.setOnMouseClicked(event -> openChatBotWindow());
         // Action associée au pane "pane"
         button_transport.setOnMouseClicked(event -> {
             navigateToTransport();
@@ -87,6 +91,21 @@ public class frontHome {
         parametres.setOnMouseClicked(event -> navigateToParametres());
 
 
+    }
+
+    @FXML
+    private void openChatBotWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatbotUi.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("ChatBot");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void handleRedirection(MouseEvent event, String fxmlPath) throws IOException {

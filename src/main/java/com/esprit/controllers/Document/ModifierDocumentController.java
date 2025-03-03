@@ -49,9 +49,24 @@ public class ModifierDocumentController {
 
     @FXML
     private ImageView back;
+    @FXML
+    private Label erreurtype;
+
+    @FXML
+    private Label errorDescription;
+
+    @FXML
+    private Label errorFichier;
+
+    @FXML
+    private Label errorTitre;
+
+    @FXML
+    private ImageView OpenChatBot;
 
     @FXML
     private void initialize() {
+        OpenChatBot.setOnMouseClicked(event -> openChatBotWindow());
         back.setOnMouseClicked(event -> handleBack());
 
         type_document_label.getItems().addAll(
@@ -68,6 +83,21 @@ public class ModifierDocumentController {
         // Associer les boutons à leurs actions
         button_add.setOnAction(event -> modifier());
         file_chooser.setOnAction(event -> choisirFichier());
+    }
+
+    @FXML
+    private void openChatBotWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatbotUi.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("ChatBot");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Set the document and service for modification
@@ -92,29 +122,54 @@ public class ModifierDocumentController {
         String description = description_label.getText();
         String chemin_fichier = fichier_label.getText();
 
-        // Vérifier si les champs sont remplis
-        if (titre.isEmpty() || description.isEmpty() || chemin_fichier.isEmpty()) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs !");
+        errorTitre.setText("");
+        errorDescription.setText("");
+        errorFichier.setText("");
+        erreurtype.setText("");
+
+
+        boolean hasError = false;
+
+        if (titre.isEmpty()) {
+            erreurtype.setText("Le titre est obligatoire !");
+            hasError = true;
+
+        }
+
+        if (titre.isEmpty()) {
+            errorTitre.setText("Le titre est obligatoire !");
+            hasError = true;
+
+        } else if (!titre.matches("^[a-zA-Z0-9\\s]{3,50}$")) {
+            errorTitre.setText("Le titre doit contenir entre 3 et 50 caractères !");
+            hasError = true;
+
+        }
+
+        if (description.isEmpty()) {
+            errorDescription.setText("La description est obligatoire !");
+            hasError = true;
+
+        } else if (!description.matches("^[a-zA-Z0-9\\s.,'\"-]{10,1000}$")) {
+            errorDescription.setText("La description doit contenir entre 10 et 1000 caractères !");
+            hasError = true;
+
+        }
+
+        if (chemin_fichier.isEmpty()) {
+            errorFichier.setText("Le fichier est obligatoire !");
+            hasError = true;
+
+        } else if (!chemin_fichier.matches("^.+\\.(pdf|docx|txt|jpg|png)$")) {
+            errorFichier.setText("Le fichier doit être au format PDF, DOCX, TXT, JPG ou PNG !");
+            hasError = true;
+
+        }
+
+        if (hasError) {
             return;
         }
 
-        // Vérification du titre (minimum 3 caractères, lettres et chiffres uniquement)
-        if (!titre.matches("^[a-zA-Z0-9\\s]{3,50}$")) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le titre doit contenir entre 3 et 50 caractères (lettres et chiffres uniquement) !");
-            return;
-        }
-
-        // Vérification de la description (minimum 10 caractères, pas de caractères spéciaux interdits)
-        if (!description.matches("^[a-zA-Z0-9\\s.,'\"-]{10,500}$")) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "La description doit contenir entre 10 et 500 caractères !");
-            return;
-        }
-
-        // Vérification du fichier (doit être un chemin valide avec une extension correcte)
-        if (!chemin_fichier.matches("^.+\\.(pdf|docx|txt|jpg|png)$")) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le fichier doit être au format PDF, DOCX, TXT, JPG ou PNG !");
-            return;
-        }
 
         // Mettre à jour l'objet document avec les nouvelles valeurs
         document.setTitre(titre);

@@ -13,6 +13,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,9 +40,13 @@ public class Parametres {
     private Label points;
     @FXML
     private Button viewPointHistory;
+    @FXML
+    private ImageView OpenChatBot;
+
 
     @FXML
     public void initialize() {
+        OpenChatBot.setOnMouseClicked(event -> openChatBotWindow());
         to_home.setOnMouseClicked(event -> navigateToHome());
         deconnexion.setOnMouseClicked(event -> logout());
 
@@ -52,6 +58,21 @@ public class Parametres {
         deconnexion.setStyle("-fx-cursor: hand;");
         Generate_code.setOnAction(event -> generateReferralCode());
         viewPointHistory.setOnAction(event -> showPointHistory());
+    }
+
+    @FXML
+    private void openChatBotWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatbotUi.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("ChatBot");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void initData(user connectedUser, profile userProfile) {

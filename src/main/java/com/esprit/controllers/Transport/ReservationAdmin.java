@@ -1,7 +1,7 @@
 package com.esprit.controllers.Transport;
 
 import com.esprit.models.profile;
-import com.esprit.models.reservation;
+import com.esprit.models.reservation_transport;
 import com.esprit.models.user;
 import com.esprit.services.serviceReservation;
 import javafx.collections.FXCollections;
@@ -37,44 +37,47 @@ public class ReservationAdmin {
     private ImageView ajouter_moyen;
 
     @FXML
-    private TableColumn<reservation, Integer> d_utilisateur_colomn;
+    private TableColumn<reservation_transport, Integer> d_utilisateur_colomn;
 
     @FXML
-    private TableColumn<reservation, LocalDate> date_reservation_Column;
+    private TableColumn<reservation_transport, LocalDate> date_reservation_Column;
 
     @FXML
-    private TableColumn<reservation, Integer> id_moyenTransport;
+    private TableColumn<reservation_transport, Integer> id_moyenTransport;
 
     @FXML
-    private TableColumn<reservation, Integer> id_reservation_colomn;
+    private TableColumn<reservation_transport, Integer> id_reservation_colomn;
 
     @FXML
-    private TableColumn<reservation, Integer> nb_places_Column;
+    private TableColumn<reservation_transport, Integer> nb_places_Column;
 
     @FXML
-    private TableColumn<reservation, String> statut_column;
+    private TableColumn<reservation_transport, String> statut_column;
 
     @FXML
-    private TableView<reservation> table_lignes_transport;
+    private TableView<reservation_transport> table_lignes_transport;
 
     @FXML
-    private TableColumn<reservation, Double> tarif_total_column;
+    private TableColumn<reservation_transport, Double> tarif_total_column;
 
     @FXML
-    private TableColumn<reservation, ?> ligneTransport;
+    private TableColumn<reservation_transport, ?> ligneTransport;
 
     @FXML
-    private TableColumn<reservation, ?> moyenTransport;
+    private TableColumn<reservation_transport, ?> moyenTransport;
 
     @FXML
     private ImageView return_consulter;
+
+    @FXML
+    private ImageView OpenChatBot;
 
 
 
     @FXML
     public void initialize() {
         // Lier les colonnes aux propriétés du modèle Reservation
-
+        OpenChatBot.setOnMouseClicked(event -> openChatBotWindow());
         date_reservation_Column.setCellValueFactory(new PropertyValueFactory<>("dateReservation"));
         nb_places_Column.setCellValueFactory(new PropertyValueFactory<>("nbPlaces"));
         tarif_total_column.setCellValueFactory(new PropertyValueFactory<>("tarifTotal"));
@@ -87,11 +90,25 @@ public class ReservationAdmin {
 
         loadData();
     }
+    @FXML
+    private void openChatBotWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatbotUi.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("ChatBot");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void loadData() {
 
         serviceReservation serviceReservation = new serviceReservation();
-        ObservableList<reservation> reservationObservableList = FXCollections.observableArrayList(serviceReservation.consulter());
+        ObservableList<reservation_transport> reservationObservableList = FXCollections.observableArrayList(serviceReservation.consulter());
 
 
         table_lignes_transport.setItems(reservationObservableList);

@@ -111,6 +111,8 @@ public class AfficherDocuments {
 
     @FXML
     private Button signer;
+    @FXML
+    private ImageView OpenChatBot;
 
 
 
@@ -124,7 +126,7 @@ public class AfficherDocuments {
 
     @FXML
     public void initialize() {
-
+        OpenChatBot.setOnMouseClicked(event -> openChatBotWindow());
         GoToTraffic.setOnMouseClicked(event -> {
             try {
                 handleRedirection(event, "/gestion_traffic.fxml");
@@ -139,6 +141,8 @@ public class AfficherDocuments {
                 e.printStackTrace();
             }
         });
+
+
 
 
         ajouter_documents.setOnMouseClicked(event -> handleAjouterDocument());
@@ -237,6 +241,22 @@ public class AfficherDocuments {
             }
         };
     }
+
+    @FXML
+    private void openChatBotWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatbotUi.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("ChatBot");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private Callback<TableColumn<Documents, String>, TableCell<Documents, String>> createEditButtonFactory() {
         return param -> new TableCell<Documents, String>() {
