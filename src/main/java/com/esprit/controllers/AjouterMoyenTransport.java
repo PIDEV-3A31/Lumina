@@ -3,7 +3,14 @@ package com.esprit.controllers;
 import com.esprit.models.moyenTransport;
 import com.esprit.services.serviceMoyenTransport;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class AjouterMoyenTransport {
 
@@ -25,12 +32,16 @@ public class AjouterMoyenTransport {
     @FXML
     private TextField typeTransport_label;
 
+    @FXML
+    private ImageView return_consulterMoyen;
+
     private serviceMoyenTransport serviceMoyenTransport = new serviceMoyenTransport();
 
     @FXML
     private void initialize() {
         // Associer le bouton à son action
         button_add.setOnAction(event -> ajouterMoyenTransport());
+        return_consulterMoyen.setOnMouseClicked(event -> retourConsulterLigneTransport());
 
 
     }
@@ -87,5 +98,18 @@ public class AjouterMoyenTransport {
         capaciteMax_label.clear();
         etat_label.clear();
         idLigne_label.clear();
+    }
+    private void retourConsulterLigneTransport() {
+        try {
+            Stage currentStage = (Stage) return_consulterMoyen.getScene().getWindow();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/consulter_ligneTransport.fxml"));
+            Parent root = loader.load();
+
+            Scene newScene = new Scene(root);
+            currentStage.setScene(newScene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

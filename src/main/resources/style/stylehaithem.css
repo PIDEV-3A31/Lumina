@@ -1,0 +1,325 @@
+.search-box{
+    -fx-background-color:#FFFFFF;
+    -fx-background-radius: 100;
+}
+
+.shadow{
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+}
+
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.search-button{
+    -fx-background-color: #0CBEB8;
+    -fx-background-radius: 30;
+
+}
+.Del-button{
+    -fx-background-color: #be0c1b;
+    -fx-background-radius: 30;
+
+}
+
+/* Style the table itself */
+.table-view {
+    -fx-background-color: white; /* White background for the table */
+    -fx-border-color: #0CBEB8;   /* Border color matches the header color */
+    -fx-border-width: 1px;       /* Border width */
+    -fx-effect: dropshadow(gaussian, rgba(0, 118, 255, 0.39), 10, 0.2, 0, 4); /* Subtle shadow effect */
+}
+
+/* Style the table header */
+.table-view .column-header {
+    -fx-background-color: #0CBEB8; /* Table header background color */
+    -fx-text-fill: white;          /* White text for the header */
+    -fx-font-size: 16px;           /* Header font size */
+    -fx-font-weight: bold;         /* Bold font for the header */
+    -fx-alignment: center;         /* Center align header text */
+    -fx-padding: 10px;             /* Padding in header */
+}
+
+/* Style for individual table cells */
+.table-view .table-cell {
+    -fx-background-color: transparent; /* Transparent background for table cells */
+    -fx-text-fill: black;               /* Black text color */
+    -fx-font-size: 14px;                /* Font size for table cells */
+    -fx-padding: 10px;                  /* Padding inside the cells */
+}
+
+/* Style for hover effect on rows */
+.table-view .table-row-cell:hover {
+    -fx-background-color: #e0f7f7; /* Light background for rows on hover */
+}
+
+/* Style for selected rows */
+.table-view .table-row-cell:focused {
+    -fx-background-color: #00C0A2;  /* Darker color for selected rows */
+    -fx-text-fill: white;            /* White text for selected rows */
+}
+
+/* Style for the vertical and horizontal scrollbars */
+.scroll-bar {
+    -fx-background-color: #f0f0f0;  /* Light scrollbar background */
+}
+
+
+
+
+/* For the button in JavaFX */
+.Primary-btn {
+    -fx-background-color: #0CBEB8;
+    -fx-text-fill: white;
+    -fx-font-size: 16px; /* Match the text size with button-del */
+    -fx-font-weight: 800; /* Match the font weight with button-del */
+    -fx-padding: 0 56px;
+    -fx-pref-height: 45px;
+    -fx-border-radius: 7px;
+    -fx-background-radius: 7px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 118, 255, 0.39), 14, 0.2, 0, 4);
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-alignment: center;
+}
+
+.Primary-btn:hover {
+    -fx-background-color: rgb(0, 237, 204);
+    -fx-effect: dropshadow(gaussian, rgba(0, 118, 255, 0.23), 20, 0.2, 0, 6);
+}
+
+/* For the delete button in JavaFX */
+.button-del {
+    -fx-background-color: transparent;
+    -fx-border-color: #ff4742;
+    -fx-border-radius: 6px;
+    -fx-border-width: 2px;
+    -fx-text-fill: #ff4742;
+    -fx-font-size: 16px;
+    -fx-font-weight: 800;
+    -fx-padding: 8px;
+    -fx-pref-height: 42px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.07), 4, 0.2, 0, 2);
+    -fx-cursor: hand;
+    -fx-alignment: center;
+}
+.button-del:hover {
+    -fx-background-color: #ff4742; /* Red background on hover */
+    -fx-text-fill: white; /* White text on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0, 118, 255, 0.23), 20, 0.2, 0, 6); /* Match the Primary-btn hover effect */
+}
+.more-button{
+    -fx-background-color: transparent;
+}
+
+.button-modify {
+    -fx-background-color: transparent;
+    -fx-border-color: #cab10c;
+    -fx-text-fill: #ffe642 ;
+    -fx-border-radius: 6px;
+    -fx-border-width: 2px;
+    -fx-border-color: #ffe642;
+    -fx-font-size: 16px;
+    -fx-font-weight: 800;
+    -fx-padding: 8px;
+    -fx-pref-height: 42px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.07), 4, 0.2, 0, 2);
+    -fx-cursor: hand;
+    -fx-alignment: center;
+
+}
+.button-modify:hover {
+    -fx-border-color: #ffe642; /* Red background on hover */
+    -fx-text-fill: white; /* White text on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0, 118, 255, 0.23), 20, 0.2, 0, 6); /* Match the Primary-btn hover effect */
+}
+
+
+
+
+.username-box {
+    -fx-padding: 8px 15px; /* Espacement intérieur */
+    -fx-font-size: 16px; /* Taille du texte */
+    -fx-text-fill: #333333; /* Texte gris foncé */
+    -fx-font-weight: bold; /* Texte en gras */
+}
+
+.button-selected {
+    -fx-background-color: #0CBEB8; /* Fond turquoise */
+    -fx-pref-height: 50px; /* Hauteur */
+    -fx-background-radius: 10px; /* Coins arrondis */
+    -fx-text-fill: white; /* Texte blanc */
+    -fx-font-family: "Outfit";
+    -fx-font-size: 17px;
+
+    -fx-alignment: CENTER-LEFT; /* Aligner le texte à gauche */
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 10px;
+    -fx-spacing: 10px; /* Espacement entre l'icône et le texte */
+
+}
+.button-non-selected {
+    -fx-background-color: transparent; /* Fond transparent */
+    -fx-text-fill: #000000; /* Texte noir */
+    -fx-font-family: "Outfit";
+    -fx-font-size: 17px;
+
+    -fx-alignment: CENTER-LEFT; /* Aligner le texte à gauche */
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-spacing: 10px; /* Espacement entre l'icône et le texte */
+    -fx-pref-width: 250px; /* Largeur fixe */
+}
+
+@font-face {
+    font-family: "Outfit";
+    src: url("/assets/Outfit.ttf");
+}
+
+.center-layout {
+    -fx-background-color: #E9E9E9;
+}
+
+.element-ajout {
+    -fx-background-color: white;
+    -fx-background-radius: 22;
+}
+
+.text-field {
+    -fx-background-color: #E4E4E4;
+    -fx-background-radius: 7;
+    -fx-border-color: transparent;
+    -fx-border-radius: 7;
+}
+
+.add-button{
+    -fx-background-color: #0CBEB8;
+    -fx-background-radius: 7;
+
+}
+
+
+.search-box{
+    -fx-background-color:#FFFFFF;
+    -fx-background-radius: 100;
+}
+
+.shadow{
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+}
+
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.search-button{
+    -fx-background-color: #0CBEB8;
+    -fx-background-radius: 30;
+
+}
+
+.username-box {
+    -fx-padding: 8px 15px; /* Espacement intérieur */
+    -fx-font-size: 16px; /* Taille du texte */
+    -fx-text-fill: #333333; /* Texte gris foncé */
+    -fx-font-weight: bold; /* Texte en gras */
+}
+
+.button-selected {
+    -fx-background-color: #0CBEB8; /* Fond turquoise */
+    -fx-pref-height: 50px; /* Hauteur */
+    -fx-background-radius: 10px; /* Coins arrondis */
+    -fx-text-fill: white; /* Texte blanc */
+    -fx-font-family: "Outfit";
+    -fx-font-size: 17px;
+
+    -fx-alignment: CENTER-LEFT; /* Aligner le texte à gauche */
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 10px;
+    -fx-spacing: 10px; /* Espacement entre l'icône et le texte */
+
+}
+.button-non-selected {
+    -fx-background-color: transparent; /* Fond transparent */
+    -fx-text-fill: #000000; /* Texte noir */
+    -fx-font-family: "Outfit";
+    -fx-font-size: 17px;
+
+    -fx-alignment: CENTER-LEFT; /* Aligner le texte à gauche */
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-spacing: 10px; /* Espacement entre l'icône et le texte */
+    -fx-pref-width: 250px; /* Largeur fixe */
+}
+
+@font-face {
+    font-family: "Outfit";
+    src: url("/assets/Outfit.ttf");
+}
+
+.center-layout {
+    -fx-background-color: #E9E9E9;
+}
+
+.element-ajout {
+    -fx-background-color: #F3F3F3;
+    -fx-background-radius: 22;
+}
+
+.element-home {
+    -fx-background-color: white;
+}
+
+.element-stat {
+    -fx-background-color: white;
+    -fx-background-radius: 22;
+}
+
+.text-field {
+    -fx-background-color: #E4E4E4;
+    -fx-background-radius: 7;
+    -fx-border-color: transparent;
+    -fx-border-radius: 7;
+}
+
+.add-button{
+    -fx-background-color: #0CBEB8;
+    -fx-background-radius: 7;
+
+}
+
+.split-pane {
+    -fx-background-color: #F9F9F9;
+}
+
+.custom-button {
+    -fx-background-color: #0CBEB8;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 20px;
+    -fx-pref-width: 150px;
+    -fx-pref-height: 150px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 5);
+}
+
+.pane-hover:hover {
+    -fx-background-color: #0AA89F;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-cursor: hand;
+
+}
+
+.custom-button:hover {
+    -fx-background-color: #0AA89F;
+    -fx-cursor: hand;
+}
+
+.custom-button:pressed {
+    -fx-background-color: #09998E;
+}

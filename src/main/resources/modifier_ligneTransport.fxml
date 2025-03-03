@@ -93,7 +93,7 @@
             <left>
                 <VBox prefHeight="589.0" prefWidth="255.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Traffic Management">
+                        <Button fx:id="GoToTraffic" mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Traffic Management">
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -105,11 +105,11 @@
                                 <Insets left="10.0" top="40.0" />
                             </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Transport Management">
+                        <Button mnemonicParsing="false" styleClass="button-selected" stylesheets="@style/style.css" text="Transport Management">
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@assets/le-plan-de-route 1.png" />
+                                        <Image url="@assets/transport_icon.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -117,7 +117,7 @@
                                 <Insets left="10.0" top="15.0" />
                             </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Parking Management">
+                        <Button fx:id="GoToParking" mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Parking Management">
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -129,11 +129,11 @@
                                 <Insets left="10.0" top="15.0" />
                             </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="230.0" styleClass="button-selected" stylesheets="@style/style.css" text="Municipality Services">
+                        <Button fx:id="GoToMunicipality" mnemonicParsing="false" prefHeight="46.0" prefWidth="230.0" styleClass="button-non-selected" stylesheets="@style/style.css" text="Municipality Services">
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@assets/More Details.png" />
+                                        <Image url="@assets/municipality_blue.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -144,7 +144,7 @@
                                 <Insets left="20.0" />
                             </padding>
                         </Button>
-                        <Button mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Staff Management">
+                        <Button fx:id="GoToUser" mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Staff Management">
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                     <image>

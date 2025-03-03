@@ -43,6 +43,12 @@ public class ModifierLigneTransport {
     private ComboBox<Integer> minuteArriveeComboBox;
 
     @FXML
+    private TextField lieuxArrive_label;
+
+    @FXML
+    private TextField lieuxDepart_label;
+
+    @FXML
     private ImageView return_consulterLigne;
 
     private ligneTransport currentLigne;
@@ -102,6 +108,9 @@ public class ModifierLigneTransport {
         button_modifier.setOnAction(event -> modifierLigneTransport());
 
         return_consulterLigne.setOnMouseClicked(event -> { handleConsulterTransport(); });
+
+
+
     }
 
     // Méthode pour initialiser les valeurs de la ligne à modifier
@@ -113,6 +122,8 @@ public class ModifierLigneTransport {
         zoneCouverture_label.setText(ligne.getZoneCouverture());
         tarif_label.setText(String.valueOf(ligne.getTarif()));
         etat_label.setText(ligne.getEtat());
+        lieuxDepart_label.setText(ligne.getLieuxDepart());
+        lieuxArrive_label.setText(ligne.getLieuxArrive());
 
         // Remplir les ComboBox avec les heures et minutes de départ et d'arrivée
         hourDepartComboBox.setValue(ligne.getHoraireDepart().toLocalTime().getHour());
@@ -183,4 +194,6 @@ public class ModifierLigneTransport {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
 }
