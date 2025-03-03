@@ -2,6 +2,7 @@ package come.esprit.controllers;
 
 import come.esprit.models.Parking;
 import come.esprit.services.ServiceParking;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -60,6 +62,12 @@ public class ajoutparking {
 
             // Remplacer la scène actuelle par la scène de la première interface
             Scene previousScene = new Scene(root);
+            // Animation de fondu
+            root.setOpacity(0);
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
             currentStage.setScene(previousScene);
 
         } catch (IOException e) {

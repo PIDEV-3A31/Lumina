@@ -1,22 +1,28 @@
 package come.esprit.services;
 
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.activation.FileDataSource;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
+
+import java.io.File;
 import java.util.Properties;
 
 public class MailService {
-    public static void sendEmail(String recipient, String subject, String messageText) {
-        final String senderEmail = "zidiiali20@gmail.com";
-        final String senderPassword = "zfpd xxxi jouh hgtz\n";
+    private static final String senderEmail = "zidiiali20@gmail.com";
+    private static final String senderPassword = "zfpd xxxi jouh hgtz";
 
+    public static void sendEmailWithAttachment(String recipient, String subject, String messageText, String filePath) {
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
 
-        // Activation du débogage
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -24,20 +30,34 @@ public class MailService {
             }
         });
 
-        session.setDebug(true);  // Active le mode débogage
-
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
             message.setSubject(subject);
-            message.setText(messageText);
 
-            // Envoie de l'email
+            // Partie texte
+            MimeBodyPart textPart = new MimeBodyPart();
+            textPart.setText(messageText);
+
+            // Partie pièce jointe
+            MimeBodyPart attachmentPart = new MimeBodyPart();
+            DataSource source = new FileDataSource(new File(filePath));
+            attachmentPart.setDataHandler(new DataHandler(source));
+            attachmentPart.setFileName(new File(filePath).getName());
+
+            // Création du message final avec plusieurs parties
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(textPart);
+            multipart.addBodyPart(attachmentPart);
+
+            message.setContent(multipart);
+
+            // Envoi de l'e-mail
             Transport.send(message);
             System.out.println("E-mail envoyé avec succès !");
-        } catch (MessagingException e) {
-            e.printStackTrace();  // Affiche les erreurs dans la console
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

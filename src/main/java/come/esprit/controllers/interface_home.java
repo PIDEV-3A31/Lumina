@@ -28,6 +28,7 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
 
@@ -141,24 +142,23 @@ public class interface_home implements Initializable {
             return;
         }
 
-        // Création et ajout de la réservation
+// Création et ajout de la réservation
         Reservation reservation = new Reservation(idPark, matricule);
         serviceReservation.ajouter(reservation);
 
-        // Envoi de l'e-mail
-        try {
-            MailService.sendEmail(email, "Confirmation de votre réservation",
-                    "Bonjour,\n\nNous vous confirmons votre réservation.\n\nCordialement,\nL'équipe 'LUMINA'");
-        } catch (Exception e) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "L'envoi de l'email a échoué.");
-            return;
-        }
+// Récupération des informations après insertion
+        int idReservation = reservation.getId_reservation();
+        Timestamp dateReservation = reservation.getDate_reservation();
+        String matriculeVoiture = reservation.getMatricule_voiture();
 
-        // Génération du QR Code
-        String qrData = "Réservation ID: " + reservation.getId_reservation();
-        String qrFilePath = "qr_codes/reservation_" + reservation.getId_reservation() + ".png";
+// Génération du QR Code avec toutes les informations de la réservation
+        String qrData = "Réservation ID: " + idReservation + "\n" +
+                "Date: " + dateReservation + "\n" +
+                "Matricule Voiture: " + matriculeVoiture;
 
-        // Vérifier et créer le répertoire une seule fois
+        String qrFilePath = "qr_codes/reservation_" + idReservation + ".png";
+
+// Vérifier et créer le répertoire une seule fois
         new File("qr_codes").mkdirs();
 
         try {
@@ -168,13 +168,24 @@ public class interface_home implements Initializable {
             return;
         }
 
-        // Affichage du QR Code
-        vboxQrCode.getChildren().clear();  // Nettoyage avant ajout
-        ImageView qrImageView = new ImageView(new Image("file:" + qrFilePath));
-        qrImageView.setFitWidth(150);
-        qrImageView.setFitHeight(150);
-        qrImageView.setPreserveRatio(true);
-        vboxQrCode.getChildren().add(qrImageView);
+// Contenu de l'email avec les détails de la réservation
+        String emailContent = "Bonjour,\n\n"
+                + "Nous vous confirmons votre réservation avec les détails suivants :\n\n"
+                + "📌 Numéro Réservation : " + idReservation + "\n"
+                + "📌 Adresse du Parking : " + idReservation + "\n"
+
+                + "📅 Date : " + dateReservation + "\n"
+                + "🚗 Matricule de la voiture : " + matriculeVoiture + "\n\n"
+                + "Vous trouverez ci-dessous votre QR Code pour votre réservation.\n\n"
+                + "Merci d'avoir choisi notre service.\n"
+                + "Cordialement,\nL'équipe 'LUMINA'";
+
+// Envoi de l'email avec le QR Code en pièce jointe
+        try {
+            MailService.sendEmailWithAttachment(email, "Confirmation de votre réservation", emailContent, qrFilePath);
+        } catch (Exception e) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "L'envoi de l'email a échoué.");
+        }
 
         // Message de succès
         afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Réservation ajoutée avec succès !");

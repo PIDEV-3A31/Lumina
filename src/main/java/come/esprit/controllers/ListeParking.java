@@ -4,6 +4,7 @@ import come.esprit.models.Parking;
 import come.esprit.models.Reservation;
 import come.esprit.services.ServiceParking;
 import come.esprit.services.ServiceReservation;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -179,6 +181,7 @@ public class ListeParking implements Initializable {
         alert.showAndWait().ifPresent(buttonType -> {
             if (buttonType == buttonYes) {
                 serviceParking.supprimer(parking.getId_parck());
+
                 loadDataparking();
                 loadDataReservation();
             }
@@ -201,6 +204,7 @@ public class ListeParking implements Initializable {
                 loadDataReservation();
             }
         });
+
     }
 
     private void handleAjouterParking() {
@@ -214,6 +218,13 @@ public class ListeParking implements Initializable {
 
             // Créer une nouvelle scène
             Scene newScene = new Scene(root);
+
+            // Animation de fondu
+            root.setOpacity(0);
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
 
             // Appliquer la nouvelle scène à la fenêtre actuelle avant de la fermer
             currentStage.setScene(newScene);
