@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Document.documentsUser">
+    <children>
+        <BorderPane layoutX="2.0" prefHeight="680.0" prefWidth="1280.0">
+            <top>
+                <HBox prefHeight="60.0" prefWidth="1206.0" styleClass="split-pane" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
+                    <children>
+                        <ImageView fitHeight="25.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/lumina.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets left="10.0" top="20.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <HBox prefHeight="42.0" prefWidth="362.0" stylesheets="@../css/style.css">
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="150.0" top="10.0" />
+                            </HBox.margin>
+                            <children>
+                                <TextField prefHeight="26.0" prefWidth="271.0" promptText="Search here ..." styleClass="transparent" stylesheets="@../css/style.css">
+                                    <HBox.margin>
+                                        <Insets left="20.0" top="8.0" />
+                                    </HBox.margin>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                    <font>
+                                        <Font size="13.0" />
+                                    </font>
+                                </TextField>
+                                <Button mnemonicParsing="false" styleClass="search-button" stylesheets="@../css/style.css" text="Search" textFill="WHITE">
+                                    <HBox.margin>
+                                        <Insets top="6.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <styleClass>
+                                <String fx:value="search-box" />
+                                <String fx:value="shadow" />
+                            </styleClass>
+                        </HBox>
+                        <Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/style.css">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <HBox.margin>
+                                <Insets left="30.0" />
+                            </HBox.margin>
+                     <children>
+                        <ImageView fx:id="OpenChatBot" fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);;">
+                           <image>
+                              <Image url="@../assets/Chatbot%20Chat-modified%20(2).png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                        </Pane>
+                        <Pane prefHeight="200.0" prefWidth="200.0">
+                            <children>
+                                <ImageView fx:id="img_current_user" fitHeight="50.0" fitWidth="50.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../assets/db282033-a123-437f-beb2-4a0b1338a761-modified.png" />
+                                    </image>
+                                </ImageView>
+                                <Label fx:id="name_current_user" layoutX="48.0" layoutY="14.0" prefHeight="41.0" prefWidth="145.0" styleClass="username-box" stylesheets="@../css/style.css" text="Syrine Ounais" />
+                            </children>
+                        </Pane>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets left="85.0" />
+                    </BorderPane.margin>
+                </HBox>
+            </top>
+            <left>
+                <HBox prefHeight="620.0" prefWidth="85.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Pane prefHeight="620.0" prefWidth="85.0" styleClass="split-pane" stylesheets="@../css/style.css">
+                            <children>
+                                <ImageView fx:id="return_home" fitHeight="52.0" fitWidth="53.0" layoutX="17.0" layoutY="258.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../assets/home.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="25.0" layoutY="445.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@/assets/Settings.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="25.0" layoutY="546.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../assets/logout.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="27.0" layoutY="498.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../assets/Male%20User.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                    </children>
+                </HBox>
+            </left>
+            <center>
+                <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Pane layoutX="677.0" layoutY="14.0" prefHeight="227.0" prefWidth="515.0" styleClass="element-ajout" stylesheets="@../css/style.css">
+                            <children>
+                        <Pane layoutX="117.0" layoutY="2.0" prefHeight="214.0" prefWidth="381.0" stylesheets="@../css/style.css">
+                           <children>
+                              <Label layoutX="45.0" layoutY="14.0" prefHeight="26.0" prefWidth="154.0" styleClass="AddDocument" stylesheets="@../css/style.css" text="Add Demande" />
+                              <Label layoutX="45.0" layoutY="54.0" prefWidth="130.0" styleClass="text-ajout" stylesheets="@../css/style.css" text="Type document" />
+                              <Label layoutX="45.0" layoutY="108.0" prefWidth="130.0" styleClass="text-ajout" stylesheets="@../css/style.css" text="Description" />
+                              <Button fx:id="file_chooser" layoutX="317.0" layoutY="359.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="31.0" styleClass="transparent" stylesheets="@../css/style.css" text="Button">
+                                 <graphic>
+                                    <Pane prefHeight="21.0" prefWidth="21.0" styleClass="transparent" stylesheets="@../css/style.css" />
+                                 </graphic>
+                              </Button>
+                              <TextField fx:id="description_label" layoutX="46.0" layoutY="129.0" prefHeight="69.0" prefWidth="276.0" />
+                              <ComboBox fx:id="type_document_label" layoutX="47.0" layoutY="81.0" prefHeight="27.0" prefWidth="274.0" styleClass="text-field" stylesheets="@../css/style.css" />
+                              <Button fx:id="button_add" layoutX="328.0" layoutY="160.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="40.0" styleClass="add-button" stylesheets="@../css/style.css" text="+" />
+                           </children>
+                           <styleClass>
+                              <String fx:value="element-stat" />
+                              <String fx:value="shadow" />
+                           </styleClass>
+                        </Pane>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="375.0" layoutY="17.0" prefHeight="557.0" prefWidth="401.0" styleClass="element-stat" stylesheets="@../css/style.css">
+                            <children>
+                                <ImageView fx:id="fichier_img" fitHeight="523.0" fitWidth="363.0" layoutX="18.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@/assets/Group 1686553073.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                  <Pane layoutX="792.0" layoutY="258.0" prefHeight="316.0" prefWidth="388.0">
+                     <children>
+                        <ScrollPane fx:id="scroll" layoutX="4.0" layoutY="1.0" prefHeight="319.0" prefWidth="380.0" styleClass="transparent" stylesheets="@../css/style.css">
+                           <content>
+                              <GridPane fx:id="grid" prefHeight="1.0" prefWidth="0.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="578.0" prefWidth="380.0">
+                     <children>
+                        <ScrollPane fx:id="scroll1" layoutX="21.0" layoutY="41.0" prefHeight="565.0" prefWidth="355.0" styleClass="transparent" stylesheets="@../css/style.css">
+                           <content>
+                              <GridPane fx:id="grid1" prefHeight="1.0" prefWidth="0.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                        <Label layoutX="113.0" layoutY="14.0" prefHeight="26.0" prefWidth="154.0" styleClass="AddDocument" stylesheets="@../css/style.css" text="Mes documents" />
+                     </children>
+                  </Pane>
+                    </children>
+                </Pane>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

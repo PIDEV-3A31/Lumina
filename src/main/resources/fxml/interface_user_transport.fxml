@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Transport.InterfaceUserTransport">
+    <children>
+        <BorderPane layoutX="2.0" prefHeight="680.0" prefWidth="1280.0">
+            <top>
+                <HBox prefHeight="60.0" prefWidth="1206.0" styleClass="split-pane" stylesheets="@style/style.css" BorderPane.alignment="CENTER">
+                    <children>
+                        <ImageView fitHeight="25.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@assets/lumina.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets left="10.0" top="20.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <HBox prefHeight="42.0" prefWidth="362.0" stylesheets="@style/style.css">
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="150.0" top="10.0" />
+                            </HBox.margin>
+                            <children>
+                                <TextField prefHeight="26.0" prefWidth="271.0" promptText="Search here ..." styleClass="transparent" stylesheets="@style/style.css">
+                                    <HBox.margin>
+                                        <Insets left="20.0" top="8.0" />
+                                    </HBox.margin>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                    <font>
+                                        <Font size="13.0" />
+                                    </font>
+                                </TextField>
+                                <Button mnemonicParsing="false" styleClass="search-button" stylesheets="@style/style.css" text="Search" textFill="WHITE">
+                                    <HBox.margin>
+                                        <Insets top="6.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <styleClass>
+                                <String fx:value="search-box" />
+                                <String fx:value="shadow" />
+                            </styleClass>
+                        </HBox>
+                        <Pane prefHeight="200.0" prefWidth="200.0">
+                            <children>
+                                <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);;">
+                                    <image>
+                                        <Image url="@assets/Icon_notif.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <HBox.margin>
+                                <Insets left="30.0" />
+                            </HBox.margin>
+                        </Pane>
+                        <Pane prefHeight="200.0" prefWidth="200.0">
+                            <children>
+                                <ImageView fitHeight="50.0" fitWidth="50.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/db282033-a123-437f-beb2-4a0b1338a761-modified.png" />
+                                    </image>
+                                </ImageView>
+                                <Label layoutX="48.0" layoutY="14.0" prefHeight="41.0" prefWidth="127.0" styleClass="username-box" stylesheets="@style/style.css" text="Sarra Ounais" />
+                            </children>
+                        </Pane>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets left="85.0" />
+                    </BorderPane.margin>
+                </HBox>
+            </top>
+            <left>
+                <HBox prefHeight="620.0" prefWidth="85.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Pane prefHeight="620.0" prefWidth="85.0" styleClass="split-pane" stylesheets="@style/style.css">
+                            <children>
+                                <ImageView fx:id="return_home" fitHeight="52.0" fitWidth="53.0" layoutX="17.0" layoutY="258.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/home.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="25.0" layoutY="445.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/Settings.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="25.0" layoutY="546.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/logout.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="27.0" layoutY="498.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/Male User.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                    </children>
+                </HBox>
+            </left>
+         <center>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane layoutX="678.0" layoutY="14.0" prefHeight="588.0" prefWidth="470.0" styleClass="element-ajout" stylesheets="@style/style.css">
+                     <children>
+                        <Pane layoutX="45.0" layoutY="14.0" prefHeight="200.0" prefWidth="392.0" styleClass="center-Transport" stylesheets="@style/style.css">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="80.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/fleche.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="horaire_depart_label" layoutX="29.0" layoutY="17.0" text="9:10" textFill="#0cbeb8">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="horaire_arrivee_label" layoutX="24.0" layoutY="159.0" text="17:30" textFill="#0cbeb8">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="typeMoyenTransport_label" layoutX="31.0" layoutY="92.0" text="Bus">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lieux_departLabel" layoutX="106.0" layoutY="17.0" text="Tunis">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="108.0" layoutY="36.0" text="Depart" />
+                              <Label fx:id="lieux_arriveLabel" layoutX="108.0" layoutY="149.0" text="Djerba">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="108.0" layoutY="170.0" text="Arrivé" />
+                              <Label fx:id="tarif_label" layoutX="317.0" layoutY="20.0" text="55 " textFill="#9a1e22">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="337.0" layoutY="20.0" text="Places" textFill="#9a1e22">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="169.0" layoutY="72.0" text="Zone de couverture : ">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="205.0" layoutY="102.0" text="Tarif : ">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="zone_couverture_label" layoutX="303.0" layoutY="74.0" text="Tunisie" />
+                              <Label fx:id="tarif_label" layoutX="243.0" layoutY="104.0" text="30" />
+                           </children>
+                        </Pane>
+                        <HBox layoutX="30.0" layoutY="225.0" prefHeight="342.0" prefWidth="410.0" styleClass="transparent">
+                           <children>
+                              <ScrollPane fx:id="scroll" prefHeight="342.0" prefWidth="470.0" styleClass="transparent" stylesheets="@style/style.css">
+                                 <content>
+                                    <GridPane fx:id="grid" prefHeight="1.0" prefWidth="0.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                    </GridPane>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="70.0" layoutY="42.0" styleClass="element-stat" stylesheets="@style/style.css">
+                     <children>
+                        <ImageView fx:id="mapImage" fitHeight="533.0" fitWidth="591.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/map.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+         </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

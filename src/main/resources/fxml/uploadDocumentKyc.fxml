@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.esprit.controllers.UploadDocumentKycController">
+
+    <Label text="Upload Document KYC" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10">
+        <Label text="Applicant ID:"/>
+        <TextField fx:id="applicantIdField" promptText="Entrer l'ID de l'Applicant"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Type de Document:"/>
+        <ComboBox fx:id="documentTypeComboBox">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="passport"/>
+                    <String fx:value="driving_licence"/>
+                    <String fx:value="national_identity_card"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </HBox>
+
+    <Button text="Choisir un fichier" onAction="#selectFile"/>
+    <Label fx:id="filePathLabel" text="Aucun fichier sélectionné" wrapText="true"/>
+
+    <Button text="Uploader le document" onAction="#uploadDocument"/>
+    <Label fx:id="statusLabel" text="" style="-fx-text-fill: red;"/>
+
+</VBox>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.User.dashboardModifPass">
+    <children>
+        <BorderPane prefHeight="680.0" prefWidth="1280.0" styleClass="background-white" stylesheets="@style/stylenour.css">
+            <top>
+                <HBox prefHeight="60.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <ImageView fitHeight="25.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@assets/lumina.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets left="30.0" top="20.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <HBox prefHeight="45.0" prefWidth="366.0" stylesheets="@style/stylenour.css">
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="150.0" top="10.0" />
+                            </HBox.margin>
+                            <children>
+                                <TextField prefHeight="26.0" prefWidth="271.0" promptText="Search here ..." styleClass="transparent" stylesheets="@style/stylenour.css">
+                                    <HBox.margin>
+                                        <Insets left="20.0" right="5.0" top="8.0" />
+                                    </HBox.margin>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                    <font>
+                                        <Font size="13.0" />
+                                    </font>
+                                </TextField>
+                                <Button mnemonicParsing="false" styleClass="search-button" stylesheets="@style/stylenour.css" text="Search" textFill="WHITE">
+                                    <HBox.margin>
+                                        <Insets top="6.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <styleClass>
+                                <String fx:value="search-box" />
+                                <String fx:value="shadow" />
+                            </styleClass>
+                        </HBox>
+                        <Pane prefHeight="200.0" prefWidth="200.0">
+                            <children>
+                                <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);;">
+                                    <image>
+                                        <Image url="@assets/Icon_notif.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <HBox.margin>
+                                <Insets left="30.0" />
+                            </HBox.margin>
+                        </Pane>
+                        <Pane prefHeight="60.0" prefWidth="270.0">
+                            <children>
+                                <ImageView fx:id="img_userconnecte" fitHeight="50.0" fitWidth="50.0" layoutX="40.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/user.png" />
+                                    </image>
+                                </ImageView>
+                                <Label fx:id="name_userconnecte" layoutX="90.0" layoutY="14.0" prefHeight="41.0" prefWidth="165.0" styleClass="username-box" stylesheets="@style/stylenour.css" text="Nour Allegui" />
+                        <Button fx:id="deconnexion" layoutX="231.0" layoutY="14.0" mnemonicParsing="false" styleClass="logout-button">
+                           <graphic>
+                                      <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="@assets/logout.png" />
+                                          </image>
+                                      </ImageView>
+                           </graphic>
+                        </Button>
+                            </children>
+                        </Pane>
+                    </children>
+                </HBox>
+            </top>
+            <left>
+                <VBox prefHeight="589.0" prefWidth="255.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/stylenour.css" text="Traffic Management">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/traffic-jam 1.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets left="10.0" top="40.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/stylenour.css" text="Transport Management">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/le-plan-de-route 1.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/stylenour.css" text="Parking Management">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/users-group-alt.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="230.0" styleClass="button-selected" stylesheets="@style/stylenour.css" text="Municipality Services">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/More Details.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin>
+                            <padding>
+                                <Insets left="20.0" />
+                            </padding>
+                        </Button>
+                        <Button mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/stylenour.css" text="Staff Management">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/users-alt.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin>
+                        </Button>
+                    </children>
+                </VBox>
+            </left>
+            <center>
+                <VBox prefHeight="200.0" prefWidth="100.0" styleClass="center-layout" stylesheets="@style/stylenour.css" BorderPane.alignment="CENTER">
+                    <BorderPane.margin>
+                        <Insets top="20.0" />
+                    </BorderPane.margin>
+                    <children>
+                        <Pane prefHeight="565.0" prefWidth="885.0">
+                            <children>
+                                <HBox layoutX="79.0" layoutY="38.0" prefHeight="485.0" prefWidth="641.0" styleClass="element-ajout" stylesheets="@../../../../../Desktop/javafx/Lumina-interface/src/main/resources/style/style.css">
+                                    <children>
+                                        <Pane prefHeight="486.0" prefWidth="653.0">
+                                            <children>
+                                                <Label fx:id="identfLabel" layoutX="227.0" layoutY="14.0" text="Change Password" textAlignment="CENTER" textFill="#0cbeb8">
+                                                    <font>
+                                                        <Font size="24.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label layoutX="73.0" layoutY="97.0" prefHeight="43.0" prefWidth="185.0" text="Old Password :">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font></Label>
+                                                <Button fx:id="update_password" layoutX="258.0" layoutY="318.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="152.0" styleClass="add-button" stylesheets="@../../../../../Desktop/javafx/Lumina-interface/src/main/resources/style/style.css" text="Update Password" textFill="#fffefe">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Button>
+                                                <Pane layoutX="388.0" layoutY="110.0" style="-fx-border-color: #0CBEB8;" />
+                                    <Label layoutX="73.0" layoutY="151.0" prefHeight="43.0" prefWidth="185.0" text="New Password :">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="38.0" layoutY="205.0" prefHeight="43.0" prefWidth="239.0" text="Confirm New Password :">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <PasswordField fx:id="old_password" layoutX="277.0" layoutY="105.0" />
+                                    <PasswordField fx:id="new_password" layoutX="277.0" layoutY="159.0" />
+                                    <PasswordField fx:id="confirm_new_password" layoutX="277.0" layoutY="213.0" />
+                                    <Button fx:id="affich_mdp1" layoutX="428.0" layoutY="104.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                                       <graphic>
+                                          <ImageView fx:id="eye_icon1" fitHeight="21.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/eye-slash.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="affich_mdp2" layoutX="428.0" layoutY="212.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                                       <graphic>
+                                          <ImageView fx:id="eye_icon3" fitHeight="21.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/eye-slash.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="affich_mdp3" layoutX="428.0" layoutY="158.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                                       <graphic>
+                                          <ImageView fx:id="eye_icon2" fitHeight="21.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/eye-slash.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label fx:id="Alert_oldpassword" layoutX="277.0" layoutY="132.0" textFill="RED">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="Alert_newpassword" layoutX="277.0" layoutY="187.0" textFill="RED">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="Alert_confirmnewpassword" layoutX="277.0" layoutY="241.0" textFill="RED">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="tt" layoutX="38.0" layoutY="160.0" mnemonicParsing="false" text="?">
+                                       <tooltip>
+                                          <Tooltip fx:id="ttt" text="The password must be between 3 and 20 characters long and contain at least one uppercase letter!" />
+                                       </tooltip>
+                                    </Button>
+                                            </children>
+                                        </Pane>
+                                    </children>
+                                </HBox>
+                        <Button fx:id="retour" layoutX="-5.0" layoutY="20.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" styleClass="add-button1" stylesheets="@style/stylenour.css">
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                           <graphic>
+                              <ImageView fitHeight="43.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/retour.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                            </children>
+                        </Pane>
+                    </children></VBox>
+            </center>
+
+        </BorderPane>
+    </children>
+</AnchorPane>

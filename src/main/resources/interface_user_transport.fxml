@@ -16,8 +16,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.InterfaceUserTransport">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Transport.InterfaceUserTransport">
     <children>
         <BorderPane layoutX="2.0" prefHeight="680.0" prefWidth="1280.0">
             <top>
@@ -81,12 +82,12 @@
                         </Pane>
                         <Pane prefHeight="200.0" prefWidth="200.0">
                             <children>
-                                <ImageView fitHeight="50.0" fitWidth="50.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="img_current_user" fitHeight="50.0" fitWidth="50.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@assets/db282033-a123-437f-beb2-4a0b1338a761-modified.png" />
                                     </image>
                                 </ImageView>
-                                <Label layoutX="48.0" layoutY="14.0" prefHeight="41.0" prefWidth="127.0" styleClass="username-box" stylesheets="@style/style.css" text="Sarra Ounais" />
+                                <Label fx:id="name_current_user" layoutX="48.0" layoutY="14.0" prefHeight="41.0" prefWidth="127.0" styleClass="username-box" stylesheets="@style/style.css" text="Sarra Ounais" />
                             </children>
                         </Pane>
                     </children>
@@ -128,11 +129,11 @@
          <center>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane layoutX="678.0" layoutY="14.0" prefHeight="588.0" prefWidth="470.0" styleClass="element-ajout" stylesheets="@style/style.css">
+                  <Pane layoutX="710.0" layoutY="16.0" prefHeight="588.0" prefWidth="470.0" styleClass="element-ajout" stylesheets="@style/style.css">
                      <children>
-                        <Pane layoutX="45.0" layoutY="14.0" prefHeight="200.0" prefWidth="392.0" styleClass="center-Transport" stylesheets="@style/style.css">
+                        <Pane layoutX="45.0" layoutY="14.0" prefHeight="195.0" prefWidth="392.0" stylesheets="@style/style.css">
                            <children>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="80.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="104.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@assets/fleche.png" />
                                  </image>
@@ -147,46 +148,52 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="typeMoyenTransport_label" layoutX="31.0" layoutY="92.0" text="Bus">
+                              <Label fx:id="lieux_departLabel" layoutX="130.0" layoutY="17.0" text="Tunis">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="132.0" layoutY="36.0" text="Depart" />
+                              <Label fx:id="lieux_arriveLabel" layoutX="132.0" layoutY="149.0" text="Djerba">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="132.0" layoutY="170.0" text="Arrivé" />
+                              <Label layoutX="184.0" layoutY="60.0" text="Zone de couverture : ">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lieux_departLabel" layoutX="106.0" layoutY="17.0" text="Tunis">
+                              <Label fx:id="zone_couverture_label" layoutX="318.0" layoutY="62.0" text="Tunisie">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="108.0" layoutY="36.0" text="Depart" />
-                              <Label fx:id="lieux_arriveLabel" layoutX="108.0" layoutY="149.0" text="Djerba">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="108.0" layoutY="170.0" text="Arrivé" />
-                              <Label fx:id="tarif_label" layoutX="317.0" layoutY="20.0" text="55 " textFill="#9a1e22">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="337.0" layoutY="20.0" text="Places" textFill="#9a1e22">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="169.0" layoutY="72.0" text="Zone de couverture : ">
+                                 </font></Label>
+                              <Button layoutX="20.0" layoutY="88.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="56.0" styleClass="search-button" stylesheets="@style/style.css">
+                                 <graphic>
+                                    <Label fx:id="tarif_label" text="30" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </graphic>
+                              </Button>
+                              <Label layoutX="205.0" layoutY="94.0" text="Etat :">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="205.0" layoutY="102.0" text="Tarif : ">
+                              <Label fx:id="zone_couverture_label1" layoutX="243.0" layoutY="96.0" text="Actif">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="zone_couverture_label" layoutX="303.0" layoutY="74.0" text="Tunisie" />
-                              <Label fx:id="tarif_label" layoutX="243.0" layoutY="104.0" text="30" />
+                              <Button fx:id="button_reserver" layoutX="274.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#handleReservation" styleClass="reserver-btn" stylesheets="@style/style.css" text="Réserver" />
                            </children>
+                           <styleClass>
+                              <String fx:value="element-stat" />
+                              <String fx:value="shadow" />
+                           </styleClass>
                         </Pane>
                         <HBox layoutX="30.0" layoutY="225.0" prefHeight="342.0" prefWidth="410.0" styleClass="transparent">
                            <children>
@@ -206,15 +213,8 @@
                         </HBox>
                      </children>
                   </Pane>
-                  <Pane layoutX="70.0" layoutY="42.0" styleClass="element-stat" stylesheets="@style/style.css">
-                     <children>
-                        <ImageView fx:id="mapImage" fitHeight="533.0" fitWidth="591.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/map.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
+                  <Pane layoutX="70.0" layoutY="42.0" styleClass="element-stat" stylesheets="@style/style.css" />
+                  <WebView fx:id="transport_map" layoutX="14.0" layoutY="20.0" prefHeight="580.0" prefWidth="725.0" />
                </children>
             </Pane>
          </center>

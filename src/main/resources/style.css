@@ -1,0 +1,202 @@
+
+.vbox-login {
+    -fx-background-color: white;  /* Fond blanc */
+    -fx-background-radius: 15px;  /* Coins arrondis */
+    -fx-padding: 20px;  /* Espacement interne */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 2, 2); /* Ombre légère */
+    -fx-alignment: center;
+}
+.logo {
+    -fx-fit-width: 180px;  /* Ajuste la largeur */
+    -fx-fit-height: 50px;  /* Ajuste la hauteur */
+}
+.border-pane {
+    -fx-background-image: url("/assets/backgroun-log.jpg"); /* Remplace par le chemin de ton image */
+    -fx-background-size: cover; /* L’image couvre tout le BorderPane */
+    -fx-background-position: center; /* Centre l’image */
+    -fx-background-repeat: no-repeat; /* Empêche la répétition */
+}
+
+.field-login{
+    -fx-pref-width: 390px;
+    -fx-pref-height: 40px;
+    -fx-font-size: 14px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #ccc;
+    -fx-padding: 5px;
+}
+.button-login{
+    -fx-pref-width: 300px;
+    -fx-pref-height: 45px;
+    -fx-font-size: 16px;
+    -fx-background-color: #0A56C4;
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+    -fx-font-family: "Outfit";
+    -fx-font-size: 17px;
+}
+
+.user-box {
+    -fx-background-color: #ffffff;
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 3);
+}
+
+.profile-image {
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-border-color: #3498db;
+    -fx-border-width: 3px;
+}
+
+.user-name {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.user-info {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+}
+
+
+.button:hover {
+    -fx-background-color: #0849A1;
+}
+@font-face {
+    font-family: "Outfit";
+    src: url("/assets/Outfit.ttf");
+}
+
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.options label {
+    color: #555;
+}
+
+.forgot-password {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.sign-in-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.sign-in-btn:hover {
+    background-color: #0056b3;
+}
+
+.profile-pane {
+    -fx-background-color: #ffffff;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-padding: 20px;
+}
+
+.profile-image {
+    -fx-border-radius: 50%;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 2);
+}
+
+
+.profile-button {
+    -fx-background-color: #0CBEB8;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 15px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+.profile-button:hover {
+    -fx-background-color: #089E9A;
+}
+
+.table-view {
+    -fx-background-color: white;
+    -fx-padding: 5px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #0CBEB8;
+    -fx-border-radius: 8px 8px 0 0;
+    -fx-background-radius: 8px 8px 0 0;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.table-row-cell {
+    -fx-border-color: #0CBEB8;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #E0F7F6;
+}
+
+.table-row-cell:even {
+    -fx-background-color: white;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #0CBEB8;
+    -fx-text-fill: white;
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: white;
+}
+
+.table-cell {
+    -fx-padding: 10px;
+    -fx-alignment: CENTER;
+}
+
+.table-cell .text {
+    -fx-fill: #333;
+}
+
+.table-view .virtual-flow .scroll-bar {
+    -fx-background-color: #E0F7F6;
+}
+
+.table-view .virtual-flow .scroll-bar .thumb {
+    -fx-background-color: #0CBEB8;
+}
+

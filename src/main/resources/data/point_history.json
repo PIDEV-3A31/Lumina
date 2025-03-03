@@ -1,0 +1,30 @@
+[
+  {
+    "pointId": 0,
+    "userId": 16,
+    "action": "Parrainage de nawaraa",
+    "points": 50,
+    "date": "2025-03-02T16:09:04.661471100"
+  },
+  {
+    "pointId": 0,
+    "userId": 42,
+    "action": "Inscription avec le code de nawara1",
+    "points": 20,
+    "date": "2025-03-02T16:09:04.661471100"
+  },
+  {
+    "pointId": 1,
+    "userId": 16,
+    "action": "Parrainage de nourjh",
+    "points": 50,
+    "date": "2025-03-02T17:21:48.329523600"
+  },
+  {
+    "pointId": 2,
+    "userId": 43,
+    "action": "Inscription avec le code de nawara1",
+    "points": 20,
+    "date": "2025-03-02T17:21:48.329523600"
+  }
+]

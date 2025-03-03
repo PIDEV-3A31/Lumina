@@ -20,7 +20,7 @@ public class serviceMoyenTransport implements CrudTransport<moyenTransport>{
 
     @Override
     public void ajouter(moyenTransport obj) {
-        String req = "INSERT INTO moyen_transport (id_ligne, type_transport, capacite_max, immatriculation, etat) VALUES (?, ?, ?, ?, ?)";
+        String req = "INSERT INTO moyen_transport (id_ligne, type_transport, capacite_max, immatriculation, etat, places_reservees) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps = connection.prepareStatement(req)) {
             ps.setInt(1, obj.getIdLigne());
@@ -28,13 +28,14 @@ public class serviceMoyenTransport implements CrudTransport<moyenTransport>{
             ps.setInt(3, obj.getCapaciteMax());
             ps.setString(4, obj.getImmatriculation());
             ps.setString(5, obj.getEtat());
+            ps.setInt(6, 0);
 
             int rowsInserted = ps.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println(" Moyen de transport ajouté avec succès !");
+                System.out.println("Moyen de transport ajouté avec succès !");
             }
         } catch (SQLException e) {
-            System.err.println(" Erreur lors de l'ajout du moyen de transport : " + e.getMessage());
+            System.err.println("Erreur lors de l'ajout du moyen de transport : " + e.getMessage());
         }
     }
 
@@ -49,6 +50,7 @@ public class serviceMoyenTransport implements CrudTransport<moyenTransport>{
             ps.setString(4, obj.getImmatriculation());
             ps.setString(5, obj.getEtat());
             ps.setInt(6, obj.getIdTransport()); // Condition pour modifier l'élément spécifique
+
 
             int rowsUpdated = ps.executeUpdate();
             if (rowsUpdated > 0) {
@@ -96,7 +98,8 @@ public class serviceMoyenTransport implements CrudTransport<moyenTransport>{
                         rs.getString("type_transport"),
                         rs.getInt("capacite_max"),
                         rs.getString("immatriculation"),
-                        rs.getString("etat")
+                        rs.getString("etat"),
+                        rs.getInt("places_reservees")
                 );
                 listeMoyens.add(moyen);
             }
@@ -107,5 +110,33 @@ public class serviceMoyenTransport implements CrudTransport<moyenTransport>{
 
         return listeMoyens;
     }
+
+    public List<moyenTransport> getMoyensByLigneId(int idLigne) {
+        List<moyenTransport> listeMoyens = new ArrayList<>();
+        String sql = "SELECT * FROM moyen_transport WHERE id_ligne = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, idLigne);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    moyenTransport moyen = new moyenTransport(
+                            rs.getInt("id_moyenTransport"),
+                            rs.getInt("id_ligne"),
+                            rs.getString("type_transport"),
+                            rs.getInt("capacite_max"),
+                            rs.getString("immatriculation"),
+                            rs.getString("etat"),
+                            rs.getInt("places_reservees")
+                    );
+                    listeMoyens.add(moyen);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erreur lors de la récupération des moyens de transport pour la ligne " + idLigne + " : " + e.getMessage());
+        }
+
+        return listeMoyens;
+    }
+
 
 }

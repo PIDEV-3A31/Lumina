@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Document.AfficherDocuments">
+   <children>
+      <BorderPane prefHeight="680.0" prefWidth="1280.0" styleClass="background-white" stylesheets="@../css/style.css">
+         <top>
+            <HBox prefHeight="60.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/lumina.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="30.0" top="20.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <HBox prefHeight="45.0" prefWidth="366.0">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="150.0" top="10.0" />
+                     </HBox.margin>
+                     <children>
+                        <TextField prefHeight="26.0" prefWidth="271.0" promptText="Search here ..." styleClass="transparent" stylesheets="@../css/style.css">
+                           <HBox.margin>
+                              <Insets left="20.0" right="5.0" top="8.0" />
+                           </HBox.margin>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                        <Button mnemonicParsing="false" styleClass="search-button" text="Search" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets top="6.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <stylesheets>
+                              <URL value="@../css/style.css" />
+                              <URL value="@../css/style.css" />
+                           </stylesheets>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <styleClass>
+                        <String fx:value="search-box" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                     <stylesheets>
+                        <URL value="@../css/style.css" />
+                        <URL value="@../css/style.css" />
+                     </stylesheets>
+                  </HBox>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);;">
+                           <image>
+                              <Image url="@../assets/Icon_notif.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="img_current_user" fitHeight="50.0" fitWidth="50.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/user.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="name_current_user" layoutX="48.0" layoutY="14.0" prefHeight="41.0" prefWidth="151.0" styleClass="username-box" stylesheets="@../css/style.css" text="Syrine Ounais" />
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+         </top>
+         <left>
+            <VBox prefHeight="589.0" prefWidth="255.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="GoToTraffic" mnemonicParsing="false" styleClass="button-non-selected" text="Traffic Management">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/traffic-jam 1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets left="10.0" top="40.0" />
+                     </VBox.margin>
+                     <stylesheets>
+                        <URL value="@../css/style.css" />
+                        <URL value="@../css/style.css" />
+                     </stylesheets>
+                  </Button>
+                  <Button fx:id="GoToTransport" mnemonicParsing="false" styleClass="button-non-selected" text="Transport Management">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/le-plan-de-route 1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets left="10.0" top="15.0" />
+                     </VBox.margin>
+                     <stylesheets>
+                        <URL value="@../css/style.css" />
+                        <URL value="@../css/style.css" />
+                     </stylesheets>
+                  </Button>
+                  <Button fx:id="GoToParking" mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@../css/style.css" text="Parking Management">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/users-group-alt.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets left="10.0" top="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="230.0" styleClass="button-selected" text="Municipality Services">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/More Details.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets left="10.0" top="15.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                     <stylesheets>
+                        <URL value="@../css/style.css" />
+                        <URL value="@../css/style.css" />
+                     </stylesheets>
+                  </Button>
+                  <Button fx:id="GoToUser" mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@../css/style.css" text="Staff Management">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/users-alt.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets left="10.0" top="15.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <VBox prefHeight="680.0" prefWidth="990.0" styleClass="center-layout" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets top="20.0" />
+               </BorderPane.margin>
+               <children>
+                  <Pane prefHeight="607.0" prefWidth="1025.0">
+                     <children>
+                        <HBox layoutX="23.0" layoutY="32.0" prefHeight="549.0" prefWidth="957.0" styleClass="element-ajout" stylesheets="@../css/style.css">
+                           <children>
+                              <Pane prefHeight="570.0" prefWidth="989.0">
+                                 <children>
+                                    <Label layoutX="41.0" layoutY="14.0" prefHeight="30.0" prefWidth="187.0" styleClass="AddDocument" stylesheets="@../css/style.css" text="liste des documents" />
+                                    <TableView fx:id="table_documents" layoutX="41.0" layoutY="54.0" prefHeight="215.0" prefWidth="793.0" stylesheets="@../css/style.css">
+                                       <columns>
+                                          <TableColumn fx:id="type_document_column" prefWidth="104.79999160766602" text="Type" />
+                                          <TableColumn fx:id="titre_column" prefWidth="70.39999389648438" text="Titre" />
+                                          <TableColumn fx:id="description_column" prefWidth="143.99993896484375" text="Description" />
+                                          <TableColumn fx:id="date_creation_column" prefWidth="94.39996337890625" text="Date creation" />
+                                          <TableColumn fx:id="date_modification_column" prefWidth="124.79998779296875" text="Date modification" />
+                                          <TableColumn fx:id="chemin_fichier_column" prefWidth="112.79998779296875" text="chemin_fichier" />
+                                          <TableColumn fx:id="modifier" minWidth="0.0" prefWidth="55.20001220703125" text="modifier" />
+                                          <TableColumn fx:id="supprimer" prefWidth="87.9998779296875" text="supprimer" />
+                                       </columns>
+                                    </TableView>
+                                    <Label layoutX="41.0" layoutY="281.0" prefHeight="30.0" prefWidth="187.0" styleClass="AddDocument" stylesheets="@../css/style.css" text="liste des demandes" />
+                                    <TableView fx:id="table_demande" layoutX="41.0" layoutY="321.0" prefHeight="215.0" prefWidth="798.0" stylesheets="@../css/style.css">
+                                       <columns>
+                                          <TableColumn fx:id="date_demande" prefWidth="120.79998779296875" text="date_demande" />
+                                          <TableColumn fx:id="status_demande" prefWidth="102.4000244140625" text="status_demande" />
+                                          <TableColumn fx:id="description" prefWidth="256.79998779296875" text="description" />
+                                          <TableColumn fx:id="type_document" prefWidth="200.79998779296875" text="type_document" />
+                                          <TableColumn fx:id="supprimerDemande" prefWidth="116.0001220703125" text="supprimer" />
+                                       </columns>
+                                    </TableView>
+                                    <ImageView fx:id="ajouter_documents" fitHeight="40.0" fitWidth="30.0" layoutX="913.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" x="-7.0">
+                                       <image>
+                                          <Image url="@../assets/ajouter-des-documents (1).png" />
+                                       </image>
+                                    </ImageView>
+                                    <Button fx:id="gererButton" layoutX="891.0" layoutY="333.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="61.0" styleClass="button-del" stylesheets="@../css/style.css" text="gérer" />
+                                    <Button fx:id="valider_button" layoutX="891.0" layoutY="385.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="61.0" styleClass="button-del" stylesheets="@../css/style.css" text="Valider" />
+                                    <Button fx:id="signer" layoutX="551.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#signer" prefHeight="33.0" prefWidth="281.0" styleClass="button-del" stylesheets="@../css/style.css" text="signer élèctroniquement un document" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

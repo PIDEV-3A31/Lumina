@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.ConsulterLigneTransport">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Transport.ConsulterLigneTransport">
     <children>
         <BorderPane prefHeight="680.0" prefWidth="1280.0" styleClass="background-white" stylesheets="@style/style.css">
             <top>
@@ -80,12 +80,12 @@
                         </Pane>
                         <Pane prefHeight="200.0" prefWidth="200.0">
                             <children>
-                                <ImageView fitHeight="50.0" fitWidth="50.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="img_current_user" fitHeight="50.0" fitWidth="50.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@assets/db282033-a123-437f-beb2-4a0b1338a761-modified.png" />
                                     </image>
                                 </ImageView>
-                                <Label layoutX="48.0" layoutY="14.0" prefHeight="41.0" prefWidth="127.0" styleClass="username-box" stylesheets="@style/style.css" text="Sarra Ounais" />
+                                <Label fx:id="name_current_user" layoutX="48.0" layoutY="14.0" prefHeight="41.0" prefWidth="127.0" styleClass="username-box" stylesheets="@style/style.css" text="Sarra Ounais" />
                             </children>
                         </Pane>
                     </children>
@@ -94,7 +94,7 @@
             <left>
                 <VBox prefHeight="589.0" prefWidth="255.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Traffic Management">
+                        <Button fx:id="GoToTraffic" mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Traffic Management">
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -106,11 +106,11 @@
                                 <Insets left="10.0" top="40.0" />
                             </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Transport Management">
+                        <Button mnemonicParsing="false" styleClass="button-selected" stylesheets="@style/style.css" text="Transport Management">
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@assets/le-plan-de-route 1.png" />
+                                        <Image url="@assets/transport_icon.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -118,7 +118,7 @@
                                 <Insets left="10.0" top="15.0" />
                             </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Parking Management">
+                        <Button fx:id="GoToParking" mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Parking Management">
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -130,11 +130,11 @@
                                 <Insets left="10.0" top="15.0" />
                             </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="230.0" styleClass="button-selected" stylesheets="@style/style.css" text="Municipality Services">
+                        <Button fx:id="GoToMunicipality" mnemonicParsing="false" prefHeight="46.0" prefWidth="230.0" styleClass="button-non-selected" stylesheets="@style/style.css" text="Municipality Services">
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@assets/More Details.png" />
+                                        <Image url="@assets/municipality_blue.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -145,7 +145,7 @@
                                 <Insets left="20.0" />
                             </padding>
                         </Button>
-                        <Button mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Staff Management">
+                        <Button fx:id="GoToUser" mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Staff Management">
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -166,24 +166,78 @@
                         <Insets top="20.0" />
                     </BorderPane.margin>
                <children>
-                  <TableView fx:id="table_lignes_transport" layoutX="24.0" layoutY="90.0" prefHeight="200.0" prefWidth="827.0">
-                    <columns>
-                      <TableColumn fx:id="id_ligne" prefWidth="63.19998550415039" text="id ligne " />
-                      <TableColumn fx:id="nom_ligne_column" prefWidth="97.60000610351562" text="Nom ligne" />
-                        <TableColumn fx:id="zone_couverture_column" prefWidth="137.59996032714844" text="Zone de couverture" />
-                        <TableColumn fx:id="tarif_column" prefWidth="79.199951171875" text="Tarif " />
-                        <TableColumn fx:id="horaire_depart_column" minWidth="8.0" prefWidth="101.5999755859375" text="Horaire Départ" />
-                        <TableColumn fx:id="horaire_arrivee_column" minWidth="0.0" prefWidth="108.800048828125" text="Horaire Arrivé" />
-                        <TableColumn fx:id="etat_column" prefWidth="58.40008544921875" text="Etat" />
-                        <TableColumn fx:id="supprimerColumn1" prefWidth="93.60009765625" text="Modifier" />
-                        <TableColumn fx:id="supprimerColumn" prefWidth="91.99993896484375" text="Supprimer" />
-                    </columns>
-                  </TableView>
                   <Label layoutX="24.0" layoutY="29.0" text="Liste des Lignes de Transport " textFill="#0cbeb8">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
+                  <Pane prefHeight="200.0" prefWidth="200.0" styleClass="center-layout" stylesheets="@style/style.css">
+                     <children>
+                        <Pane layoutX="26.0" layoutY="22.0" prefHeight="562.0" prefWidth="979.0" styleClass="element-ajout" stylesheets="@style/style.css">
+                           <children>
+                              <Button layoutX="883.0" layoutY="67.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="33.0" styleClass="transparent-button" stylesheets="@style/style.css">
+                                 <graphic>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" />
+                                 </graphic>
+                              </Button>
+                              <Pane layoutX="916.0" layoutY="63.0" prefHeight="31.0" prefWidth="32.0">
+                                 <children>
+                                    <ImageView fx:id="ajouter_ligne" fitHeight="37.0" fitWidth="31.0" layoutX="15.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@assets/add.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </Pane>
+                              <TableView fx:id="table_lignes_moyen" layoutX="37.0" layoutY="328.0" prefHeight="200.0" prefWidth="880.0">
+                                 <columns>
+                                    <TableColumn fx:id="type_transport_colomn" prefWidth="112.79999160766602" text="Type Transport" />
+                                    <TableColumn fx:id="capacite_max_colomn" prefWidth="104.79997253417969" text="Capacite Max" />
+                                    <TableColumn fx:id="immatriculation_column" prefWidth="164.800048828125" text="IImmatriculation" />
+                                    <TableColumn fx:id="nb_places_Column" minWidth="0.0" prefWidth="166.39996337890625" text="Nombre de places reservés" />
+                                    <TableColumn fx:id="etat_Column" minWidth="0.0" prefWidth="145.60003662109375" text="Etat" />
+                                    <TableColumn fx:id="modifier_moyenColumn" prefWidth="88.7999267578125" text="Modifier" />
+                                    <TableColumn fx:id="supprimer_moyenColumn" minWidth="8.0" prefWidth="98.4000244140625" text="Supprimer" />
+                                 </columns>
+                              </TableView>
+                              <TableView fx:id="table_lignes_transport" layoutX="41.0" layoutY="63.0" prefHeight="200.0" prefWidth="871.0">
+                                <columns>
+                                  <TableColumn fx:id="nom_ligne_column" prefWidth="75.99996948242188" text="Nom ligne" />
+                                    <TableColumn fx:id="zone_couverture_column" prefWidth="125.59994506835938" text="Zone de couverture" />
+                                    <TableColumn fx:id="tarif_column" prefWidth="64.80000305175781" text="Tarif " />
+                                    <TableColumn fx:id="lieux_depart_column" minWidth="8.0" prefWidth="95.199951171875" text="Lieux depart " />
+                                    <TableColumn fx:id="lieux_arrivee_column" minWidth="0.0" prefWidth="96.79998779296875" text="Lieux arrivé" />
+                                    <TableColumn fx:id="horaire_depart_column" minWidth="0.0" prefWidth="94.39996337890625" text="Horaire Depart" />
+                                    <TableColumn fx:id="horaire_arrivee_column" minWidth="0.0" prefWidth="93.5999755859375" text="Horaire Arrivé" />
+                                    <TableColumn fx:id="etat_column" prefWidth="72.0" text="Etat" />
+                                    <TableColumn fx:id="modifier_ligneColumn" prefWidth="80.79998779296875" text="Modifier" />
+                                    <TableColumn fx:id="supprimer_ligneColumn" prefWidth="68.800048828125" text="Supprimer" />
+                                </columns>
+                              </TableView>
+                              <Label layoutX="52.0" layoutY="19.0" text="Liste des Lignes de transport " textFill="#0cbeb8">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="41.0" layoutY="281.0" text="Liste des Moyens de transport " textFill="#0cbeb8">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fx:id="ajouter_moyen" fitHeight="37.0" fitWidth="31.0" layoutX="934.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/add.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="conculter_reservation" layoutX="746.0" layoutY="304.0" text="Consulter Reservation" textFill="#0cbeb8">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
                </children>
                 </Pane>
             </center>

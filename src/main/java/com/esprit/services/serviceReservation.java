@@ -144,5 +144,25 @@ public class serviceReservation implements CrudTransport<reservation>{
         return false;
     }
 
+    public String getTypeMoyenTransport(int idMoyenTransport) {
+        String type = "";
+        String query = "SELECT type FROM moyen_transport WHERE id = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setInt(1, idMoyenTransport);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    type = rs.getString("type");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Afficher l'erreur en console
+        }
+
+        return type;
+    }
+
+
+
 }
 

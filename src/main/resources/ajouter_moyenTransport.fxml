@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -11,51 +14,203 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AjouterMoyenTransport">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Transport.AjouterMoyenTransport">
     <children>
-        <BorderPane prefHeight="640.0" prefWidth="1140.0" styleClass="background-white" stylesheets="@style/style.css">
+        <BorderPane prefHeight="680.0" prefWidth="1280.0" styleClass="background-white" stylesheets="@style/style.css">
             <top>
-                <VBox prefHeight="60.0" prefWidth="960.0" BorderPane.alignment="CENTER" />
+                <HBox prefHeight="60.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <ImageView fitHeight="25.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@assets/lumina.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets left="10.0" top="20.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <HBox prefHeight="42.0" prefWidth="362.0" stylesheets="@style/style.css">
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="150.0" top="10.0" />
+                            </HBox.margin>
+                            <children>
+                                <TextField prefHeight="26.0" prefWidth="271.0" promptText="Search here ..." styleClass="transparent" stylesheets="@style/style.css">
+                                    <HBox.margin>
+                                        <Insets left="20.0" top="8.0" />
+                                    </HBox.margin>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                    <font>
+                                        <Font size="13.0" />
+                                    </font>
+                                </TextField>
+                                <Button mnemonicParsing="false" styleClass="search-button" stylesheets="@style/style.css" text="Search" textFill="WHITE">
+                                    <HBox.margin>
+                                        <Insets top="6.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <styleClass>
+                                <String fx:value="search-box" />
+                                <String fx:value="shadow" />
+                            </styleClass>
+                        </HBox>
+                        <Pane prefHeight="200.0" prefWidth="200.0">
+                            <children>
+                                <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);;">
+                                    <image>
+                                        <Image url="@assets/Icon_notif.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <HBox.margin>
+                                <Insets left="30.0" />
+                            </HBox.margin>
+                        </Pane>
+                        <Pane prefHeight="200.0" prefWidth="200.0">
+                            <children>
+                                <ImageView fx:id="img_current_user" fitHeight="50.0" fitWidth="50.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/db282033-a123-437f-beb2-4a0b1338a761-modified.png" />
+                                    </image>
+                                </ImageView>
+                                <Label fx:id="name_current_user" layoutX="48.0" layoutY="14.0" prefHeight="41.0" prefWidth="127.0" styleClass="username-box" stylesheets="@style/style.css" text="Sarra Ounais" />
+                            </children>
+                        </Pane>
+                    </children>
+                </HBox>
             </top>
             <left>
-                <HBox prefHeight="589.0" prefWidth="255.0" BorderPane.alignment="CENTER" />
+                <VBox prefHeight="589.0" prefWidth="255.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="GoToTraffic" mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Traffic Management">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/traffic-jam 1.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets left="10.0" top="40.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" styleClass="button-selected" stylesheets="@style/style.css" text="Transport Management">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/transport_icon.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Button fx:id="GoToParking" mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Parking Management">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/users-group-alt.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Button fx:id="GoToMunicipality" mnemonicParsing="false" prefHeight="46.0" prefWidth="230.0" styleClass="button-non-selected" stylesheets="@style/style.css" text="Municipality Services">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/municipality_blue.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin>
+                            <padding>
+                                <Insets left="20.0" />
+                            </padding>
+                        </Button>
+                        <Button fx:id="GoToUser" mnemonicParsing="false" styleClass="button-non-selected" stylesheets="@style/style.css" text="Staff Management">
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@assets/users-alt.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin>
+                        </Button>
+                    </children>
+                </VBox>
             </left>
             <center>
                 <Pane prefHeight="200.0" prefWidth="200.0" styleClass="center-layout" stylesheets="@style/style.css" BorderPane.alignment="CENTER">
                     <BorderPane.margin>
                         <Insets top="20.0" />
                     </BorderPane.margin>
-                    <children>
-                        <HBox layoutX="72.0" layoutY="39.0" prefHeight="475.0" prefWidth="390.0" styleClass="element-ajout" stylesheets="@style/style.css">
-                            <children>
-                                <Pane prefHeight="440.0" prefWidth="390.0">
-                                    <children>
-                                        <Label layoutX="43.0" layoutY="24.0" text="Ajouter Moyen de Transport " textFill="#0cbeb8">
-                                            <font>
+               <children>
+                  <Pane prefHeight="200.0" prefWidth="200.0" styleClass="center-layout" stylesheets="@style/style.css">
+                     <children>
+                        <HBox layoutX="72.0" layoutY="39.0" prefHeight="475.0" prefWidth="550.0" styleClass="element-ajout" stylesheets="@style/style.css">
+                           <children>
+                              <Pane prefHeight="475.0" prefWidth="561.0">
+                                 <children>
+                                    <Pane layoutX="27.0" prefHeight="478.0" prefWidth="555.0">
+                                       <children>
+                                          <Label layoutX="86.0" layoutY="26.0" text="Ajouter Moyen de Transport " textFill="#0cbeb8">
+                                             <font>
                                                 <Font size="24.0" />
-                                            </font>
-                                        </Label>
-                                        <TextField fx:id="idLigne_label" layoutX="39.0" layoutY="112.0" prefHeight="27.0" prefWidth="313.0" />
-                                        <Label layoutX="39.0" layoutY="91.0" styleClass="text-ajout" stylesheets="@style/style.css" text="Id ligne de transport " />
-                                        <TextField fx:id="typeTransport_label" layoutX="39.0" layoutY="168.0" prefHeight="27.0" prefWidth="313.0" />
-                                        <Label layoutX="39.0" layoutY="147.0" styleClass="text-ajout" stylesheets="@style/style.css" text="Type du transport " />
-                                        <TextField fx:id="capaciteMax_label" layoutX="39.0" layoutY="220.0" prefHeight="27.0" prefWidth="313.0" />
-                                        <Label layoutX="39.0" layoutY="199.0" styleClass="text-ajout" stylesheets="@style/style.css" text="Capacité maximale" />
-                                        <TextField fx:id="immatriculation_label" layoutX="39.0" layoutY="275.0" prefHeight="27.0" prefWidth="313.0" />
-                                        <Label layoutX="39.0" layoutY="254.0" styleClass="text-ajout" stylesheets="@style/style.css" text="Immatriculation" />
-                                        <TextField fx:id="etat_label" layoutX="39.0" layoutY="328.0" prefHeight="27.0" prefWidth="313.0" />
-                                        <Label layoutX="39.0" layoutY="307.0" />
-                                        <Button fx:id="button_add" layoutX="238.0" layoutY="391.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="114.0" styleClass="add-button" stylesheets="@style/style.css" text="Add" textFill="#fffefe">
-                                            <font>
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="idLigne_label" layoutX="39.0" layoutY="112.0" prefHeight="27.0" prefWidth="400.0" />
+                                          <Label layoutX="39.0" layoutY="91.0" styleClass="text-ajout" stylesheets="@style/style.css" text="Id ligne de transport " />
+                                          <TextField fx:id="typeTransport_label" layoutX="39.0" layoutY="168.0" prefHeight="27.0" prefWidth="400.0" />
+                                          <Label layoutX="39.0" layoutY="147.0" styleClass="text-ajout" stylesheets="@style/style.css" text="Type du transport " />
+                                          <TextField fx:id="capaciteMax_label" layoutX="39.0" layoutY="220.0" prefHeight="27.0" prefWidth="400.0" />
+                                          <Label layoutX="39.0" layoutY="199.0" styleClass="text-ajout" stylesheets="@style/style.css" text="Capacité maximale" />
+                                          <TextField fx:id="immatriculation_label" layoutX="39.0" layoutY="275.0" prefHeight="27.0" prefWidth="400.0" />
+                                          <Label layoutX="39.0" layoutY="254.0" styleClass="text-ajout" stylesheets="@style/style.css" text="Immatriculation" />
+                                          <TextField fx:id="etat_label" layoutX="39.0" layoutY="328.0" prefHeight="27.0" prefWidth="400.0" />
+                                          <Label layoutX="39.0" layoutY="307.0" />
+                                          <Button fx:id="button_add" layoutX="182.0" layoutY="395.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="114.0" styleClass="add-button" stylesheets="@style/style.css" text="Add" textFill="#fffefe">
+                                             <font>
                                                 <Font size="14.0" />
-                                            </font>
-                                        </Button>
-                              <Label layoutX="39.0" layoutY="307.0" styleClass="text-ajout" stylesheets="@style/style.css" text="Etat" />
-                                    </children>
-                                </Pane>
-                            </children>
+                                             </font>
+                                          </Button>
+                                          <Label layoutX="39.0" layoutY="307.0" styleClass="text-ajout" stylesheets="@style/style.css" text="Etat" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </Pane>
+                           </children>
                         </HBox>
-                    </children>
+                        <Pane layoutX="32.0" layoutY="39.0" prefHeight="30.0" prefWidth="30.0">
+                           <children>
+                              <ImageView fx:id="return_consulterMoyen" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/return.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+               </children>
                 </Pane>
             </center>
         </BorderPane>
