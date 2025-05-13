@@ -1,4 +1,4 @@
-# Lumina
+[# Lumina
 
 ## Installation et Configuration locale chez les contributeurs
 
@@ -42,3 +42,4 @@ git push -u origin nom-de-votre-branche
 ```
 ### 9. Vérification sur GitHub
 Vérifiez sur GitHub que vos modifications ont bien été uploadées.
+](https://github.com/PIDEV-3A31/web-lumina)
