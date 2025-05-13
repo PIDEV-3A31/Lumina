@@ -1,45 +1,88 @@
-[# Lumina
+# Lumina
 
-## Installation et Configuration locale chez les contributeurs
+# Smart City Management Platform
 
-### 1. Création du dossier local
-Créez un nouveau dossier portant le nom du projet en local.
+## Overview
 
-### 2. Ouvrir Git Bash
-Faites un clic droit et ouvrez Git Bash (si cela ne fonctionne pas, ouvrez cmd puis tapez `git --version` ou simplement `git`).
+This project was developed as part of the coursework for PIDEV 3A at **Esprit School of Engineering**. It is a Symfony-based smart city management web platform designed to improve municipal services through secure, efficient, and intelligent digital solutions.
 
-### 3. Clonage du dépôt
-Dans Git Bash, tapez la commande suivante pour cloner le dépôt :
-```bash
-git init
-git remote add origin https://github.com/PIDEV-3A31/Lumina.git
-```
-### 4. Ouvrir l'IDE
-Ouvrez votre IDE (par exemple, VSCode) en utilisant la commande suivante :
-```bash
-code .
-```
-### 5. Création d'une nouvelle branche
-Avant de modifier le code, créez une nouvelle branche pour votre travail :
-```bash
-git checkout -b nom_de_votre_branche
-```
-### 6. Travaillez sur votre branche
-Effectuez vos modifications, ajouts ou corrections.
+The system integrates secure user and document management, real-time traffic and transport monitoring, parking reservations, online payments, and AI-powered assistance — all tailored for modern urban environments.
 
-### 7. Ajout et Commit
-Après avoir terminé vos modifications, ajoutez-les au suivi Git et effectuez un commit :
-```bash
-git add .
-git commit -m "Texte du commit"
-```
-Le texte du commit devrait refleter le changement effectué sur le travail que vous avez fait sur votre branche.
+---
 
-### 8. Push vers la branche distante
-Poussez vos modifications sur la branche distante que vous avez créée :
-```bash
-git push -u origin nom-de-votre-branche
-```
-### 9. Vérification sur GitHub
-Vérifiez sur GitHub que vos modifications ont bien été uploadées.
-](https://github.com/PIDEV-3A31/web-lumina)
+## Features
+
+- **User Management**  
+  Secure user registration and login with role-based access and 2-Factor Authentication (2FA).
+
+- **Traffic Management**  
+  Real-time monitoring and event-based updates using Kafka and reverse proxy configurations.  
+  Includes **AI-powered traffic light optimization** using **FalconAI**.
+
+- **Transport Management**  
+  Admin panel to manage public transport schedules, routes.
+
+- **Parking Reservation**  
+  Users can reserve city parking spots in advance. A **QR code** is generated and sent via **email confirmation** for access at the location.
+
+- **Municipal Document Management**  
+  Upload, preview, and sign documents electronically using the `nutrient-viewer-lib` JavaScript library.
+
+- **Secure Payments**  
+  Integration with **Stripe** for secure and seamless service payments.
+
+- **Electronic Signature**  
+  Client-side electronic signature for official documents, using `nutrient-viewer-lib` for document interaction and preview.
+
+- **AI Chatbot with Image Upload**  
+  Conversational assistant powered by **LLaVA** (Large Language and Vision Assistant) to help users submit and manage municipal documents with **image understanding**.
+
+- **Real-Time Event Streaming**  
+  Kafka-powered streaming for city-wide alerts and notifications.
+
+---
+
+## Tech Stack
+
+### Backend
+
+- **Symfony 6.4**
+- **PHP 8.1**
+- **Doctrine ORM**
+- **MySQL / PostgreSQL**
+- **API Platform**
+- **2FA**
+- **Kafka**
+- **Stripe PHP SDK**
+- **QR Code generation (e.g., Endroid QR Code)**
+- **Mailer (Symfony Mailer)**
+
+### Frontend
+
+- **Twig** templating engine  
+- **Bootstrap 5** for layout and UI components  
+- **Tailwind CSS** for utility-first styling  
+- **nutrient-viewer-lib** for document viewing and electronic signing
+
+### AI & NLP
+
+- **FalconAI (Python)** – For intelligent traffic light management
+- **LLaVA (Multimodal)** – For chatbot with image upload and understanding
+
+---
+
+## Directory Structure
+
+```text
+├── config/
+├── public/
+│   └── js/ (includes nutrient-viewer-lib)
+├── src/
+│   ├── Controller/
+│   ├── Entity/
+│   ├── Service/
+│   └── EventSubscriber/
+├── templates/
+├── assets/
+├── var/
+├── .env
